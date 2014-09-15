@@ -1,4 +1,15 @@
 # Blooming Spoon
+## Setup
+```bash
+npm install react-tools
+```
+
+All your react work should happen in app/assets/react. You should NOT touch any files under app/assets/javascripts/react, these should be built automatically by running:
+
+
+```bash
+jsx --watch app/assets/react app/assets/javascripts/react
+```
 ## Terminology
 - meal: 16 ounces of entre, 8 ounces of side dish (feeds 1)
 - container: contains 2 portions of entre or side dish
