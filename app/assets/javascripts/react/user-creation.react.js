@@ -26,7 +26,7 @@ var UserCreation = React.createClass({displayName: 'UserCreation',
     formData.user = {};
     Object.keys(this.refs).forEach(function (ref) {
       var value = this.refs[ref].getDOMNode().value;
-      if(value) formData.user[ref] = value;
+      formData.user[ref] = value;
     }.bind(this));
     UserStore.create(formData);
   }
