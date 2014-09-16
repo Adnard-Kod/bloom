@@ -13,7 +13,7 @@ var Subscriptions = React.createClass({displayName: 'Subscriptions',
       this.setState({
         subscriptions: SubscriptionStore.subscriptions()
       })
-    })
+    }.bind(this));
     SubscriptionStore.all();
   },
   render: function() {

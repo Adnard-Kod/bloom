@@ -1,11 +1,13 @@
 /** @jsx React.DOM */
 //= require react
 //= require react/subscriptions.react
+//= require react/subscription-form.react
 var AdminDashboard = React.createClass({displayName: 'AdminDashboard',
   render: function() {
     return (
       React.DOM.div( {id:"admin-dashboard"}, 
-        Subscriptions(null )
+        Subscriptions(null ),
+        SubscriptionForm(null )
       )
     )
   }
