@@ -5,4 +5,5 @@ Rails.application.routes.draw do
     resources :subscriptions, :only => [:create, :update, :destroy]
   end
   resources :subscriptions, :only => [:index]
+  resources :users, except: [:new, :edit]
 end
