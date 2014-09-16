@@ -4,7 +4,7 @@ class Admin::SubscriptionsController < AdminController
     if subscription.save
       render :json => subscription
     else
-      render :json => {}
+      render :json => {:errors => subscription.errors.full_messages}, :status => :unprocessable_entity
     end
   end
 

@@ -9,11 +9,11 @@ describe Admin::SubscriptionsController do
       expect(JSON.parse(response.body)["subscription"].keys).to eq(["id", "name", "description", "price"])
     end
     it "creates subscription if params are valid" do
-      valid_attributes.delete(:description) # description is optional
-      valid_attributes.delete valid_attributes.keys.sample #all other params are required
+      valid_attributes.delete :price
       expect {
         post :create, :subscription => valid_attributes
       }.to_not change { Subscription.count }
+      expect(JSON.parse(response.body)).to eq("errors" => ["Price can't be blank", "Price is not a number"])
     end
   end
 end

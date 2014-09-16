@@ -6,9 +6,23 @@
 var SubscriptionForm = React.createClass({
   MEAL_OPTIONS: [6, 12, 18],
   WEEK_OPTIONS: [12, 24, 36],
+  getInitialState: function() {
+    return {
+      errors: []
+    };
+  },
+  componentDidMount: function() {
+    SubscriptionStore.addFailToCreateEvent(function(e, data) {
+      this.setState({errors: data});
+    }.bind(this))
+    SubscriptionStore.addChangeEvent(function() {
+      this.setState({errors: []});
+    }.bind(this))
+  },
   render: function() {
     return (
       <form onSubmit={this.createSubscription}>
+        {this.renderErrors()}
         <input ref="price" type="text" placeholder="Price" />
           {this.renderMealSelect()}
           {this.renderWeekSelect()}
@@ -39,6 +53,16 @@ var SubscriptionForm = React.createClass({
       </select>
     )
   },
+  renderErrors: function() {
+    var errors = [];
+    this.state.errors.forEach(function(err) {
+      errors.push(<li>{err}</li>)
+    })
+    return (
+      <ul className="form-errors">{errors}</ul>
+    )
+  },
+
   createSubscription: function(e) {
     e.preventDefault();
     var data = {};
