@@ -14,7 +14,7 @@ var UserCreation = React.createClass({
           <input ref="email" placeholder="example@example.com" type="email" />
           <input ref="password" placeholder="password" type="password" maxLength="30" />
           <input ref="password_confirmation" placeholder="confirm password" type="password" maxLength="30" />
-          <input type="submit" value="User" />
+          <input type="submit" value="Create User" />
         </form>
       </section>
     )

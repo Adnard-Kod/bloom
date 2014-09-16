@@ -14,7 +14,7 @@ var UserCreation = React.createClass({displayName: 'UserCreation',
           React.DOM.input({ref: "email", placeholder: "example@example.com", type: "email"}), 
           React.DOM.input({ref: "password", placeholder: "password", type: "password", maxLength: "30"}), 
           React.DOM.input({ref: "password_confirmation", placeholder: "confirm password", type: "password", maxLength: "30"}), 
-          React.DOM.input({type: "submit", value: "User"})
+          React.DOM.input({type: "submit", value: "Create User"})
         )
       )
     )
