@@ -24,4 +24,28 @@ ActiveRecord::Schema.define(version: 20140916192055) do
     t.integer "meals",       null: false
   end
 
+  create_table "addresses", force: true do |t|
+    t.string   "street_address"
+    t.string   "apartment_number"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zipcode"
+    t.text     "delivery_instructions"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone_number"
+    t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
 end
