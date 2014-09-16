@@ -1,5 +1,3 @@
-//= require dispatcher
-
 var UserStore = (function () {
   return {
     create: function (userData) {
