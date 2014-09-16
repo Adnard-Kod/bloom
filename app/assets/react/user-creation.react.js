@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 //= require react
+//= require stores/user-store
 
 var UserCreation = React.createClass({
   render: function () {
@@ -20,6 +21,12 @@ var UserCreation = React.createClass({
   },
 
   createUser: function (e) {
-
+    e.preventDefault();
+    var formData = {};
+    Object.keys(this.refs).forEach(function (ref) {
+      var value = this.refs[ref].getDOMNode().value;
+      if(value) formData[ref] = value;
+    }.bind(this));
+    UserStore.create(formData);
   }
 });
