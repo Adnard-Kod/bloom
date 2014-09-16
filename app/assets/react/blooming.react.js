@@ -1,9 +1,14 @@
 /** @jsx React.DOM */
 //= require react
+//= require react/user-creation.react
+
 var Blooming = React.createClass({
   render: function() {
     return (
-      <h1>Blooming Spoon</h1>
+      <div>
+        <h1>Blooming Spoon</h1>
+        <UserCreation />
+      </div>
     )
   }
 })
