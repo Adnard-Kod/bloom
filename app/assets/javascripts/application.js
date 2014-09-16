@@ -14,4 +14,3 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require react/blooming.react
-//= require_tree .
