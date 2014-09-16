@@ -20,5 +20,15 @@ RSpec.describe UsersController, :type => :controller do
       post :create, user: { email: '', first_name: '', last_name: '', phone_number: '', password: '', password_confirmation: ''}
       expect(response).to have_http_status(422)
     end
+
+    context "error messages" do
+      before :each do
+        post :create, user: { email: '', first_name: '', last_name: '', phone_number: '', password: '', password_confirmation: ''}
+      end
+
+      it "returns an error message when creating a user with invalid password" do
+        expect(JSON.parse(response.body)['errors'][0]).to include("Password can't be blank")
+      end
+    end
   end
 end
