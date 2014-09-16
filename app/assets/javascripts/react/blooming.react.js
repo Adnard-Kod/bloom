@@ -14,5 +14,5 @@ var Blooming = React.createClass({displayName: 'Blooming',
 })
 
 $(document).ready(function() {
-  React.renderComponent(Blooming(null), $('body')[0]);
+  React.renderComponent(Blooming(null), $('#blooming')[0]);
 });
