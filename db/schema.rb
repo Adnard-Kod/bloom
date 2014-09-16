@@ -25,25 +25,26 @@ ActiveRecord::Schema.define(version: 20140916192055) do
   end
 
   create_table "addresses", force: true do |t|
-    t.string   "street_address"
+    t.string   "street_address",        null: false
     t.string   "apartment_number"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zipcode"
+    t.string   "city",                  null: false
+    t.string   "state",                 null: false
+    t.string   "zipcode",               null: false
     t.text     "delivery_instructions"
     t.float    "longitude"
     t.float    "latitude"
-    t.integer  "user_id"
+    t.integer  "user_id",               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
-    t.string   "email"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "phone_number"
-    t.string   "password_digest"
+    t.string   "email",                           null: false
+    t.string   "first_name",                      null: false
+    t.string   "last_name",                       null: false
+    t.string   "phone_number",                    null: false
+    t.string   "password_digest",                 null: false
+    t.boolean  "admin",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
