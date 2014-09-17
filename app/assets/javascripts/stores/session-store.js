@@ -1,7 +1,6 @@
 var SessionStore = (function () {
   return {
     login: function (loginData) {
-
       $.ajax({
         type: 'POST',
         url: '/sessions',
@@ -12,7 +11,17 @@ var SessionStore = (function () {
       })
       .fail(function(xhr) {
         $(this).trigger('login-error', JSON.parse(xhr.responseText));
-      }.bind(this))
+      }.bind(this));
+    },
+
+    logout: function (e) {
+      $.ajax({
+        type: 'DELETE',
+        url: '/sessions'
+      })
+      .done(function (data) {
+        window.location = data.redirect;
+      });
     }
   }
 }());
