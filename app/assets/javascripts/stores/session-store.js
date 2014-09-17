@@ -1,0 +1,3 @@
+var SessionStore = (function () {
+
+}());
