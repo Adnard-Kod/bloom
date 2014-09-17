@@ -11,7 +11,8 @@ var SessionStore = (function () {
         window.location = data.redirect;
       })
       .fail(function(xhr) {
-      })
+        $(this).trigger('login-error', JSON.parse(xhr.responseText));
+      }.bind(this))
     }
   }
 }());

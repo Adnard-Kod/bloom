@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       render json: { redirect: root_path }
     else
-      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: ['Email and password combination are invalid.'] }, status: :unprocessable_entity
     end
   end
 
