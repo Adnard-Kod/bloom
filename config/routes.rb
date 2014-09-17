@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   end
   resources :subscriptions, :only => [:index]
   resources :users, except: [:new, :edit]
-  resources :sessions, only: [:create, :destroy]
+  resource :sessions, only: [:create, :destroy]
 end
