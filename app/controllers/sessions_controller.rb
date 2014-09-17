@@ -11,6 +11,6 @@ class SessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to root_path
+    render json: { redirect: root_path }
   end
 end
