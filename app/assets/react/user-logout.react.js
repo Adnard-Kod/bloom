@@ -1,11 +1,12 @@
 /** @jsx React.DOM */
 //= require react
+//= require stores/session-store
 
 var UserLogout = React.createClass({
   render: function () {
     return (
       <div id="user-logout">
-        <button onClick={this.userLogout}>Logout</button>
+        <a href="#" onClick={this.userLogout}>Logout</a>
       </div>
     )
   },
