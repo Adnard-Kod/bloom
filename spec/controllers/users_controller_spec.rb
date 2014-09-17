@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe UsersController, :type => :controller do
   let(:user) { create(:user) }
+  let(:errors) { ["Password can't be blank", "Email can't be blank", "First name can't be blank", "Last name can't be blank", "Phone number can't be blank", "Password confirmation doesn't match Password"]}
 
   describe "POST #create" do
     it "creates a new user with valid parameters" do
@@ -21,33 +22,10 @@ RSpec.describe UsersController, :type => :controller do
       expect(response).to have_http_status(422)
     end
 
-    context "error messages" do
-      before :each do
-        post :create, user: { email: '', first_name: '', last_name: '', phone_number: '', password: '', password_confirmation: ''}
-      end
-
-      it "returns an error message when creating a user with blank password" do
-        expect(JSON.parse(response.body)['errors'][0]).to include("Password can't be blank")
-      end
-
-      it "returns an error message when creating a user with blank email" do
-        expect(JSON.parse(response.body)['errors'][1]).to include("Email can't be blank")
-      end
-
-      it "returns an error message when creating a user with blank first name" do
-        expect(JSON.parse(response.body)['errors'][2]).to include("First name can't be blank")
-      end
-
-      it "returns an error message when creating a user with blank last name" do
-        expect(JSON.parse(response.body)['errors'][3]).to include("Last name can't be blank")
-      end
-
-      it "returns an error message when creating a user with blank phone number" do
-        expect(JSON.parse(response.body)['errors'][4]).to include("Phone number can't be blank")
-      end
-
-      it "returns an error message when creating a user with blank password confirmation" do
-        expect(JSON.parse(response.body)['errors'][5]).to include("Password confirmation doesn't match Password")
+    it "returns error messages when fields are left blank" do
+      post :create, user: { email: '', first_name: '', last_name: '', phone_number: '', password: '', password_confirmation: ''}
+      errors.each_with_index do |error, index|
+        expect(JSON.parse(response.body)['errors'][index]).to include(error)
       end
     end
   end
