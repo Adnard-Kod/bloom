@@ -5,8 +5,8 @@
 var AdminDashboard = React.createClass({displayName: 'AdminDashboard',
   render: function() {
     return (
-      React.DOM.div({id: "admin-dashboard"},
-        SubscriptionForm({subscription: {}}),
+      React.DOM.div({id: "admin-dashboard"}, 
+        SubscriptionForm({subscription: {}}), 
         Subscriptions(null)
       )
     )
