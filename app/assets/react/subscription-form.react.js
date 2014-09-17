@@ -4,8 +4,6 @@
  //= require react
  //= require stores/subscription-store
 var SubscriptionForm = React.createClass({
-  MEAL_OPTIONS: [6, 12, 18],
-  WEEK_OPTIONS: [12, 24, 36],
   getInitialState: function() {
     return {
       errors: []
@@ -20,38 +18,18 @@ var SubscriptionForm = React.createClass({
     }.bind(this))
   },
   render: function() {
+    var sub = this.props.subscription;
     return (
-      <form onSubmit={this.createSubscription}>
+      <form onSubmit={this.handleSubmit}>
         {this.renderErrors()}
-        <input ref="price" type="text" placeholder="Price" />
-          {this.renderMealSelect()}
-          {this.renderWeekSelect()}
-        <textarea ref="description" placeholder="Description" />
+        <input ref="id" type="hidden" value={sub.id} />
+        <input ref="price" type="number" step="0.1" placeholder="Price" defaultValue={sub.price} />
+        <input ref="meals" type="number" step="6" placeholder="Number of Meals" defaultValue={sub.meals} />
+        <input ref="weeks" type="number" step="1" placeholder="Number of Weeks" defaultValue={sub.weeks} />
+        <textarea ref="description" placeholder="Description" defaultValue={sub.description}/>
         <input type="submit" value="Create Subscription" />
       </form>
     );
-  },
-  renderMealSelect: function() {
-    var meals = [];
-    this.MEAL_OPTIONS.forEach(function(opt) {
-      meals.push(<option value={opt}>{opt}</option>);
-    })
-    return (
-      <select ref="meals" name="meals">
-        {meals}
-      </select>
-    )
-  },
-  renderWeekSelect: function() {
-    var weeks = [];
-    this.WEEK_OPTIONS.forEach(function(opt) {
-      weeks.push(<option value={opt}>{opt}</option>);
-    })
-    return (
-      <select ref="weeks" name="weeks">
-        {weeks}
-      </select>
-    )
   },
   renderErrors: function() {
     var errors = [];
@@ -63,13 +41,13 @@ var SubscriptionForm = React.createClass({
     )
   },
 
-  createSubscription: function(e) {
+  handleSubmit: function(e) {
     e.preventDefault();
     var data = {};
     Object.keys(this.refs).forEach(function(ref) {
       var value = this.refs[ref].getDOMNode().value;
       data[ref] = value;
     }.bind(this))
-    SubscriptionStore.create(data);
+    SubscriptionStore.submit({editing: this.props.editing, subscription: data});
   }
 })

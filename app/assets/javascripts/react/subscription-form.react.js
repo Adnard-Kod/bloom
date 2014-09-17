@@ -4,8 +4,6 @@
  //= require react
  //= require stores/subscription-store
 var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
-  MEAL_OPTIONS: [6, 12, 18],
-  WEEK_OPTIONS: [12, 24, 36],
   getInitialState: function() {
     return {
       errors: []
@@ -20,38 +18,18 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
     }.bind(this))
   },
   render: function() {
+    var sub = this.props.subscription;
     return (
-      React.DOM.form( {onSubmit:this.createSubscription}, 
+      React.DOM.form( {onSubmit:this.handleSubmit}, 
         this.renderErrors(),
-        React.DOM.input( {ref:"price", type:"text", placeholder:"Price"} ),
-          this.renderMealSelect(),
-          this.renderWeekSelect(),
-        React.DOM.textarea( {ref:"description", placeholder:"Description"} ),
+        React.DOM.input( {ref:"id", type:"hidden", value:sub.id} ),
+        React.DOM.input( {ref:"price", type:"number", step:"0.1", placeholder:"Price", defaultValue:sub.price} ),
+        React.DOM.input( {ref:"meals", type:"number", step:"6", placeholder:"Number of Meals", defaultValue:sub.meals} ),
+        React.DOM.input( {ref:"weeks", type:"number", step:"1", placeholder:"Number of Weeks", defaultValue:sub.weeks} ),
+        React.DOM.textarea( {ref:"description", placeholder:"Description", defaultValue:sub.description}),
         React.DOM.input( {type:"submit", value:"Create Subscription"} )
       )
     );
-  },
-  renderMealSelect: function() {
-    var meals = [];
-    this.MEAL_OPTIONS.forEach(function(opt) {
-      meals.push(React.DOM.option( {value:opt}, opt));
-    })
-    return (
-      React.DOM.select( {ref:"meals", name:"meals"}, 
-        meals
-      )
-    )
-  },
-  renderWeekSelect: function() {
-    var weeks = [];
-    this.WEEK_OPTIONS.forEach(function(opt) {
-      weeks.push(React.DOM.option( {value:opt}, opt));
-    })
-    return (
-      React.DOM.select( {ref:"weeks", name:"weeks"}, 
-        weeks
-      )
-    )
   },
   renderErrors: function() {
     var errors = [];
@@ -63,13 +41,13 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
     )
   },
 
-  createSubscription: function(e) {
+  handleSubmit: function(e) {
     e.preventDefault();
     var data = {};
     Object.keys(this.refs).forEach(function(ref) {
       var value = this.refs[ref].getDOMNode().value;
       data[ref] = value;
     }.bind(this))
-    SubscriptionStore.create(data);
+    SubscriptionStore.submit({editing: this.props.editing, subscription: data});
   }
 })

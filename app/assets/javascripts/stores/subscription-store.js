@@ -28,15 +28,36 @@ var SubscriptionStore = (function() {
     triggerChange: function(data) {
       $(this).trigger(CHANGE_EVENT, data);
     },
-    create: function(data) {
+    submit: function(data) {
+      data.editing ? this.edit(data.subscription) : this.create(data.subscription);
+    },
+    create: function(subscription) {
       $.ajax({
         url: '/admin/subscriptions',
         type: 'POST',
-        data: {subscription: data}
+        data: {subscription: subscription}
       })
       .done(function(data) {
-        _subscriptions.unshift(data.subscription)
+        _subscriptions.push(data.subscription)
         this.triggerChange();
+      }.bind(this))
+      .fail(function(xhr) {
+        this.triggerFailToCreate([xhr.responseJSON.errors]);
+      }.bind(this))
+    },
+    edit: function(subscription) {
+      $.ajax({
+        url: '/admin/subscriptions/'+subscription.id,
+        type: 'PUT',
+        data: {subscription: subscription}
+      })
+      .done(function(data) {
+        _subscriptions.forEach(function(sub, i) {
+          if(sub.id === data.subscription.id) {
+            _subscriptions[i] = data.subscription;
+            return this.triggerChange();
+          }
+       }.bind(this))
       }.bind(this))
       .fail(function(xhr) {
         this.triggerFailToCreate([xhr.responseJSON.errors]);
