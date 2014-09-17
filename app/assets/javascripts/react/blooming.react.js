@@ -2,6 +2,7 @@
 //= require react
 //= require react/user-creation.react
 //= require react/user-login.react
+//= require react/user-logout.react
 
 var Blooming = React.createClass({displayName: 'Blooming',
   render: function() {
@@ -9,7 +10,8 @@ var Blooming = React.createClass({displayName: 'Blooming',
       React.DOM.div(null, 
         React.DOM.h1(null, "Blooming Spoon"), 
         UserCreation(null), 
-        UserLogin(null)
+        UserLogin(null), 
+        UserLogout(null)
       )
     )
   }
