@@ -8,6 +8,7 @@ var SessionStore = (function () {
         data: loginData
       })
       .done(function(data) {
+        window.location = data.redirect;
       })
       .fail(function(xhr) {
       })
