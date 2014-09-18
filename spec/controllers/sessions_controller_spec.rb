@@ -26,5 +26,9 @@ RSpec.describe SessionsController, :type => :controller do
     it "should return the correct error status" do
       expect(JSON.parse(response.body)['errors']).to eq(['Email and password combination are invalid.'])
     end
+
+    it "should return the correct http status of 422" do
+      expect(response).to have_http_status(422)
+    end
   end
 end
