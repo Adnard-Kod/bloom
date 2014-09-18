@@ -4,6 +4,7 @@ RSpec.describe SessionsController, :type => :controller do
   let(:user) { create(:user) }
 
   describe "POST #create" do
+    context "POST successes"
     before :each do
       post :create, user: { email: user.email , password: user.password }
     end
@@ -14,6 +15,16 @@ RSpec.describe SessionsController, :type => :controller do
 
     it "redirects to user dashboard upon successful login" do
       expect(JSON.parse(response.body)["redirect"]).to eq(user_dashboard_index_path)
+    end
+  end
+
+  context "Post failures with bad password" do
+    before :each do
+      post :create, user: { email: user.email, password: "test" }
+    end
+
+    it "should return the correct error status" do
+      expect(JSON.parse(response.body)['errors']).to eq(['Email and password combination are invalid.'])
     end
   end
 end
