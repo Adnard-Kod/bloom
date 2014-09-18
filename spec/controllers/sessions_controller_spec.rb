@@ -23,11 +23,25 @@ RSpec.describe SessionsController, :type => :controller do
       post :create, user: { email: user.email, password: "test" }
     end
 
-    it "should return the correct error status" do
+    it "should return the correct error status for bad password" do
       expect(JSON.parse(response.body)['errors']).to eq(['Email and password combination are invalid.'])
     end
 
-    it "should return the correct http status of 422" do
+    it "should return the correct http status of 422 for bad password" do
+      expect(response).to have_http_status(422)
+    end
+  end
+
+  context "Post for bad user email" do
+    before :each do
+      post :create, user: { email: "user@user.com", password: user.password }
+    end
+
+    it "should return the correct error status for bad email" do
+      expect(JSON.parse(response.body)['errors']).to eq(['Email and password combination are invalid.'])
+    end
+
+    it "should return the correct http status of 422 for bad email" do
       expect(response).to have_http_status(422)
     end
   end
