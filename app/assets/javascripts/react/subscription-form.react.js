@@ -25,14 +25,14 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
   render: function() {
     var sub = this.props.subscription;
     return (
-      React.DOM.form( {onSubmit:this.handleSubmit}, 
+      React.DOM.form({onSubmit: this.handleSubmit},
         this.renderErrors(),
-        React.DOM.input( {ref:"id", type:"hidden", value:sub.id} ),
-        React.DOM.input( {ref:"price", type:"number", step:"0.1", placeholder:"Price", defaultValue:sub.price} ),
-        React.DOM.input( {ref:"meals", type:"number", step:"6", placeholder:"Number of Meals", defaultValue:sub.meals} ),
-        React.DOM.input( {ref:"weeks", type:"number", step:"1", placeholder:"Number of Weeks", defaultValue:sub.weeks} ),
-        React.DOM.textarea( {ref:"description", placeholder:"Description", defaultValue:sub.description}),
-        React.DOM.input( {type:"submit", value:"Create Subscription"} )
+        React.DOM.input({ref: "id", type: "hidden", value: sub.id}),
+        React.DOM.input({ref: "price", type: "number", step: "0.1", placeholder: "Price", defaultValue: sub.price}),
+        React.DOM.input({ref: "meals", type: "number", step: "6", placeholder: "Number of Meals", defaultValue: sub.meals}),
+        React.DOM.input({ref: "weeks", type: "number", step: "1", placeholder: "Number of Weeks", defaultValue: sub.weeks}),
+        React.DOM.textarea({ref: "description", placeholder: "Description", defaultValue: sub.description}),
+        React.DOM.input({type: "submit", value: "Create Subscription"})
       )
     );
   },
@@ -42,7 +42,7 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
       errors.push(React.DOM.li(null, err))
     })
     return (
-      React.DOM.ul( {className:"form-errors"}, errors)
+      React.DOM.ul({className: "form-errors"}, errors)
     )
   },
 

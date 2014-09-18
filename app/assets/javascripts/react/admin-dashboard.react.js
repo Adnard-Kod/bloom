@@ -5,14 +5,14 @@
 var AdminDashboard = React.createClass({displayName: 'AdminDashboard',
   render: function() {
     return (
-      React.DOM.div( {id:"admin-dashboard"}, 
-        SubscriptionForm( {subscription:{}}),
-        Subscriptions(null )
+      React.DOM.div({id: "admin-dashboard"},
+        SubscriptionForm({subscription: {}}),
+        Subscriptions(null)
       )
     )
   }
 })
 
 $(document).ready(function() {
-  React.renderComponent(AdminDashboard(null ), $('body')[0]);
+  React.renderComponent(AdminDashboard(null), $('body')[0]);
 });
