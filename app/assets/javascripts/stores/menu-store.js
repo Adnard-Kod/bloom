@@ -53,7 +53,7 @@ var MenuStore = (function() {
     },
     edit: function(menu) {
       $.ajax({
-        url: '/admin/menus' + menu.id,
+        url: '/admin/menus/' + menu.id,
         type: 'PUT',
         data: {menu: menu}
       })
