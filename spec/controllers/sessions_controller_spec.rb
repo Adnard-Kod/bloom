@@ -45,4 +45,21 @@ RSpec.describe SessionsController, :type => :controller do
       expect(response).to have_http_status(422)
     end
   end
+
+  describe "Delete #Destroy" do
+
+    before :each do
+      post :create, user: { email: user.email, password: user.password }
+    end
+
+    it "clears session on logout" do
+      delete :destroy
+      expect(session[:user_id]).to eq(nil)
+    end
+
+    it "should return the correct redirect path" do
+      delete :destroy
+      expect(JSON.parse(response.body)["redirect"]).to eq(root_path)
+    end
+  end
 end
