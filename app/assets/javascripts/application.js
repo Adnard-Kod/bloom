@@ -10,7 +10,18 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require retina.min
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require react/blooming.react
+//= require bootstrap.min
+//= require jquery.easing.min
+//= require classie
+//= require cbp-animated-header
+//= require owl.carousel
+//= require jquery.magnific-popup
+//= require jquery.fs.wallpaper
+//= require contact-me
+//= require jq-bootstrap-validations
+//= require vitality
+
