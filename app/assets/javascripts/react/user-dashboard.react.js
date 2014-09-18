@@ -5,14 +5,14 @@
 var UserDashboard = React.createClass({displayName: 'UserDashboard',
   render: function () {
     return (
-      React.DOM.div(null, 
-        React.DOM.h1(null, "Blooming Spoon User Dashboard"), 
-        UserLogout(null)
+      React.DOM.div(null,
+        React.DOM.h1(null, "Blooming Spoon User Dashboard"),
+        UserLogout(null )
       )
     )
   }
 });
 
 $(document).ready(function () {
-  React.renderComponent(UserDashboard(null), $('#user-dashboard')[0]);
+  React.renderComponent(UserDashboard(null ), $('#user-dashboard')[0]);
 });

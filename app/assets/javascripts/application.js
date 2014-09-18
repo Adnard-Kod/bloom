@@ -24,4 +24,4 @@
 //= require contact-me
 //= require jq-bootstrap-validations
 //= require vitality
-
+//= require react/blooming.react

@@ -21,17 +21,17 @@ var UserLogin = React.createClass({displayName: 'UserLogin',
   render: function () {
     var errors = [];
     this.state.errors.forEach(function (err) {
-      errors.push(FormError({error: err}))
+      errors.push(FormError( {error:  err} ))
     });
 
     return (
-      React.DOM.nav({id: "user-login"}, 
-        React.DOM.ul({className: "errors"}, errors), 
-        React.DOM.p(null, "Login"), 
-        React.DOM.form({id: "user-login-form", onSubmit: this.userLogin}, 
-          React.DOM.input({ref: "email", placeholder: "example@example.com", type: "email"}), 
-          React.DOM.input({ref: "password", placeholder: "password", type: "password", maxLength: "30"}), 
-          React.DOM.input({type: "submit", value: "Login"})
+      React.DOM.nav( {id:"user-login"},
+        React.DOM.ul( {className:"errors"}, errors),
+        React.DOM.p(null, "Login"),
+        React.DOM.form( {id:"user-login-form", onSubmit:this.userLogin},
+          React.DOM.input( {ref:"email", placeholder:"example@example.com", type:"email"} ),
+          React.DOM.input( {ref:"password", placeholder:"password", type:"password", maxLength:"30"} ),
+          React.DOM.input( {type:"submit", value:"Login"} )
         )
       )
     )

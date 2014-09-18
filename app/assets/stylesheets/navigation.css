@@ -1,0 +1,13 @@
+.login-signup-forms {
+  background-color: #999;
+  position: absolute;
+  top: 100%;
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
+  padding: 1em;
+}
+section#user-signup-box {
+  padding: 0;
+}
