@@ -10,4 +10,20 @@ class Admin::MenusController < AdminController
     else
       render json: {errors: menu.errors.full_messages}, status: :unprocessable_entity
     end
+  end
+
+  def update
+    menu = Menu.find(params[:id])
+    if menu.update_attributes(menu_params)
+      render json: menu
+    else
+      render json: {errors: menu.errors.full_messages}, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def menu_params
+    params.require(:menu).permit(:title)
+  end
 end
