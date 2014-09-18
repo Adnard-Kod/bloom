@@ -1,17 +1,21 @@
 /**
  * @jsx React.DOM
  */
- //= require stores/subscription-store
-  //= require react/subscription-form.react
- var Subscription = React.createClass({displayName: 'Subscription',
+
+//= require react
+//= require stores/menu-store
+//= require react/menu-form.react
+
+var Menu = React.createClass({displayName: 'Menu',
   getInitialState: function() {
     return {
       editing: false
     };
   },
   componentDidMount: function() {
-    SubscriptionStore.addChangeEvent(function() {
-      if(this.isMounted()) this.setState({editing: false});
+    MenuStore.addChangeEvent(function()
+    {
+      if(this.isMounted()) this.setState({editing:false});
     }.bind(this))
   },
   componentWillUnmount: function() {
@@ -19,11 +23,11 @@
   },
 
   render: function() {
-    var sub = this.props.sub;
-    var editForm = this.state.editing ? SubscriptionForm({subscription: sub, editing: "true"}) : undefined;
+    var menu = this.props.menu;
+    var editForm = this.state.editing ? MenuForm({menu: menu, editing: "true"}) :undefined;
     return (
       React.DOM.li(null, 
-        React.DOM.p(null, sub.name, ": ", sub.description, " for $", sub.price), 
+        React.DOM.p(null, menu.title), 
         React.DOM.span(null, React.DOM.a({href: "#", onClick: this.edit}, "edit")), 
         React.DOM.span(null, React.DOM.a({href: "#", onClick: this.delete}, "delete")), 
         editForm
@@ -37,6 +41,6 @@
   },
   delete: function(e) {
     e.preventDefault();
-    SubscriptionStore.destroy(this.props.sub.id);
+    MenuStore.destroy(this.props.menu.id);
   }
- })
+})

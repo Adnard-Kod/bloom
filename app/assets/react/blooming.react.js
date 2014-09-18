@@ -2,6 +2,8 @@
 //= require react
 //= require react/user-creation.react
 //= require react/user-login.react
+//= require react/menus.react
+
 
 var Blooming = React.createClass({
   render: function() {
