@@ -8,7 +8,7 @@ var MenuStore = (function() {
     },
     all: function() {
       $.ajax({
-        url: '/menus',
+        url: '/admin/menus',
         type: 'GET'
       })
       .done(function(data) {
