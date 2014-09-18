@@ -17,6 +17,16 @@ class Admin::SubscriptionsController < AdminController
     end
   end
 
+  def destroy
+    subscription = Subscription.find params[:id]
+    if subscription.present?
+      subscription.destroy
+      render :json => {:id => subscription.id}
+    else
+      render :json => {:error => "No Subscription found with this id"}
+    end
+  end
+
   private
   def subscription_params
     params.require(:subscription).permit(:description, :price, :weeks, :meals)

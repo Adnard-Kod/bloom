@@ -19,10 +19,16 @@ var SubscriptionStore = (function() {
     addChangeEvent: function(callback) {
       $(this).on(CHANGE_EVENT, callback);
     },
-    addFailToCreateEvent: function(callback) {
+    removeChangeEvent: function(obj) {
+      $(this).off(CHANGE_EVENT, obj);
+    },
+    addFailToTakeAction: function(callback) {
       $(this).on(FAIL_TO_CREATE_EVENT, callback);
     },
-    triggerFailToCreate: function(data) {
+    removeFailToTakeAction: function(obj) {
+      $(this).off(FAIL_TO_CREATE_EVENT, obj);
+    },
+    triggerFailToTakeAction: function(data) {
       $(this).trigger(FAIL_TO_CREATE_EVENT, data);
     },
     triggerChange: function(data) {
@@ -42,7 +48,7 @@ var SubscriptionStore = (function() {
         this.triggerChange();
       }.bind(this))
       .fail(function(xhr) {
-        this.triggerFailToCreate([xhr.responseJSON.errors]);
+        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
     edit: function(subscription) {
@@ -60,7 +66,25 @@ var SubscriptionStore = (function() {
        }.bind(this))
       }.bind(this))
       .fail(function(xhr) {
-        this.triggerFailToCreate([xhr.responseJSON.errors]);
+        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
+      }.bind(this))
+    },
+    destroy: function(id) {
+      $.ajax({
+        url: '/admin/subscriptions/'+id,
+        type: 'DELETE',
+        data: {id: id}
+      })
+      .done(function(data) {
+        _subscriptions.forEach(function(sub, i) {
+          if(sub.id === data.id) {
+            _subscriptions.splice(i, 1);
+            return this.triggerChange();
+          }
+       }.bind(this))
+      }.bind(this))
+      .fail(function(xhr) {
+        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     }
   }

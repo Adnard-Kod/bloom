@@ -30,4 +30,13 @@ describe Admin::SubscriptionsController do
       expect(JSON.parse(response.body)).to eq("errors" => ["Price is not a number"])
     end
   end
+  context "#destroy" do
+    let!(:subscription) { FactoryGirl.create :subscription }
+    it "destroys the subscription if found" do
+      expect {
+        delete :destroy, :id => subscription.id
+      }.to change { Subscription.count }.by(-1)
+      expect { Subscription.find(subscription.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 end

@@ -10,13 +10,18 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
     };
   },
   componentDidMount: function() {
-    SubscriptionStore.addFailToCreateEvent(function(e, data) {
-      this.setState({errors: data});
+    SubscriptionStore.addFailToTakeAction(function(e, data) {
+      if(this.isMounted()) this.setState({errors: data});
     }.bind(this))
     SubscriptionStore.addChangeEvent(function() {
-      this.setState({errors: []});
+      if(this.isMounted()) this.setState({errors: []});
     }.bind(this))
   },
+  componentWillUnmount: function() {
+    SubscriptionStore.removeChangeEvent(this);
+    SubscriptionStore.removeFailToTakeAction(this);
+  },
+
   render: function() {
     var sub = this.props.subscription;
     return (

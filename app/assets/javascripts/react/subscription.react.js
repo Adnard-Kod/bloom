@@ -11,12 +11,15 @@
   },
   componentDidMount: function() {
     SubscriptionStore.addChangeEvent(function() {
-      this.setState({editing: false});
+      if(this.isMounted()) this.setState({editing: false});
     }.bind(this))
   },
+  componentWillUnmount: function() {
+    SubscriptionStore.removeChangeEvent(this);
+  },
+
   render: function() {
     var sub = this.props.sub;
-    console.log(sub)
     var editForm = this.state.editing ? SubscriptionForm( {subscription:sub, editing:"true"}) : undefined;
     return (
       React.DOM.li(null, 
@@ -34,5 +37,6 @@
   },
   delete: function(e) {
     e.preventDefault();
+    SubscriptionStore.destroy(this.props.sub.id);
   }
  })
