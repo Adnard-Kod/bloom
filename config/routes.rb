@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   namespace :admin do
-    resources :menus, only: [:index]
+    resources :menus, only: [:index, :create, :update, :destroy]
     resources :dashboard, :only => [:index]
     resources :subscriptions, :only => [:create, :update, :destroy]
   end
