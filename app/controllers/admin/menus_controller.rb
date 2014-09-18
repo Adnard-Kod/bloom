@@ -21,6 +21,16 @@ class Admin::MenusController < AdminController
     end
   end
 
+  def destroy
+    menu = Menu.find(params[:id])
+    if menu.present?
+      menu.destroy
+      render json: {id: menu.id}
+    else
+      render json: {error: "No Menu found with this id"}
+    end
+  end
+
   private
 
   def menu_params
