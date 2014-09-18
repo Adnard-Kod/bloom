@@ -12,7 +12,7 @@ var MenuStore = (function() {
         type: 'GET'
       })
       .done(function(data) {
-        _menus = data;
+        _menus = data.menus;
         this.triggerChange();
       }.bind(this))
     },

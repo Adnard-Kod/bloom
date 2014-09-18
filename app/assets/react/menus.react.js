@@ -4,7 +4,7 @@
 
 //= require react
 //= require stores/menu-store
-
+//= require react/menu.react
 var Menus = React.createClass({
   getInitialState: function() {
     return {
@@ -21,6 +21,7 @@ var Menus = React.createClass({
   },
   render: function() {
     var menus = []
+
     this.state.menus.forEach(function(menu) {
       menus.push(<Menu menu={menu} />)
     })
