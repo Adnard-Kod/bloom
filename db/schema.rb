@@ -16,14 +16,6 @@ ActiveRecord::Schema.define(version: 20140916192055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "subscriptions", force: true do |t|
-    t.string  "name",        null: false
-    t.text    "description"
-    t.integer "price",       null: false
-    t.integer "weeks",       null: false
-    t.integer "meals",       null: false
-  end
-
   create_table "addresses", force: true do |t|
     t.string   "street_address",        null: false
     t.string   "apartment_number"
@@ -36,6 +28,14 @@ ActiveRecord::Schema.define(version: 20140916192055) do
     t.integer  "user_id",               null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "subscriptions", force: true do |t|
+    t.string  "name",        null: false
+    t.text    "description"
+    t.integer "price",       null: false
+    t.integer "weeks",       null: false
+    t.integer "meals",       null: false
   end
 
   create_table "users", force: true do |t|

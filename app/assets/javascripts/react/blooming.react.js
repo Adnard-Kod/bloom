@@ -6,9 +6,9 @@
 var Blooming = React.createClass({displayName: 'Blooming',
   render: function() {
     return (
-      React.DOM.div(null, 
-        React.DOM.h1(null, "Blooming Spoon"), 
-        UserCreation(null), 
+      React.DOM.div(null,
+        React.DOM.h1(null, "Blooming Spoon"),
+        UserCreation(null),
         UserLogin(null)
       )
     )
