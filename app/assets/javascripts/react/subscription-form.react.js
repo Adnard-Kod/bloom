@@ -25,7 +25,7 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
   render: function() {
     var sub = this.props.subscription;
     return (
-      React.DOM.form( {onSubmit:this.handleSubmit},
+      React.DOM.form( {onSubmit:this.handleSubmit}, 
         this.renderErrors(),
         React.DOM.input( {ref:"id", type:"hidden", value:sub.id} ),
         React.DOM.input( {ref:"price", type:"number", step:"0.1", placeholder:"Price", defaultValue:sub.price} ),

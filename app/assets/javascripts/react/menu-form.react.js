@@ -25,7 +25,7 @@ var MenuForm = React.createClass({displayName: 'MenuForm',
   render: function() {
     var menu = this.props.menu;
     return (
-      React.DOM.form( {onSubmit:this.handleSubmit},
+      React.DOM.form( {onSubmit:this.handleSubmit}, 
         this.renderErrors(),
         React.DOM.input( {ref:"id", type:"hidden", value:menu.id} ),
         React.DOM.input( {ref:"title", type:"text", placeholder:"Menu Title", defaultValue:menu.title} ),

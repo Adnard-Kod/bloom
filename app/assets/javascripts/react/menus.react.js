@@ -26,7 +26,7 @@ var Menus = React.createClass({displayName: 'Menus',
       menus.push(Menu( {menu:menu} ))
     })
     return (
-      React.DOM.div( {id:"menus"},
+      React.DOM.div( {id:"menus"}, 
         React.DOM.h3(null, "Menus"),
         menus
       )

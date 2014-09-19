@@ -24,10 +24,10 @@ var UserCreation = React.createClass({displayName: 'UserCreation',
       errors.push(FormError( {error:  err}))
     })
     return (
-      React.DOM.section( {id:"user-signup-box"},
+      React.DOM.section( {id:"user-signup-box"}, 
         React.DOM.ul( {className:"errors"}, errors),
         React.DOM.p( {id:"user-signup-title"}, "Create An Account"),
-        React.DOM.form( {id:"user-form", onSubmit:this.createUser},
+        React.DOM.form( {id:"user-form", onSubmit:this.createUser}, 
           React.DOM.input( {ref:"first_name", placeholder:"First Name"} ),
           React.DOM.input( {ref:"last_name", placeholder:"Last Name"} ),
           React.DOM.input( {ref:"phone_number", placeholder:"555-555-5555"} ),

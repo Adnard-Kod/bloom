@@ -22,7 +22,7 @@ var Subscriptions = React.createClass({displayName: 'Subscriptions',
       subscriptions.push(Subscription( {sub:sub} ))
     })
     return (
-      React.DOM.div( {id:"subscriptions"},
+      React.DOM.div( {id:"subscriptions"}, 
         subscriptions
       )
     );
