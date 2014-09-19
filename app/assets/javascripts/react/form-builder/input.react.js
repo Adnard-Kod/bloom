@@ -22,25 +22,25 @@ var Input = React.createClass({displayName: 'Input',
     var data = this.props.data;
     switch(this.type()) {
       case 'boolean':
-        return(CheckboxInput( {ref:"input", data:{name: data.name, defaultChecked: data.value, placeholder: this.placeholder()}} ))
+        return(CheckboxInput({ref: "input", data: {name: data.name, defaultChecked: data.value, placeholder: this.placeholder()}}))
         break;
       case 'number':
-        return(NumberInput( {ref:"input", data:{name: data.name, defaultValue: data.value, placeholder: this.placeholder()}} ))
+        return(NumberInput({ref: "input", data: {name: data.name, defaultValue: data.value, placeholder: this.placeholder()}}))
         break;
       case 'hidden':
-        return(HiddenInput( {ref:"input", data:{name: data.name, value: data.value, placeholder: this.placeholder()}} ))
+        return(HiddenInput({ref: "input", data: {name: data.name, value: data.value, placeholder: this.placeholder()}}))
         break;
       case 'select':
-        return(SelectInput( {ref:"input", data:{name: data.name, value: data.value, values: this.props.options.values }} ))
+        return(SelectInput({ref: "input", data: {name: data.name, value: data.value, values: this.props.options.values}}))
         break;
       case 'password':
-        return(PasswordInput( {ref:"input", data:{name: data.name, defaultChecked: data.value, placeholder: this.placeholder()}} ))
+        return(PasswordInput({ref: "input", data: {name: data.name, defaultChecked: data.value, placeholder: this.placeholder()}}))
         break;
       case 'textarea':
-        return(TextareaInput( {ref:"input", data:{name: data.name, defaultValue: data.value, placeholder: this.placeholder()}} ))
+        return(TextareaInput({ref: "input", data: {name: data.name, defaultValue: data.value, placeholder: this.placeholder()}}))
         break;
       default:
-        return(TextInput( {ref:"input", data:{name: data.name, defaultValue: data.value, placeholder: this.placeholder()}} ))
+        return(TextInput({ref: "input", data: {name: data.name, defaultValue: data.value, placeholder: this.placeholder()}}))
     }
 
   },

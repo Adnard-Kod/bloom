@@ -6,12 +6,12 @@
 //= require react/form-builder/form-errors.react
 var FormFor = React.createClass({displayName: 'FormFor',
   render: function() {
-    if(Object.keys(this.props.object).length === 0) return(React.DOM.div(null ));
+    if(Object.keys(this.props.object).length === 0) return(React.DOM.div(null));
     return (
-      React.DOM.form( {onSubmit:this.handleSubmit}, 
-        FormErrors( {errors:this.props.errors} ),
-        this.inputs(),
-        React.DOM.input( {type:"submit",  value:this.submitText()} )
+      React.DOM.form({onSubmit: this.handleSubmit}, 
+        FormErrors({errors: this.props.errors}), 
+        this.inputs(), 
+        React.DOM.input({type: "submit", value: this.submitText()})
       )
     );
   },
@@ -22,7 +22,7 @@ var FormFor = React.createClass({displayName: 'FormFor',
       var value = object[key];
       var dataForInput = {value: value, name: key}
       var options = this.options()[key] || {};
-      inputs.push(Input( {key:key, ref:key, data:dataForInput, options:options}));
+      inputs.push(Input({key: key, ref: key, data: dataForInput, options: options}));
     }.bind(this));
     return inputs;
   },

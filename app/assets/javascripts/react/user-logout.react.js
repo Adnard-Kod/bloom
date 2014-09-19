@@ -5,8 +5,8 @@
 var UserLogout = React.createClass({displayName: 'UserLogout',
   render: function () {
     return (
-      React.DOM.div( {id:"user-logout"}, 
-        React.DOM.a( {href:"#", onClick:this.userLogout}, "Logout")
+      React.DOM.div({id: "user-logout"},
+        React.DOM.a({href: "#", onClick: this.userLogout}, "Logout")
       )
     )
   },

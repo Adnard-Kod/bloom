@@ -5,7 +5,7 @@
 //= require react/blooming.react
 Router.routes = (function() {
   var _landing = function() {
-    React.renderComponent(Blooming(null ), $('nav')[0]);
+    React.renderComponent(Blooming(null), $('nav')[0]);
   }
   return {
     "": _landing
