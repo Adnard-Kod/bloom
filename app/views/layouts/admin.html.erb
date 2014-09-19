@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>BloomingSpoon</title>
-  <%= stylesheet_link_tag    'admin', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'admin', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
 
-<%= yield %>
+<%= render 'layouts/admin/head' %>
+
+<body id="page-top" class="modern">
+
+  <%= render 'layouts/admin/nav' %>
+  <%= yield %>
 
 </body>
 </html>
