@@ -1,5 +1,9 @@
 require 'rails_helper'
 describe Admin::MenusController do
+  let(:user) { FactoryGirl.create :user, :admin }
+  before(:each) do
+    stub_current_user controller, user
+  end
   context "#index" do
     let(:menus_json) { ActiveModel::ArraySerializer.new(Menu.all)}
     it "returns a json of all menus" do

@@ -1,5 +1,9 @@
 require 'rails_helper'
 describe Admin::SubscriptionsController do
+  let(:user) { FactoryGirl.create :user, :admin }
+  before(:each) do
+    stub_current_user controller, user
+  end
   context "#create" do
     let(:valid_attributes) { FactoryGirl.attributes_for :subscription }
     it "creates subscription if params are valid" do
