@@ -6,6 +6,13 @@ var MenuStore = (function() {
     menus: function() {
       return _menus;
     },
+    new: function() {
+      return {
+        id: null,
+        title: null
+      }
+    },
+
     all: function() {
       $.ajax({
         url: '/admin/menus',

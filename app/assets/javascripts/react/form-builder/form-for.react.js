@@ -5,6 +5,7 @@
 //= require react/form-builder/input.react
 var FormFor = React.createClass({displayName: 'FormFor',
   render: function() {
+    console.log(this.props.object)
     if(Object.keys(this.props.object).length === 0) return(React.DOM.div(null ));
     return (
       React.DOM.form( {onSubmit:this.handleSubmit}, 

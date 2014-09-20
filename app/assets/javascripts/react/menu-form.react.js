@@ -23,13 +23,15 @@ var MenuForm = React.createClass({displayName: 'MenuForm',
   },
 
   render: function() {
-    var menu = this.props.menu;
+    var menu = this.props.menu || MenuStore.new();
+    var formOptions = {
+      name: "Menu",
+      onSubmit: this.handleSubmit
+    }
     return (
-      React.DOM.form( {onSubmit:this.handleSubmit}, 
+      React.DOM.div(null, 
         this.renderErrors(),
-        React.DOM.input( {ref:"id", type:"hidden", value:menu.id} ),
-        React.DOM.input( {ref:"title", type:"text", placeholder:"Menu Title", defaultValue:menu.title} ),
-        React.DOM.input( {type:"submit", value:"Create Menu"} )
+        FormFor( {object:menu, options:formOptions})
       )
     );
   },
@@ -42,13 +44,7 @@ var MenuForm = React.createClass({displayName: 'MenuForm',
       React.DOM.ul( {className:"form-errors"}, errors)
     )
   },
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var data = {};
-    Object.keys(this.refs).forEach(function(ref) {
-      var value = this.refs[ref].getDOMNode().value;
-      data[ref] = value;
-    }.bind(this))
+  handleSubmit: function(data) {
     MenuStore.submit({editing: this.props.editing, menu: data});
   }
 })

@@ -5,12 +5,12 @@
 //= require react/form-builder/input.react
 var FormFor = React.createClass({
   render: function() {
+    console.log(this.props.object)
     if(Object.keys(this.props.object).length === 0) return(<div />);
-    var submit = this.props.object.id ? 'Update' : 'Create'
     return (
       <form onSubmit={this.handleSubmit}>
         {this.inputs()}
-        <input type="submit"  value={submit} />
+        <input type="submit"  value={this.submitText()} />
       </form>
     );
   },
@@ -27,6 +27,11 @@ var FormFor = React.createClass({
   },
   options: function() {
     return this.props.options || {};
+  },
+  submitText: function() {
+    var submit = this.props.object.id ? 'Update' : 'Create';
+    if(this.props.options.name) submit = submit + ' ' + this.props.options.name;
+    return submit;
   },
   handleSubmit: function(e) {
     e.preventDefault();

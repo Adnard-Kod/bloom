@@ -8,6 +8,7 @@
 //= require react/form-builder/hidden-input.react
 //= require react/form-builder/select-input.react
 //= require react/form-builder/password-input.react
+//= require react/form-builder/textarea-input.react
 var Input = React.createClass({
   render: function() {
     var data = this.props.data;
@@ -34,6 +35,9 @@ var Input = React.createClass({
         break;
       case 'password':
         return(<PasswordInput ref="input" data={{name: data.name, defaultChecked: data.value, placeholder: this.placeholder()}} />)
+        break;
+      case 'textarea':
+        return(<TextareaInput ref="input" data={{name: data.name, defaultValue: data.value, placeholder: this.placeholder()}} />)
         break;
       default:
         return(<TextInput ref="input" data={{name: data.name, defaultValue: data.value, placeholder: this.placeholder()}} />)

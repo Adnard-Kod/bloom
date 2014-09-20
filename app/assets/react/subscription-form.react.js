@@ -26,20 +26,18 @@ var SubscriptionForm = React.createClass({
 
   render: function() {
     var subscription = this.props.subscription || SubscriptionStore.new();
+    var formOptions = {
+      name: "Subscription",
+      onSubmit: this.handleSubmit,
+      description: {
+        type: 'textarea'
+      }
+    }
     return (
       <div>
         {this.renderErrors()}
-        <FormFor object={subscription} options={{onSubmit: this.handleSubmit}}/>
+        <FormFor object={subscription} options={formOptions}/>
       </div>
-      // <form onSubmit={this.handleSubmit}>
-
-      //   <input ref="id" type="hidden" value={sub.id} />
-      //   <input ref="price" type="number" step="0.1" placeholder="Price" defaultValue={sub.price} />
-      //   <input ref="meals" type="number" step="6" placeholder="Number of Meals" defaultValue={sub.meals} />
-      //   <input ref="weeks" type="number" step="1" placeholder="Number of Weeks" defaultValue={sub.weeks} />
-      //   <textarea ref="description" placeholder="Description" defaultValue={sub.description}/>
-      //   <input type="submit" value="Create Subscription" />
-      // </form>
     );
   },
   renderErrors: function() {

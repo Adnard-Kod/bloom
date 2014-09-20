@@ -9,7 +9,7 @@ var AdminDashboard = React.createClass({displayName: 'AdminDashboard',
       React.DOM.div( {id:"admin-dashboard"}, 
         SubscriptionForm(null ),
         Subscriptions(null ),
-        MenuForm( {menu:{}}),
+        MenuForm(null ),
         Menus(null )
       )
     )
