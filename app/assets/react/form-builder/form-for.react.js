@@ -18,14 +18,11 @@ var FormFor = React.createClass({
     var inputs = [];
     Object.keys(object).forEach(function(key) {
       var value = object[key];
-      var dataForInput = {type: this.type(key, value), value: value, name: key}
-      inputs.push(<Input data={dataForInput} />);
+      var options = this.props.options[key] || {};
+      var dataForInput = {value: value, name: key}
+      inputs.push(<Input data={dataForInput} options={options}/>);
     }.bind(this));
     return inputs;
-  },
-  type: function(key, value) {
-    if(this.props.options[key]) return this.props.options[key].type;
-    return typeof(value);
   }
 
 });
@@ -35,12 +32,15 @@ $(document).ready(function() {
     id: 1,
     title: "yo",
     age: 20,
-    completed: true
+    completed: true,
+    rating: 2,
+    password: "yasalam"
   }
   var options = {
-    // age: {
-    //   type: 'text'
-    // }
+    rating: {
+      type: 'select',
+      values: [1, 2, 3, 4, 5]
+    }
   }
   React.renderComponent(<FormFor object={todo} options={options}/>, $('body')[0])
 })

@@ -7,7 +7,7 @@ var TextInput = React.createClass({
   render: function() {
     var data = this.props.data;
     return (
-      <input type="text" defaultValue={data.defaultValue} />
+      <input type="text" defaultValue={data.defaultValue} placeholder={data.placeholder} />
     );
   }
 

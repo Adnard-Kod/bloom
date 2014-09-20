@@ -7,7 +7,7 @@ var NumberInput = React.createClass({
   render: function() {
     var data = this.props.data;
     return (
-      <input type="number" defaultValue={data.defaultValue} />
+      <input type="number" defaultValue={data.defaultValue} placeholder={data.placeholder}/>
     );
   }
 
