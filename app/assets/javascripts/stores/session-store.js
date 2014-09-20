@@ -4,12 +4,17 @@ var SessionStore = (function () {
     getAuthenticityToken: function() {
       return $('meta[name="csrf-token"]')[0].content
     },
-
+    new: function() {
+      return {
+        email: null,
+        password: null
+      }
+    },
     login: function (loginData) {
       $.ajax({
         type: 'POST',
         url: '/sessions',
-        data: loginData
+        data: {user: loginData}
       })
       .done(function(data) {
         window.location = data.redirect;

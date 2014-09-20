@@ -31,12 +31,12 @@ var FormFor = React.createClass({displayName: 'FormFor',
   },
   submitText: function() {
     var submit = this.props.object.id ? 'Update' : 'Create';
-    if(this.props.options.name) submit = submit + ' ' + this.props.options.name;
+    if(this.options().name) submit = submit + ' ' + this.options().name;
     return submit;
   },
   handleSubmit: function(e) {
     e.preventDefault();
-    var submitHandler = this.props.options.onSubmit
+    var submitHandler = this.options().onSubmit
     if(submitHandler) {
       var data = {};
       Object.keys(this.refs).forEach(function(ref) {

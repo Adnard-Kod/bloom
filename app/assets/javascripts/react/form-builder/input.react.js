@@ -56,7 +56,7 @@ var Input = React.createClass({displayName: 'Input',
     return false;
   },
   isPassword: function() {
-    if(this.props.data.name === 'password') return true;
+    if(this.props.data.name === 'password' || this.props.data.name === 'password_confirmation') return true;
     return false;
   },
   placeholder: function() {
