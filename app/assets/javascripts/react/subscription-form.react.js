@@ -35,21 +35,10 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
     }
     return (
       React.DOM.div(null, 
-        this.renderErrors(),
-        FormFor( {object:subscription, options:formOptions})
+        FormFor( {object:subscription, options:formOptions, errors:this.state.errors})
       )
     );
   },
-  renderErrors: function() {
-    var errors = [];
-    this.state.errors.forEach(function(err) {
-      errors.push(React.DOM.li(null, err))
-    })
-    return (
-      React.DOM.ul( {className:"form-errors"}, errors)
-    )
-  },
-
   handleSubmit: function(data) {
     SubscriptionStore.submit({editing: this.props.editing, subscription: data});
   }

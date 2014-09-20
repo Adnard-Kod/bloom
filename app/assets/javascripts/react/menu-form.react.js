@@ -30,19 +30,9 @@ var MenuForm = React.createClass({displayName: 'MenuForm',
     }
     return (
       React.DOM.div(null, 
-        this.renderErrors(),
-        FormFor( {object:menu, options:formOptions})
+        FormFor( {object:menu, options:formOptions, errors:this.state.errors})
       )
     );
-  },
-  renderErrors: function() {
-    var errors = [];
-    this.state.errors.forEach(function(err) {
-      errors.push(React.DOM.li(null, err))
-    })
-    return (
-      React.DOM.ul( {className:"form-errors"}, errors)
-    )
   },
   handleSubmit: function(data) {
     MenuStore.submit({editing: this.props.editing, menu: data});

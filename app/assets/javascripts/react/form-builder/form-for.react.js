@@ -3,12 +3,13 @@
  */
 //= require react
 //= require react/form-builder/input.react
+//= require react/form-builder/form-errors.react
 var FormFor = React.createClass({displayName: 'FormFor',
   render: function() {
-    console.log(this.props.object)
     if(Object.keys(this.props.object).length === 0) return(React.DOM.div(null ));
     return (
       React.DOM.form( {onSubmit:this.handleSubmit}, 
+        FormErrors( {errors:this.props.errors} ),
         this.inputs(),
         React.DOM.input( {type:"submit",  value:this.submitText()} )
       )
