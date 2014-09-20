@@ -1,8 +1,10 @@
 /**
  * @jsx React.DOM
  */
- //= require react
- //= require stores/subscription-store
+//= require react
+//= require stores/subscription-store
+//= require react/form-builder/form-for.react
+//= require stores/subscription-store
 var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
   getInitialState: function() {
     return {
@@ -23,17 +25,21 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
   },
 
   render: function() {
-    var sub = this.props.subscription;
+    var subscription = this.props.subscription || SubscriptionStore.new();
     return (
-      React.DOM.form( {onSubmit:this.handleSubmit}, 
+      React.DOM.div(null, 
         this.renderErrors(),
-        React.DOM.input( {ref:"id", type:"hidden", value:sub.id} ),
-        React.DOM.input( {ref:"price", type:"number", step:"0.1", placeholder:"Price", defaultValue:sub.price} ),
-        React.DOM.input( {ref:"meals", type:"number", step:"6", placeholder:"Number of Meals", defaultValue:sub.meals} ),
-        React.DOM.input( {ref:"weeks", type:"number", step:"1", placeholder:"Number of Weeks", defaultValue:sub.weeks} ),
-        React.DOM.textarea( {ref:"description", placeholder:"Description", defaultValue:sub.description}),
-        React.DOM.input( {type:"submit", value:"Create Subscription"} )
+        FormFor( {object:subscription, options:{onSubmit: this.handleSubmit}})
       )
+      // <form onSubmit={this.handleSubmit}>
+
+      //   <input ref="id" type="hidden" value={sub.id} />
+      //   <input ref="price" type="number" step="0.1" placeholder="Price" defaultValue={sub.price} />
+      //   <input ref="meals" type="number" step="6" placeholder="Number of Meals" defaultValue={sub.meals} />
+      //   <input ref="weeks" type="number" step="1" placeholder="Number of Weeks" defaultValue={sub.weeks} />
+      //   <textarea ref="description" placeholder="Description" defaultValue={sub.description}/>
+      //   <input type="submit" value="Create Subscription" />
+      // </form>
     );
   },
   renderErrors: function() {
@@ -46,13 +52,7 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
     )
   },
 
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var data = {};
-    Object.keys(this.refs).forEach(function(ref) {
-      var value = this.refs[ref].getDOMNode().value;
-      data[ref] = value;
-    }.bind(this))
+  handleSubmit: function(data) {
     SubscriptionStore.submit({editing: this.props.editing, subscription: data});
   }
 })

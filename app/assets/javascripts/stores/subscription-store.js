@@ -6,6 +6,16 @@ var SubscriptionStore = (function() {
     subscriptions: function() {
       return _subscriptions;
     },
+    new: function() {
+      return {
+        id: null,
+        name: null,
+        description: null,
+        price: null,
+        weeks: null,
+        meals: null
+      }
+    },
     all: function() {
       $.ajax({
         url: '/subscriptions',

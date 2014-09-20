@@ -7,7 +7,7 @@ var HiddenInput = React.createClass({
   render: function() {
     var data = this.props.data;
     return (
-      <input type="hidden" value={data.value} />
+      <input ref={data.name} type="hidden" value={data.value} />
     );
   }
 

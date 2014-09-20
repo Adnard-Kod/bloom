@@ -3,12 +3,11 @@
 //= require react/subscriptions.react
 //= require react/subscription-form.react
 //= require react/menus.react
-
 var AdminDashboard = React.createClass({displayName: 'AdminDashboard',
   render: function() {
     return (
       React.DOM.div( {id:"admin-dashboard"}, 
-        SubscriptionForm( {subscription:{}}),
+        SubscriptionForm(null ),
         Subscriptions(null ),
         MenuForm( {menu:{}}),
         Menus(null )
