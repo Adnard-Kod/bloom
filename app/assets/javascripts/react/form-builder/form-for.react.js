@@ -6,11 +6,10 @@
 var FormFor = React.createClass({displayName: 'FormFor',
   render: function() {
     if(Object.keys(this.props.object).length === 0) return(React.DOM.div(null ));
-    var submit = this.props.object.id ? 'Update' : 'Create'
     return (
       React.DOM.form( {onSubmit:this.handleSubmit}, 
         this.inputs(),
-        React.DOM.input( {type:"submit",  value:submit} )
+        React.DOM.input( {type:"submit",  value:this.submitText()} )
       )
     );
   },
@@ -27,6 +26,11 @@ var FormFor = React.createClass({displayName: 'FormFor',
   },
   options: function() {
     return this.props.options || {};
+  },
+  submitText: function() {
+    var submit = this.props.object.id ? 'Update' : 'Create';
+    if(this.props.options.name) submit = submit + ' ' + this.props.options.name;
+    return submit;
   },
   handleSubmit: function(e) {
     e.preventDefault();
