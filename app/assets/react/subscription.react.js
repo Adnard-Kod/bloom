@@ -3,6 +3,7 @@
  */
  //= require stores/subscription-store
   //= require react/subscription-form.react
+  //= require actions/subscription-actions
  var Subscription = React.createClass({
   getInitialState: function() {
     return {
@@ -37,6 +38,6 @@
   },
   delete: function(e) {
     e.preventDefault();
-    SubscriptionStore.destroy(this.props.sub.id);
+    SubscriptionActions.destroySubscription(this.props.sub.id);
   }
  })

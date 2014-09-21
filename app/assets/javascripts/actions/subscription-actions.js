@@ -12,5 +12,11 @@ var SubscriptionActions = {
       type: BloomingConstants.ActionTypes.UPDATE_SUBSCRIPTION,
       data: data
     });
+  },
+  destroySubscription: function(id) {
+    BloomingDispatcher.handleViewAction({
+      type: BloomingConstants.ActionTypes.DESTROY_SUBSCRIPTION,
+      id: id
+    });
   }
 }

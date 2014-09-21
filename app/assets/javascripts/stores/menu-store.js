@@ -103,6 +103,9 @@ var MenuStore = (function() {
         case ActionTypes.UPDATE_MENU:
           this.update(action.data);
           break;
+        case ActionTypes.DESTROY_MENU:
+          this.destroy(action.id);
+          break;
         default:
           // do nothing
       }

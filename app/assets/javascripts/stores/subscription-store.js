@@ -106,6 +106,9 @@ var SubscriptionStore = (function() {
         case ActionTypes.UPDATE_SUBSCRIPTION:
           this.update(action.data);
           break;
+        case ActionTypes.DESTROY_SUBSCRIPTION:
+          this.destroy(action.id);
+          break;
         default:
           // do nothing
       }

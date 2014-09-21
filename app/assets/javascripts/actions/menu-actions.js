@@ -12,5 +12,11 @@ var MenuActions = {
       type: BloomingConstants.ActionTypes.UPDATE_MENU,
       data: data
     });
+  },
+  destroyMenu: function(id) {
+    BloomingDispatcher.handleViewAction({
+      type: BloomingConstants.ActionTypes.DESTROY_MENU,
+      id: id
+    });
   }
 }

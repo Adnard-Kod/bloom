@@ -5,7 +5,7 @@
 //= require react
 //= require stores/menu-store
 //= require react/menu-form.react
-
+//= require actions/menu-actions
 var Menu = React.createClass({displayName: 'Menu',
   getInitialState: function() {
     return {
@@ -41,6 +41,6 @@ var Menu = React.createClass({displayName: 'Menu',
   },
   delete: function(e) {
     e.preventDefault();
-    MenuStore.destroy(this.props.menu.id);
+    MenuActions.destroyMenu(this.props.menu.id);
   }
 })
