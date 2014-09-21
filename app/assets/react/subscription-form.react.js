@@ -5,6 +5,7 @@
 //= require stores/subscription-store
 //= require react/form-builder/form-for.react
 //= require stores/subscription-store
+//= require actions/subscription-actions
 var SubscriptionForm = React.createClass({
   getInitialState: function() {
     return {
@@ -40,6 +41,10 @@ var SubscriptionForm = React.createClass({
     );
   },
   handleSubmit: function(data) {
-    SubscriptionStore.submit({editing: this.props.editing, subscription: data});
+    if(this.props.editing) {
+      SubscriptionActions.updateSubscription(data)
+    } else {
+      SubscriptionActions.createSubscription(data)
+    }
   }
 })

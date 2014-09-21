@@ -1,7 +1,10 @@
+//= require constants/blooming-constants
+//= require dispatchers/blooming-dispatcher
 var SubscriptionStore = (function() {
   var _subscriptions = [];
   var CHANGE_EVENT = 'change';
   var FAIL_TO_CREATE_EVENT = 'creation-failed';
+  var ActionTypes = BloomingConstants.ActionTypes;
   return {
     subscriptions: function() {
       return _subscriptions;
@@ -44,9 +47,6 @@ var SubscriptionStore = (function() {
     triggerChange: function(data) {
       $(this).trigger(CHANGE_EVENT, data);
     },
-    submit: function(data) {
-      data.editing ? this.edit(data.subscription) : this.create(data.subscription);
-    },
     create: function(subscription) {
       $.ajax({
         url: '/admin/subscriptions',
@@ -61,7 +61,7 @@ var SubscriptionStore = (function() {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
-    edit: function(subscription) {
+    update: function(subscription) {
       $.ajax({
         url: '/admin/subscriptions/'+subscription.id,
         type: 'PUT',
@@ -96,6 +96,21 @@ var SubscriptionStore = (function() {
       .fail(function(xhr) {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
+    },
+    payload: function(payload) {
+      var action = payload.action;
+      switch(action.type) {
+        case ActionTypes.CREATE_SUBSCRIPTION:
+          this.create(action.data);
+          break;
+        case ActionTypes.UPDATE_SUBSCRIPTION:
+          this.update(action.data);
+          break;
+        default:
+          // do nothing
+      }
     }
   }
 }())
+
+BloomingDispatcher.register(SubscriptionStore.payload.bind(SubscriptionStore));

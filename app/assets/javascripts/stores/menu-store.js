@@ -1,7 +1,10 @@
+//= require constants/blooming-constants
+//= require dispatchers/blooming-dispatcher
 var MenuStore = (function() {
   var _menus = [];
   var CHANGE_EVENT = 'change';
   var FAIL_TO_CREATE_EVENT = 'creation-failed';
+  var ActionTypes = BloomingConstants.ActionTypes;
   return {
     menus: function() {
       return _menus;
@@ -41,9 +44,6 @@ var MenuStore = (function() {
     triggerChange: function(data) {
       $(this).trigger(CHANGE_EVENT, data);
     },
-    submit: function(data) {
-      data.editing ? this.edit(data.menu) : this.create(data.menu);
-    },
     create: function(menu) {
       $.ajax({
         url: '/admin/menus',
@@ -58,7 +58,7 @@ var MenuStore = (function() {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
-    edit: function(menu) {
+    update: function(menu) {
       $.ajax({
         url: '/admin/menus/' + menu.id,
         type: 'PUT',
@@ -93,6 +93,21 @@ var MenuStore = (function() {
       .fail(function(xhr) {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
+    },
+    payload: function(payload) {
+      var action = payload.action;
+      switch(action.type) {
+        case ActionTypes.CREATE_MENU:
+          this.create(action.data);
+          break;
+        case ActionTypes.UPDATE_MENU:
+          this.update(action.data);
+          break;
+        default:
+          // do nothing
+      }
     }
   }
 }())
+
+BloomingDispatcher.register(MenuStore.payload.bind(MenuStore));

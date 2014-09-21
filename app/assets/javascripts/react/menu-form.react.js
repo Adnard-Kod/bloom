@@ -3,6 +3,7 @@
  */
 //= require react
 //= require stores/menu-store
+//= require actions/menu-actions
 var MenuForm = React.createClass({displayName: 'MenuForm',
   getInitialState: function() {
     return {
@@ -35,6 +36,10 @@ var MenuForm = React.createClass({displayName: 'MenuForm',
     );
   },
   handleSubmit: function(data) {
-    MenuStore.submit({editing: this.props.editing, menu: data});
+    if(this.props.editing) {
+      MenuActions.updateMenu(data)
+    } else {
+      MenuActions.createMenu(data)
+    }
   }
 })
