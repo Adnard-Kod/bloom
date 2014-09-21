@@ -1,8 +1,6 @@
 /** @jsx React.DOM */
 //= require react
 //= require stores/user-store
-//= require react/form-error.react
-
 var UserCreation = React.createClass({displayName: 'UserCreation',
   getInitialState: function () {
     return {
@@ -24,9 +22,6 @@ var UserCreation = React.createClass({displayName: 'UserCreation',
     var formOptions = {
       onSubmit: this.createUser
     };
-    this.state.errors.forEach(function(err) {
-      errors.push(FormError( {error:  err}))
-    })
     return (
       React.DOM.section( {id:"user-signup-box"}, 
         React.DOM.p( {id:"user-signup-title"}, "Create An Account"),

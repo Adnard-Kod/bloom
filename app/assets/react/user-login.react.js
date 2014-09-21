@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 //= require react
 //= require stores/session-store
-//= require react/form-error.react
 //= require react/form-builder/form-for.react
 var UserLogin = React.createClass({
   getInitialState: function() {
@@ -23,10 +22,6 @@ var UserLogin = React.createClass({
     var fomrOptions = {
       onSubmit: this.userLogin
     }
-    this.state.errors.forEach(function (err) {
-      errors.push(<FormError error = {err} />)
-    });
-
     return (
       <nav id="user-login">
         <p>Login</p>
