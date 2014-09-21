@@ -1,4 +1,7 @@
+//= require constants/blooming-constants
+//= require dispatchers/blooming-dispatcher
 var UserStore = (function () {
+  var ActionTypes = BloomingConstants.ActionTypes;
   return {
     new: function() {
       return {
@@ -23,6 +26,17 @@ var UserStore = (function () {
       .fail(function (xhr, status, selse) {
         $(this).trigger('creation-error', JSON.parse(xhr.responseText));
       }.bind(this));
+    },
+    payload: function(payload) {
+      var action = payload.action;
+      switch(action.type) {
+        case ActionTypes.CREATE_USER:
+          this.create(action.data);
+          break;
+        default:
+          // do nothing
+      }
     }
   }
 }());
+BloomingDispatcher.register(UserStore.payload.bind(UserStore));

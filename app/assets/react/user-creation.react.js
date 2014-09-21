@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 //= require react
 //= require stores/user-store
+//= require actions/user-actions
 var UserCreation = React.createClass({
   getInitialState: function () {
     return {
@@ -31,6 +32,6 @@ var UserCreation = React.createClass({
   },
 
   createUser: function (data) {
-    UserStore.create(data);
+    UserActions.createUser(data);
   }
 });
