@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 //= require react
 //= require stores/session-store
-
+//= require actions/session-actions
 var UserLogout = React.createClass({displayName: 'UserLogout',
   render: function () {
     return (
@@ -13,6 +13,6 @@ var UserLogout = React.createClass({displayName: 'UserLogout',
 
   userLogout: function (e) {
     e.preventDefault();
-    SessionStore.logout();
+    SessionActions.destroySession();
   }
 });

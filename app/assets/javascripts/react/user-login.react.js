@@ -2,6 +2,7 @@
 //= require react
 //= require stores/session-store
 //= require react/form-builder/form-for.react
+//= require actions/session-actions
 var UserLogin = React.createClass({displayName: 'UserLogin',
   getInitialState: function() {
     return {
@@ -31,6 +32,6 @@ var UserLogin = React.createClass({displayName: 'UserLogin',
   },
 
   userLogin: function (data) {
-    SessionStore.login(data);
+    SessionActions.createSession(data);
   }
 });

@@ -1,5 +1,7 @@
+//= require constants/blooming-constants
+//= require dispatchers/blooming-dispatcher
 var SessionStore = (function () {
-
+  var ActionTypes = BloomingConstants.ActionTypes;
   return {
     getAuthenticityToken: function() {
       return $('meta[name="csrf-token"]')[0].content
@@ -10,7 +12,7 @@ var SessionStore = (function () {
         password: null
       }
     },
-    login: function (loginData) {
+    create: function (loginData) {
       $.ajax({
         type: 'POST',
         url: '/sessions',
@@ -24,7 +26,7 @@ var SessionStore = (function () {
       }.bind(this));
     },
 
-    logout: function (e) {
+    destroy: function (e) {
       var authenticityToken = this.getAuthenticityToken();
       $.ajax({
         type: 'DELETE',
@@ -34,6 +36,20 @@ var SessionStore = (function () {
       .done(function (data) {
         window.location = data.redirect;
       });
+    },
+    payload: function(payload) {
+      var action = payload.action;
+      switch(action.type) {
+        case ActionTypes.CREATE_SESSION:
+          this.create(action.data);
+          break;
+        case ActionTypes.DESTROY_SESSION:
+          this.destroy();
+          break;
+        default:
+          // do nothing
+      }
     }
   }
 }());
+BloomingDispatcher.register(SessionStore.payload.bind(SessionStore));
