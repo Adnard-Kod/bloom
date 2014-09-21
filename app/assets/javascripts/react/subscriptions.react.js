@@ -19,7 +19,7 @@ var Subscriptions = React.createClass({displayName: 'Subscriptions',
   render: function() {
     var subscriptions = [];
     this.state.subscriptions.forEach(function(sub) {
-      subscriptions.push(Subscription( {sub:sub} ))
+      subscriptions.push(Subscription( {key:sub.id, sub:sub} ))
     })
     return (
       React.DOM.div( {id:"subscriptions"}, 

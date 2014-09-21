@@ -23,7 +23,7 @@ var Menus = React.createClass({
     var menus = []
 
     this.state.menus.forEach(function(menu) {
-      menus.push(<Menu menu={menu} />)
+      menus.push(<Menu key={menu.id} menu={menu} />)
     })
     return (
       <div id="menus">
