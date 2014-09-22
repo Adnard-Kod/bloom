@@ -10,8 +10,4 @@ var Blooming = React.createClass({
       <Nav />
     )
   }
-})
-
-$(document).ready(function() {
-  React.renderComponent(<Blooming />, $('nav')[0]);
 });

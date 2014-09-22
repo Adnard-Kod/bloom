@@ -14,7 +14,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require react/blooming.react
+//= require react/routes/app-routes
 //= require bootstrap.min
 //= require jquery.easing.min
 //= require classie
@@ -25,3 +25,4 @@
 //= require contact-me
 //= require jq-bootstrap-validations
 //= require vitality
+
