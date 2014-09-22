@@ -57,8 +57,7 @@ var Nav = React.createClass({
 
   showLoginSignup: function(e) {
     e.preventDefault();
-    var toggle = this.state.showSignupLogin ? false : true;
-    this.setState({showSignupLogin: toggle});
+    this.setState({showSignupLogin: !this.state.showSignupLogin});
   }
 });
 

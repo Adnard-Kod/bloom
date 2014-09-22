@@ -36,8 +36,7 @@ var Menu = React.createClass({displayName: 'Menu',
   },
   edit: function(e) {
     e.preventDefault();
-    var editing = this.state.editing === true ? false : true
-    this.setState({editing: editing})
+    this.setState({editing: !this.state.editing})
   },
   delete: function(e) {
     e.preventDefault();

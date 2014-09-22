@@ -20,11 +20,6 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
       if(this.isMounted()) this.setState({errors: []});
     }.bind(this))
   },
-  componentWillUnmount: function() {
-    SubscriptionStore.removeChangeEvent(this);
-    SubscriptionStore.removeFailToTakeAction(this);
-  },
-
   render: function() {
     var subscription = this.props.subscription || SubscriptionStore.new();
     var formOptions = {

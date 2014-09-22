@@ -15,10 +15,6 @@
       if(this.isMounted()) this.setState({editing: false});
     }.bind(this))
   },
-  componentWillUnmount: function() {
-    SubscriptionStore.removeChangeEvent(this);
-  },
-
   render: function() {
     var sub = this.props.sub;
     var editForm = this.state.editing ? SubscriptionForm( {subscription:sub, editing:"true"}) : undefined;
@@ -33,8 +29,7 @@
   },
   edit: function(e) {
     e.preventDefault();
-    var editing = this.state.editing === true ? false : true
-    this.setState({editing: editing})
+    this.setState({editing: !this.state.editing})
   },
   delete: function(e) {
     e.preventDefault();
