@@ -1,19 +1,21 @@
-<div class="container" id="user-dashboard">
-  <%= render 'navbar'%>
+<div id="page-wrapper">
+  <div class="container" id="user-dashboard">
+    <%= render 'navbar'%>
 
-  <div class="col-md-12">
+    <div class="col-md-12">
 
-      <h1 class="text-center">Menu of the Week</h1>
+        <h1 class="text-center">Menu of the Week</h1>
 
-      <hr>
+        <hr>
 
+    </div>
+
+    <div>
+      <% 5.times do %>
+        <%= render 'menu_row' %>
+      <% end %>
+    </div>
+
+    <%= render 'footer' %>
   </div>
-
-  <div>
-    <% 5.times do %>
-      <%= render 'menu_row' %>
-    <% end %>
-  </div>
-
-  <%= render 'footer' %>
 </div>
