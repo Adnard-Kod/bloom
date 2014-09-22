@@ -2,14 +2,15 @@
  * @jsx React.DOM
  */
 //= require router/router
+//= require react/user-dashboard.react
 Router.routes = (function() {
-  var _newSubscription = function() {
-    console.log("sweet subscriptions");
+  var _userDashBoard = function() {
+    React.renderComponent(UserDashboard(null ), $('#user-dashboard')[0])
   }
   return {
-    "#new-subscription": _newSubscription
+    "": _userDashBoard
   }
-}())
+}());
 
 $(document).ready(function() {
   Router.route(window.location.hash)

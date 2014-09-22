@@ -12,7 +12,3 @@ var UserDashboard = React.createClass({displayName: 'UserDashboard',
     )
   }
 });
-
-$(document).ready(function () {
-  React.renderComponent(UserDashboard(null ), $('#user-dashboard')[0]);
-});

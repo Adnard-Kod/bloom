@@ -2,14 +2,15 @@
  * @jsx React.DOM
  */
 //= require router/router
+//= require react/admin-dashboard.react
 Router.routes = (function() {
-  var _newSubscription = function() {
-    console.log("sweet subscriptions");
+  var _adminDashBoard = function() {
+    React.renderComponent(<AdminDashboard />, $('body')[0])
   }
   return {
-    "#new-subscription": _newSubscription
+    "": _adminDashBoard
   }
-}())
+}());
 
 $(document).ready(function() {
   Router.route(window.location.hash)

@@ -1,2 +1,2 @@
 //= require jquery
-//= require react/user-dashboard.react
+//= require react/routes/user-routes

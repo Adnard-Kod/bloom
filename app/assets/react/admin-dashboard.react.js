@@ -15,7 +15,3 @@ var AdminDashboard = React.createClass({
     )
   }
 })
-
-$(document).ready(function() {
-  React.renderComponent(<AdminDashboard />, $('body')[0]);
-});

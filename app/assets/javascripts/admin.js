@@ -1,2 +1,2 @@
 //= require jquery
-//= require react/admin-dashboard.react
+//= require react/routes/admin-routes
