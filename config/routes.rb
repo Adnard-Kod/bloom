@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   resource :sessions, only: [:create, :destroy]
 
   namespace :user do
-    resources :dashboard, only: [:index]
+    resources :dashboard, :only => [:index] do
+      collection do
+        get 'my_account'
+      end
+    end
   end
 
 end
