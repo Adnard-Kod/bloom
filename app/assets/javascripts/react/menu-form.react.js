@@ -31,7 +31,7 @@ var MenuForm = React.createClass({displayName: 'MenuForm',
     }
     return (
       React.DOM.div(null,
-        FormFor({object: menu, options: formOptions, errors: this.state.errors})
+        FormFor( {object:menu, options:formOptions, errors:this.state.errors})
       )
     );
   },

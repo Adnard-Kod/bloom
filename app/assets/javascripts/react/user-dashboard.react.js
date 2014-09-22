@@ -7,7 +7,7 @@ var UserDashboard = React.createClass({displayName: 'UserDashboard',
     return (
       React.DOM.div(null,
         React.DOM.h1(null, "Blooming Spoon User Dashboard"),
-        UserLogout(null)
+        UserLogout(null )
       )
     )
   }
