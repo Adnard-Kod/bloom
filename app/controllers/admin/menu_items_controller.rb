@@ -1,10 +1,10 @@
 class Admin::MenuItemsController < AdminController
   def index
-    render json: Menu_Item.all
+    render json: MenuItem.all
   end
 
   def create
-    menu_item = Menu_Item.new(menu_item_params)
+    menu_item = MenuItem.new(menu_item_params)
     if menu_item.save
       render json: { menu_item: menu_item }
     else
@@ -13,7 +13,7 @@ class Admin::MenuItemsController < AdminController
   end
 
   def update
-    menu_item = Menu_Item.find(params[:id])
+    menu_item = MenuItem.find(params[:id])
     if menu_item.update_attributes(menu_item_params)
       render json: { menu_item: menu_item }
     else
@@ -22,7 +22,7 @@ class Admin::MenuItemsController < AdminController
   end
 
   def destroy
-    menu_item = Menu_Item.find(params[:id])
+    menu_item = MenuItem.find(params[:id])
     if menu_item.present?
       menu_item.destroy
       render json: {id: menu_item.id}
