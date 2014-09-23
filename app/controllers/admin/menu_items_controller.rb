@@ -13,7 +13,12 @@ class Admin::MenuItemsController < AdminController
   end
 
   def update
-
+    menu_item = Menu_Item.find(params[:id])
+    if menu_item.update_attributes(menu_item_params)
+      render json: { menu_item: menu_item }
+    else
+      render json: {errors: menu_item.errors.full_messages}, status: :unprocessable_entity
+    end
   end
 
   def destroy
