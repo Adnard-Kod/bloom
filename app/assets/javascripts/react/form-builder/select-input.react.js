@@ -9,11 +9,11 @@ var SelectInput = React.createClass({displayName: 'SelectInput',
     var options = [];
     var value = data.value || "";
     data.values.forEach(function(value) {
-      options.push(OptionForSelect( {value:value}))
+      options.push(OptionForSelect({value: value}))
     }.bind(this))
     console.log(data.value)
     return (
-      React.DOM.select( {ref:data.name, value:data.value},
+      React.DOM.select({ref: data.name, value: data.value}, 
         options
       )
     );

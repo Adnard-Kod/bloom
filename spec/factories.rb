@@ -10,6 +10,12 @@ FactoryGirl.define do
     sequence(:title) {|n| "title #{n}"}
   end
 
+  factory :menu_item do
+    sequence(:name) {|n| "name #{n}"}
+    sequence(:description) {|n| "description #{n}"  }
+    sequence(:category) {|n| "category #{n}"  }
+  end
+
   factory :user do
     email { Faker::Internet.email }
     first_name { Faker::Name.first_name }

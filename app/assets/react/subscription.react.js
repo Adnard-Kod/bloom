@@ -36,3 +36,4 @@
     SubscriptionActions.destroySubscription(this.props.sub.id);
   }
  })
+

@@ -3,6 +3,7 @@
 //= require react/subscriptions.react
 //= require react/subscription-form.react
 //= require react/menus.react
+//= require react/menu-item-box.react
 var AdminDashboard = React.createClass({
   render: function() {
     return (
@@ -11,6 +12,7 @@ var AdminDashboard = React.createClass({
         <Subscriptions />
         <MenuForm />
         <Menus />
+        <MenuItemBox />
       </div>
     )
   }

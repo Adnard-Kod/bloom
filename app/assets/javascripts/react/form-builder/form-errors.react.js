@@ -10,7 +10,7 @@ var FormErrors = React.createClass({displayName: 'FormErrors',
       errors.push(React.DOM.li(null, err))
     })
     return (
-      React.DOM.ul( {className:"form-errors"}, errors)
+      React.DOM.ul({className: "form-errors"}, errors)
     );
   }
 });

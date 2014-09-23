@@ -3,17 +3,17 @@
  */
 
 //= require react
-//= require stores/menu-store
-//= require react/menu-form.react
-//= require actions/menu-actions
-var Menu = React.createClass({
+//= require stores/menu-item-store
+//= require react/menu-item-form.react
+
+var MenuItem = React.createClass({
   getInitialState: function() {
     return {
       editing: false
     };
   },
   componentDidMount: function() {
-    MenuStore.addChangeEvent(function()
+    MenuItemStore.addChangeEvent(function()
     {
       if(this.isMounted()) this.setState({editing:false});
     }.bind(this))
@@ -23,14 +23,14 @@ var Menu = React.createClass({
   },
 
   render: function() {
-    var menu = this.props.menu;
-    var editForm = this.state.editing ? <MenuForm menu={menu} editing="true"/> :undefined;
+    var menuItem = this.props.menuItem;
+    var editForm = this.state.editing ? <MenuItemForm menuItem={menuItem} editing="true"/> :undefined;
     return (
       <li>
-        <p>{menu.title}</p>
+        <p>{menuItem.name}</p>
         <span><a href="#" onClick={this.edit}>edit</a></span>
         <span><a href="#" onClick={this.delete}>delete</a></span>
-
+        {editForm}
       </li>
     );
   },
@@ -40,6 +40,6 @@ var Menu = React.createClass({
   },
   delete: function(e) {
     e.preventDefault();
-    MenuActions.destroyMenu(this.props.menu.id);
+    MenuItemActions.destroyMenuItem(this.props.menuItem.id);
   }
 })
