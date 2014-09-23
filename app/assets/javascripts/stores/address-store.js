@@ -13,6 +13,19 @@ var AddressStore = (function () {
       return _addresses;
     },
 
+    getUserAddress: function () {
+      $.ajax({
+        url: '/users/current_user/addresses',
+        type: 'GET'
+      })
+      .done(function (data) {
+        console.log('OMG getUserAddress DONE!!!')
+        console.log(data)
+        _addresses.push(data.address);
+        this.triggerChange();
+      }.bind(this))
+    },
+
     new: function () {
       return {
         id: null,
@@ -43,8 +56,29 @@ var AddressStore = (function () {
         data: { address: address, authenticity_token: authenticityToken }
       })
       .done(function (data) {
+        debugger;
         _addresses.push(data.address);
         this.triggerChange();
+      }.bind(this))
+      .fail(function (xhr) {
+        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
+      }.bind(this));
+    },
+
+    update: function (address) {
+      var authenticityToken = SessionStore.getAuthenticityToken()
+      $.ajax({
+        url: '/users/current_user/addresses',
+        type: 'PUT',
+        data: {address: address, authenticity_token: authenticityToken}
+      })
+      .done(function (data) {
+        _addresses.forEach(function (addr, i) {
+          if (addr.id === data.address.id) {
+            _addresses[i] = data.address;
+            return this.triggerChange();
+          }
+        }.bind(this))
       }.bind(this))
       .fail(function (xhr) {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
@@ -57,6 +91,8 @@ var AddressStore = (function () {
         case ActionTypes.CREATE_ADDRESS:
           this.create(action.data);
           break;
+        case ActionTypes.UPDATE_ADDRESS:
+          this.update(action.data)
         default:
       }
     }
