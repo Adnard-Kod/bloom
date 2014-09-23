@@ -23,6 +23,12 @@ describe AddressesController do
         expect(response_address[attr]).to eq(attributes[attr])
       end
     end
+
+    it 'should return a http status 422 if a street address is not provided' do
+      attributes[:street_address] = ''
+      post :create, address: attributes, user_id: user.id
+      expect(response).to have_http_status(422)
+    end
   end
 
   describe "PUT #update" do
