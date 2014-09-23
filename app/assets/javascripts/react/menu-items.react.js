@@ -12,13 +12,12 @@ var MenuItems = React.createClass({displayName: 'MenuItems',
     MenuItemStore.addChangeEvent(function() {
       this.setState({
         menuItems: MenuItemStore.menuItems()
-      }.bind(this))
-    })
+      });
+    }.bind(this))
     MenuItemStore.all()
   },
   render:function(){
     var menuItems = []
-
     this.state.menuItems.forEach(function(item){
       menuItems.push(MenuItem({key: item.id, menuItem: item}))
     })

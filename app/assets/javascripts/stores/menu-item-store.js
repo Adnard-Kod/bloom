@@ -12,7 +12,9 @@ var MenuItemStore = (function() {
     new: function() {
       return {
         id: null,
-        title: null
+        name: null,
+        description: null,
+        category: null
       }
     },
 
