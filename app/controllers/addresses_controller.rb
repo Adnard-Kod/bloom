@@ -1,6 +1,8 @@
 class AddressesController < UserController
+  before_filter :load_user
+
   def create
-    address = Address.new(address_params.merge(user_id: current_user.id))
+    address = @user.addresses.new(address_params)
     if address.save
       render json: { address: address }
     else
@@ -9,7 +11,7 @@ class AddressesController < UserController
   end
 
   def update
-    address = Address.find(params[:address][:id])
+    address = Address.find(params[:id])
     address.update(address_params)
     if address.save
       render json: { address: address }
@@ -19,7 +21,7 @@ class AddressesController < UserController
   end
 
   def show
-    address = Address.find_by_user_id(current_user.id)
+    address = Address.find params[:id]
     if address.nil?
       render json: { errors: ["An address doesn't exist for this user"]}, status: :unprocessable_entity
     else
@@ -28,9 +30,7 @@ class AddressesController < UserController
   end
 
   def destroy
-    p "PARAMSID #{params[:id]}"
     address = Address.find(params[:id])
-    p "ADDRESS WITHIN DESTROY: #{address}"
     if address.present?
       address.destroy
       render json: { id: address.id }
