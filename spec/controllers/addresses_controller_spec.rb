@@ -36,5 +36,11 @@ describe AddressesController do
       put :update, :id => address.id, :user_id => user.id, address: { street_address: '123 Baker Street' }
       expect(address.reload.street_address).to eq('123 Baker Street')
     end
+
+    it 'should return a http status 422 if a city is not provided' do
+      attributes[:city] = ''
+      post :create, address: attributes, user_id: user.id
+      expect(response).to have_http_status(422)
+    end
   end
 end
