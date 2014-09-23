@@ -27,6 +27,18 @@ class AddressesController < UserController
     end
   end
 
+  def destroy
+    p "PARAMSID #{params[:id]}"
+    address = Address.find(params[:id])
+    p "ADDRESS WITHIN DESTROY: #{address}"
+    if address.present?
+      address.destroy
+      render json: { id: address.id }
+    else
+      render json: { error: "No address found with this id" }
+    end
+  end
+
   private
   def address_params
     params.require(:address).permit(:street_address, :apartment_number, :city, :state, :zipcode, :delivery_instructions)
