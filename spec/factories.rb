@@ -26,4 +26,14 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :address do
+    street_address { Faker::Address.street_address }
+    apartment_number { Faker::Address.secondary_address }
+    city 'San Francisco'
+    state 'CA'
+    zipcode { Faker::Address.zip_code }
+    delivery_instructions { Faker::Lorem.paragraph }
+    user
+  end
 end
