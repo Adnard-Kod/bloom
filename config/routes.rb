@@ -10,12 +10,7 @@ Rails.application.routes.draw do
 
   resources :subscriptions, :only => [:index]
   resources :users, except: [:new, :edit] do
-    collection do
-      post 'current_user/addresses' => 'addresses#create'
-      put 'current_user/addresses' => 'addresses#update'
-      get 'current_user/addresses' => 'addresses#show'
-      delete 'current_user/addresses' => 'addresses#destroy'
-    end
+    resources :addresses, :except => [:index, :edit, :new]
   end
   resource :sessions, only: [:create, :destroy]
 
