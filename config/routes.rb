@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       post 'current_user/addresses' => 'addresses#create'
       put 'current_user/addresses' => 'addresses#update'
       get 'current_user/addresses' => 'addresses#show'
-      # resources :addresses, :only => [:create, :update, :destroy, :show]
+      delete 'current_user/addresses' => 'addresses#destroy'
     end
   end
   resource :sessions, only: [:create, :destroy]
