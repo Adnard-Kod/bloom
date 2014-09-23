@@ -43,4 +43,13 @@ describe AddressesController do
       expect(response).to have_http_status(422)
     end
   end
+
+  describe "DELETE #destroy" do
+    it 'should delete an address' do
+      address
+      expect {
+        delete :destroy, id: address.id, user_id: user.id
+      }.to change { Address.count }.by(-1)
+    end
+  end
 end
