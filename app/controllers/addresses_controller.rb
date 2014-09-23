@@ -1,6 +1,6 @@
 class AddressesController < UserController
   def create
-    address = Address.new(address_params)
+    address = Address.new(address_params.merge(user_id: current_user.id))
     if address.save
       render json: address
     else
@@ -9,6 +9,6 @@ class AddressesController < UserController
   end
 
   def address_params
-    params.require(:address).permit(:street_address, :apartment_number, :city, :state, :zipcode, :delivery_instructions, :user_id)
+    params.require(:address).permit(:street_address, :apartment_number, :city, :state, :zipcode, :delivery_instructions)
   end
 end
