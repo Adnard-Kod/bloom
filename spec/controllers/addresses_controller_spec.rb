@@ -15,6 +15,14 @@ describe AddressesController do
         post :create, address: attributes, user_id: user.id
       }.to change{ Address.count }.by(1)
     end
+
+    it 'should create an address object with expected attributes' do
+      post :create, address: attributes, user_id: user.id
+      response_address = JSON.parse(response.body)
+      response_address.each do |attr|
+        expect(response_address[attr]).to eq(attributes[attr])
+      end
+    end
   end
 
   describe "PUT #update" do
