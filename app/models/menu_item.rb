@@ -1,4 +1,4 @@
 class MenuItem < ActiveRecord::Base
-  validates :name, presence: true
+  validates :name, :description, :category, presence: true
   has_many :menus
 end
