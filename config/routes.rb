@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :users, except: [:new, :edit] do
     collection do
       post 'current_user/addresses' => 'addresses#create'
+      put 'current_user/addresses' => 'addresses#update'
+      get 'current_user/addresses' => 'addresses#show'
       # resources :addresses, :only => [:create, :update, :destroy, :show]
     end
   end
