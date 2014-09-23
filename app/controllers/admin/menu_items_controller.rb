@@ -6,7 +6,7 @@ class Admin::MenuItemsController < AdminController
   def create
     menu_item = Menu_Item.new(menu_item_params)
     if menu_item.save
-      render json: menu_item
+      render json: { menu_item: menu_item }
     else
       render json: {errors: menu_item.errors.full_messages}, status: :unprocessable_entity
     end
