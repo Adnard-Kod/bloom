@@ -43,4 +43,7 @@ class AddressesController < UserController
   def address_params
     params.require(:address).permit(:street_address, :apartment_number, :city, :state, :zipcode, :delivery_instructions)
   end
+  def load_user
+    @user = params[:user_id] == 'me' ? current_user : User.find(params[:user_id])
+  end
 end
