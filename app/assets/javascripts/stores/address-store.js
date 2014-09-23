@@ -19,8 +19,6 @@ var AddressStore = (function () {
         type: 'GET'
       })
       .done(function (data) {
-        console.log('OMG getUserAddress DONE!!!')
-        console.log(data)
         _addresses.push(data.address);
         this.triggerChange();
       }.bind(this))
@@ -66,7 +64,7 @@ var AddressStore = (function () {
     },
 
     update: function (address) {
-      var authenticityToken = SessionStore.getAuthenticityToken()
+      var authenticityToken = SessionStore.getAuthenticityToken();
       $.ajax({
         url: '/users/current_user/addresses',
         type: 'PUT',
@@ -85,6 +83,26 @@ var AddressStore = (function () {
       }.bind(this));
     },
 
+    delete: function (id) {
+      var authenticityToken = SessionStore.getAuthenticityToken();
+      $.ajax({
+        type: 'DELETE',
+        url: '/users/current_user/addresses',
+        data: {id: id, authenticity_token: authenticityToken}
+      })
+      .done(function (data) {
+        _addresses.forEach(function (addr, i) {
+          if (addr.id === data.id) {
+            _addresses.splice(i, 1);
+            return this.triggerChange();
+          }
+        }.bind(this));
+      }.bind(this))
+      .fail(function (xhr) {
+        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
+      }.bind(this));
+    },
+
     payload: function (payload) {
       var action = payload.action;
       switch(action.type) {
@@ -92,7 +110,11 @@ var AddressStore = (function () {
           this.create(action.data);
           break;
         case ActionTypes.UPDATE_ADDRESS:
-          this.update(action.data)
+          this.update(action.data);
+          break;
+        case ActionTypes.DESTROY_ADDRESS:
+          this.delete(action.id);
+          break;
         default:
       }
     }
