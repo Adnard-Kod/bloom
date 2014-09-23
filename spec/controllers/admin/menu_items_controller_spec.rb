@@ -23,7 +23,7 @@ describe Admin::MenuItemsController do
       expect {
         post :create, :menu_item => {name: ""}
       }.to_not change { MenuItem.count }
-      expect(JSON.parse(response.body)).to eq("errors" => ["Name can't be blank"])
+      expect(JSON.parse(response.body)).to eq("errors" => ["Name can't be blank", "Description can't be blank", "Category can't be blank"])
     end
   end
   context "#update" do
