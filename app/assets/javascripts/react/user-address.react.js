@@ -29,6 +29,7 @@ var UserAddress = React.createClass({displayName: 'UserAddress',
           React.DOM.li({className: "list-group-item"}, addr.apartment_number), 
           React.DOM.li({className: "list-group-item"}, addr.city, ", ", addr.state, ", ", addr.zipcode), 
           React.DOM.span(null, React.DOM.a({href: "#", onClick: this.edit}, "Edit")), 
+          React.DOM.span(null, React.DOM.a({href: "#", onClick: this.delete}, "Delete")), 
           editForm
         )
       )
@@ -38,5 +39,10 @@ var UserAddress = React.createClass({displayName: 'UserAddress',
   edit: function (e) {
     e.preventDefault();
     this.setState({ editing: !this.state.editing });
+  },
+
+  delete: function(e) {
+    e.preventDefault();
+    AddressActions.destroyAddress(this.props.addr.id);
   }
 })

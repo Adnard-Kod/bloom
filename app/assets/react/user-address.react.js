@@ -29,6 +29,7 @@ var UserAddress = React.createClass({
           <li className="list-group-item">{addr.apartment_number}</li>
           <li className="list-group-item">{addr.city}, {addr.state}, {addr.zipcode}</li>
           <span><a href="#" onClick={this.edit}>Edit</a></span>
+          <span><a href="#" onClick={this.delete}>Delete</a></span>
           {editForm}
         </ul>
       </div>
@@ -38,5 +39,10 @@ var UserAddress = React.createClass({
   edit: function (e) {
     e.preventDefault();
     this.setState({ editing: !this.state.editing });
+  },
+
+  delete: function(e) {
+    e.preventDefault();
+    AddressActions.destroyAddress(this.props.addr.id);
   }
 })
