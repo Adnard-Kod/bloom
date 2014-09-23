@@ -26,7 +26,10 @@ var UserAddressForm = React.createClass({
     var address = this.props.address || AddressStore.new();
     var formOptions = {
       name: "Address",
-      onSubmit: this.handleSubmit
+      onSubmit: this.handleSubmit,
+      delivery_instructions: {
+        type: 'textarea'
+      }
     };
 
     return (
