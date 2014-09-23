@@ -7,7 +7,7 @@
 var Blooming = React.createClass({displayName: 'Blooming',
   render: function() {
     return (
-      Nav(null )
+      Nav(null)
     )
   }
 });

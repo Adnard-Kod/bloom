@@ -40,6 +40,6 @@ var MenuItem = React.createClass({
   },
   delete: function(e) {
     e.preventDefault();
-    MenuActions.destroyMenu(this.props.menu.id);
+    MenuItemActions.destroyMenuItem(this.props.menuItem.id);
   }
 })

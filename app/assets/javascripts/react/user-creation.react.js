@@ -24,9 +24,9 @@ var UserCreation = React.createClass({displayName: 'UserCreation',
       onSubmit: this.createUser
     };
     return (
-      React.DOM.section( {id:"user-signup-box"},
-        React.DOM.p( {id:"user-signup-title"}, "Create An Account"),
-        FormFor( {object:user, options:formOptions, errors:this.state.errors} )
+      React.DOM.section({id: "user-signup-box"}, 
+        React.DOM.p({id: "user-signup-title"}, "Create An Account"), 
+        FormFor({object: user, options: formOptions, errors: this.state.errors})
       )
     )
   },

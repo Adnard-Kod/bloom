@@ -25,7 +25,6 @@ var MenuItemStore = (function() {
       })
       .done(function(data) {
         _menuItems = data.menu_items;
-        console.log(data.menu_items)
         this.triggerChange();
       }.bind(this))
     },
@@ -63,14 +62,14 @@ var MenuItemStore = (function() {
     },
     update: function(menuItem) {
       $.ajax({
-        url: '/admin/menus/' + menuItem.id,
+        url: '/admin/menu_items/' + menuItem.id,
         type: 'PUT',
-        data: {menuItem: menuItem}
+        data: {menu_item: menuItem}
       })
       .done(function(data) {
         _menuItems.forEach(function(menuItem, i) {
           if(menuItem.id === data.menu_item.id) {
-            _menusItem[i] = data.menu_item;
+            _menuItems[i] = data.menu_item;
             return this.triggerChange();
           }
         }.bind(this))

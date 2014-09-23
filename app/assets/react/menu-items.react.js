@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 //= require react
 //= require stores/menu-item-store
+//= require react/menu-item.react
 
 var MenuItems = React.createClass({
   getInitialState: function() {
@@ -12,13 +13,12 @@ var MenuItems = React.createClass({
     MenuItemStore.addChangeEvent(function() {
       this.setState({
         menuItems: MenuItemStore.menuItems()
-      }.bind(this))
-    })
+      });
+    }.bind(this))
     MenuItemStore.all()
   },
   render:function(){
     var menuItems = []
-
     this.state.menuItems.forEach(function(item){
       menuItems.push(< MenuItem key={item.id} menuItem={item}/>)
     })

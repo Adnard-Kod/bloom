@@ -30,7 +30,7 @@ var Menu = React.createClass({
         <p>{menu.title}</p>
         <span><a href="#" onClick={this.edit}>edit</a></span>
         <span><a href="#" onClick={this.delete}>delete</a></span>
-        {editForm}
+
       </li>
     );
   },

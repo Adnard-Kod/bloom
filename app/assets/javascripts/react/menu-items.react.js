@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 //= require react
 //= require stores/menu-item-store
+//= require react/menu-item.react
 
 var MenuItems = React.createClass({displayName: 'MenuItems',
   getInitialState: function() {

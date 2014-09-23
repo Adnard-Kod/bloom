@@ -5,7 +5,7 @@
 //= require react/user-dashboard.react
 Router.routes = (function() {
   var _userDashBoard = function() {
-    React.renderComponent(UserDashboard(null ), $('#user-dashboard')[0])
+    React.renderComponent(UserDashboard(null), $('#user-dashboard')[0])
   }
   return {
     "": _userDashBoard
