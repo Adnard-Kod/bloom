@@ -24,7 +24,8 @@ var MenuItemStore = (function() {
         type: 'GET'
       })
       .done(function(data) {
-        _menuItems = data.menuItems;
+        _menuItems = data.menu_items;
+        console.log(data.menu_items)
         this.triggerChange();
       }.bind(this))
     },
@@ -46,30 +47,30 @@ var MenuItemStore = (function() {
     triggerChange: function(data) {
       $(this).trigger(CHANGE_EVENT, data);
     },
-    create: function(menu) {
+    create: function(menuItem) {
       $.ajax({
-        url: '/admin/menus',
+        url: '/admin/menu_items',
         type: 'POST',
-        data: {menu: menu}
+        data: {menu_item: menuItem}
       })
       .done(function(data) {
-        _menus.push(data.menu)
+        _menuItems.push(data.menu_item)
         this.triggerChange();
       }.bind(this))
       .fail(function(xhr) {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
-    update: function(menu) {
+    update: function(menuItem) {
       $.ajax({
-        url: '/admin/menus/' + menu.id,
+        url: '/admin/menus/' + menuItem.id,
         type: 'PUT',
-        data: {menu: menu}
+        data: {menuItem: menuItem}
       })
       .done(function(data) {
-        _menus.forEach(function(menu, i) {
-          if(menu.id === data.menu.id) {
-            _menus[i] = data.menu;
+        _menuItems.forEach(function(menuItem, i) {
+          if(menuItem.id === data.menu_item.id) {
+            _menusItem[i] = data.menu_item;
             return this.triggerChange();
           }
         }.bind(this))
@@ -80,14 +81,14 @@ var MenuItemStore = (function() {
     },
     destroy: function(id) {
       $.ajax({
-        url: '/admin/menus/'+id,
+        url: '/admin/menu_items/'+id,
         type: 'DELETE',
         data: {id: id}
       })
       .done(function(data) {
-        _menus.forEach(function(menu, i) {
-          if (menu.id === data.id) {
-            _menus.splice(i, 1);
+        _menuItems.forEach(function(menuItem, i) {
+          if (menuItem.id === data.id) {
+            _menuItems.splice(i, 1);
             return this.triggerChange();
           }
         }.bind(this))
@@ -99,13 +100,13 @@ var MenuItemStore = (function() {
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
-        case ActionTypes.CREATE_MENU:
+        case ActionTypes.CREATE_MENU_ITEM:
           this.create(action.data);
           break;
-        case ActionTypes.UPDATE_MENU:
+        case ActionTypes.UPDATE_MENU_ITEM:
           this.update(action.data);
           break;
-        case ActionTypes.DESTROY_MENU:
+        case ActionTypes.DESTROY_MENU_ITEM:
           this.destroy(action.id);
           break;
         default:
@@ -115,4 +116,4 @@ var MenuItemStore = (function() {
   }
 }())
 
-BloomingDispatcher.register(MenuStore.payload.bind(MenuStore));
+BloomingDispatcher.register(MenuItemStore.payload.bind(MenuItemStore));
