@@ -73,6 +73,14 @@ describe AddressesController do
       put :update, :id => address.id, :user_id => 1000, address: { street_address: '123 Baker Street' }
       expect(response).to redirect_to(root_path)
     end
+
+    it 'should return the expected error messages if all required fields are blank during update' do
+      put :update, id: address.id, address: {street_address: '', city: '', state: '', zipcode: ''}, user_id: 'me'
+      errors = ["Street address can't be blank", "City can't be blank", "State can't be blank", "Zipcode can't be blank"]
+      errors.each_with_index do |error, index|
+        expect(JSON.parse(response.body)['errors'][index]).to include(error)
+      end
+    end
   end
 
   describe "DELETE #destroy" do
