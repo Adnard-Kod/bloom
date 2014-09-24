@@ -32,7 +32,7 @@ var MenuItemForm = React.createClass({displayName: 'MenuItemForm',
       onSubmit: this.handleSubmit
     }
     return (
-      React.DOM.div(null, 
+      React.DOM.div(null,
         FormFor({object: menuItem, options: formOptions, errors: this.state.errors})
       )
     );

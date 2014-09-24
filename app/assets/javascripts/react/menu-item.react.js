@@ -26,10 +26,10 @@ var MenuItem = React.createClass({displayName: 'MenuItem',
     var menuItem = this.props.menuItem;
     var editForm = this.state.editing ? MenuItemForm({menuItem: menuItem, editing: "true"}) :undefined;
     return (
-      React.DOM.li(null, 
-        React.DOM.p(null, menuItem.name), 
-        React.DOM.span(null, React.DOM.a({href: "#", onClick: this.edit}, "edit")), 
-        React.DOM.span(null, React.DOM.a({href: "#", onClick: this.delete}, "delete")), 
+      React.DOM.li(null,
+        React.DOM.p(null, menuItem.name),
+        React.DOM.span(null, React.DOM.a({href: "#", onClick: this.edit}, "edit")),
+        React.DOM.span(null, React.DOM.a({href: "#", onClick: this.delete}, "delete")),
         editForm
       )
     );

@@ -33,7 +33,7 @@ var UserAddressForm = React.createClass({displayName: 'UserAddressForm',
     };
 
     return (
-      React.DOM.div(null, 
+      React.DOM.div(null,
         FormFor({object: address, options: formOptions, errors: this.state.errors})
       )
     );

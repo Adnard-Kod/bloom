@@ -30,7 +30,7 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
       }
     }
     return (
-      React.DOM.div(null, 
+      React.DOM.div(null,
         FormFor({object: subscription, options: formOptions, errors: this.state.errors})
       )
     );

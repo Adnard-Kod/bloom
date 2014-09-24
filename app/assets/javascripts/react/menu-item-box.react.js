@@ -6,8 +6,8 @@
 var MenuItemBox = React.createClass({displayName: 'MenuItemBox',
   render: function(){
     return (
-      React.DOM.div(null, 
-        MenuItemForm(null), 
+      React.DOM.div(null,
+        MenuItemForm(null),
         MenuItems(null)
       )
     )

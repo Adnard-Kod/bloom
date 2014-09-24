@@ -26,7 +26,7 @@ var UserAddresses = React.createClass({displayName: 'UserAddresses',
     });
 
     return (
-      React.DOM.div({id: "user-address"}, 
+      React.DOM.div({id: "user-address"},
         addresses
       )
     );
