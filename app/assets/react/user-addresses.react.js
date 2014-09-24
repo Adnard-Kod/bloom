@@ -2,6 +2,7 @@
 //= require react
 //= require react/user-address.react
 //= require stores/address-store
+//= require stores/session-store
 
 var UserAddresses = React.createClass({
   getInitialState: function() {
@@ -16,7 +17,7 @@ var UserAddresses = React.createClass({
         addresses: AddressStore.addresses()
       });
     }.bind(this));
-    AddressStore.getUserAddress();
+    AddressStore.getUserAddresses(SessionStore.currentUser);
   },
   render: function() {
     var addresses = [];
