@@ -49,6 +49,12 @@ describe AddressesController do
       expect(address.reload.street_address).to eq('123 Baker Street')
     end
 
+    it 'should update a field for an admin' do
+      user[:admin] = true
+      put :update, :id => address.id, :user_id => user.id, address: { street_address: '123 Baker Street' }
+      expect(address.reload.street_address).to eq('123 Baker Street')
+    end
+
     it 'should return a http status 422 if the city field is blank' do
       attributes[:city] = ''
       put :update, address: attributes, id: address.id, user_id: 'me'
