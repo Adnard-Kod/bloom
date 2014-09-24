@@ -83,6 +83,12 @@ describe AddressesController do
       }.to change { Address.count }.by(-1)
     end
 
+    it 'should return an error of "No address found with this id"' do
+      address[:id] = 10000
+      delete :destroy, id: address.id, user_id: 'me'
+      expect(JSON.parse(response.body)['error']).to eq("No address found with this id")
+    end
+
     it "redirects user to root path if user_id is not 'me'" do
       address
       delete :destroy, id: address.id, user_id: 1000
