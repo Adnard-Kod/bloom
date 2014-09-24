@@ -41,6 +41,14 @@ describe AddressesController do
       post :create, address: attributes, user_id: 'me'
       expect(response).to have_http_status(422)
     end
+
+    it 'should return the expected error messages if all required fields are blank' do
+      post :create, address: {street_address: ''}, user_id: 'me'
+      errors = ["Street address can't be blank", "City can't be blank", "State can't be blank", "Zipcode can't be blank"]
+      errors.each_with_index do |error, index|
+        expect(JSON.parse(response.body)['errors'][index]).to include(error)
+      end
+    end
   end
 
   describe "PUT #update" do
