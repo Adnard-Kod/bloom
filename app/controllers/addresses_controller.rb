@@ -51,6 +51,10 @@ class AddressesController < UserController
   end
 
   def load_address
-    @address = Address.find(params[:id])
+    begin
+      @address = Address.find(params[:id])
+    rescue Exception => e
+      @address = nil
+    end
   end
 end
