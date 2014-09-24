@@ -16,9 +16,14 @@ class User < ActiveRecord::Base
     response = Rails.configuration.mailchimp.lists.subscribe({
       id: list_id,
       email: { email: email },
-      double_optin: false
+      merge_vars: {
+        'FNAME'=> first_name,
+        'LNAME'=> last_name
+      },
+      double_optin: false,
+      update_existing: true
       })
-    response
+    p response
   end
 
   def unsubscribe_to_mailchimp testing=false
