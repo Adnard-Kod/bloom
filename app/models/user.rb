@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :subscriptions, :through => :memberships
   after_create :subscribe_to_mailchimp
+  after_save :subscribe_to_mailchimp
   before_destroy :unsubscribe_to_mailchimp
 
   def subscribe_to_mailchimp testing=false
