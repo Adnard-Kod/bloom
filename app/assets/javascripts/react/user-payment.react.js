@@ -7,7 +7,6 @@ var UserPayment = React.createClass({displayName: 'UserPayment',
   render: function() {
     return (
       React.DOM.div(null,
-        React.DOM.script({src: "https://checkout.stripe.com/checkout.js"}),
         React.DOM.button({id: "customButton", onClick: this.purchaseForm}, "Purchase")
       )
     );
