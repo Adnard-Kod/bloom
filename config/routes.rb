@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   end
 
   resources :subscriptions, :only => [:index]
-  resources :users, except: [:new, :edit]
+  resources :users, except: [:new, :edit] do
+    resources :addresses, :except => [:show, :edit, :new]
+  end
   resource :sessions, only: [:create, :destroy]
 
   namespace :user do
