@@ -24,14 +24,6 @@ class AddressesController < UserController
     end
   end
 
-  def show
-    if @address.nil?
-      render json: { errors: ["An address doesn't exist for this user"]}, status: :unprocessable_entity
-    else
-      render json: { address: @address}
-    end
-  end
-
   def destroy
     if @address.present?
       @address.destroy
