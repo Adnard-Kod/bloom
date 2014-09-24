@@ -91,9 +91,14 @@ describe AddressesController do
   end
 
   describe "GET #show" do
-
     it 'returns an address for the user' do
       get :show, id: address.id, user_id: 'me'
+      expect(response.body).to include(address.street_address)
+    end
+
+    it 'returns an address for an admin' do
+      user[:admin] = true
+      get :show, id: address.id, user_id: user.id
       expect(response.body).to include(address.street_address)
     end
 
