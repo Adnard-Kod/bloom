@@ -3,4 +3,7 @@ class User::DashboardController < UserController
   end
   def my_account
   end
+
+  def charge
+  end
 end
