@@ -23,8 +23,7 @@ var MenuItems = React.createClass({displayName: 'MenuItems',
       menuItems.push(MenuItem({key: item.id, menuItem: item}))
     })
     return (
-      React.DOM.div(null,
-        React.DOM.h3(null, "Menu Items"),
+      React.DOM.div({className: "menu-items"},
         menuItems
       )
     )

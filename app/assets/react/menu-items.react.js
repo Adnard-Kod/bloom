@@ -20,11 +20,10 @@ var MenuItems = React.createClass({
   render:function(){
     var menuItems = []
     this.state.menuItems.forEach(function(item){
-      menuItems.push(< MenuItem key={item.id} menuItem={item}/>)
+      menuItems.push(<MenuItem key={item.id} menuItem={item} />)
     })
     return (
-      <div>
-        <h3>Menu Items</h3>
+      <div className="menu-items">
         {menuItems}
       </div>
     )

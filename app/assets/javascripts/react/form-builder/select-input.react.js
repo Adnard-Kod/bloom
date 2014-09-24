@@ -13,7 +13,7 @@ var SelectInput = React.createClass({displayName: 'SelectInput',
     }.bind(this))
     console.log(data.value)
     return (
-      React.DOM.select({ref: data.name, value: data.value}, 
+      React.DOM.select({ref: data.name, value: data.value, className: data.className}, 
         options
       )
     );

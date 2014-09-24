@@ -5,7 +5,7 @@
 //= require react
 //= require stores/menu-item-store
 //= require react/menu-item-form.react
-
+//= require react/edit-links.react
 var MenuItem = React.createClass({displayName: 'MenuItem',
   getInitialState: function() {
     return {
@@ -27,9 +27,9 @@ var MenuItem = React.createClass({displayName: 'MenuItem',
     var editForm = this.state.editing ? MenuItemForm({menuItem: menuItem, editing: "true"}) :undefined;
     return (
       React.DOM.li(null,
-        React.DOM.p(null, menuItem.name),
-        React.DOM.span(null, React.DOM.a({href: "#", onClick: this.edit}, "edit")),
-        React.DOM.span(null, React.DOM.a({href: "#", onClick: this.delete}, "delete")),
+        React.DOM.b(null, menuItem.name, " (", menuItem.category, "): "),
+        EditLinks({edit: this.edit, delete: this.delete}),
+        React.DOM.p(null, menuItem.description),
         editForm
       )
     );

@@ -13,7 +13,7 @@ var SelectInput = React.createClass({
     }.bind(this))
     console.log(data.value)
     return (
-      <select ref={data.name} value={data.value}>
+      <select ref={data.name} value={data.value} className={data.className}>
         {options}
       </select>
     );

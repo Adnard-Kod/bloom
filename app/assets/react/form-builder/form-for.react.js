@@ -11,7 +11,7 @@ var FormFor = React.createClass({
       <form onSubmit={this.handleSubmit}>
         <FormErrors errors={this.props.errors} />
         {this.inputs()}
-        <input type="submit"  value={this.submitText()} />
+        <input type="submit"  value={this.submitText()} className="btn btn-default"/>
       </form>
     );
   },

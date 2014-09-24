@@ -11,7 +11,7 @@ var FormFor = React.createClass({displayName: 'FormFor',
       React.DOM.form({onSubmit: this.handleSubmit}, 
         FormErrors({errors: this.props.errors}), 
         this.inputs(), 
-        React.DOM.input({type: "submit", value: this.submitText()})
+        React.DOM.input({type: "submit", value: this.submitText(), className: "btn btn-default"})
       )
     );
   },

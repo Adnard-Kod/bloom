@@ -5,6 +5,8 @@
 //= require react
 //= require stores/menu-store
 //= require react/menu-form.react
+//= require react/menu-items.react
+//= require react/edit-links.react
 //= require actions/menu-actions
 var Menu = React.createClass({
   getInitialState: function() {
@@ -25,13 +27,21 @@ var Menu = React.createClass({
   render: function() {
     var menu = this.props.menu;
     var editForm = this.state.editing ? <MenuForm menu={menu} editing="true"/> :undefined;
+    var panelClass = "panel panel-default";
+    if(this.props.active) panelClass = "panel panel-primary"
     return (
-      <li>
-        <p>{menu.title}</p>
-        <span><a href="#" onClick={this.edit}>edit</a></span>
-        <span><a href="#" onClick={this.delete}>delete</a></span>
-
-      </li>
+      <div className={panelClass}>
+        <div className="panel-heading">
+          <h3 className="panel-title">
+            {menu.title}
+            <EditLinks edit={this.edit} delete={this.delete} />
+          </h3>
+          {editForm}
+        </div>
+        <div className="panel-body">
+          <MenuItems />
+        </div>
+      </div>
     );
   },
   edit: function(e) {
