@@ -1,9 +1,13 @@
 class AddressesController < UserController
-  before_filter :authorize_user, :load_user
-  before_filter :load_address, :except => [:create]
+  before_filter :load_and_authorize_user
+  before_filter :load_and_authorize_address, except: [:create, :index]
+
+  def index
+    render :json => @user.addresses
+  end
 
   def create
-    address = @user.addresses.new(address_params)
+    address = current_user.addresses.new(address_params)
     if address.save
       render json: { address: address }
     else
