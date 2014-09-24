@@ -40,7 +40,6 @@ var UserAddressForm = React.createClass({
   },
 
   handleSubmit: function (data) {
-    data.userId = SessionStore.currentUser;
     if (this.props.editing) {
       AddressActions.updateAddress(data)
     } else {
