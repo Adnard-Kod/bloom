@@ -17,7 +17,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # Stripe gem for payments
 gem 'stripe'
 # Mail Chimp gem
-gem 'gibbon'
+gem 'gibbon', github: "amro/gibbon"
 
 gem 'geocoder'
 gem 'bcrypt', '~> 3.1.7'
