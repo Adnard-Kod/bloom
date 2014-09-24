@@ -10,14 +10,14 @@ describe AddressesController do
   end
 
   describe "POST #create" do
-    it 'should increase the address count by 1 for a valid user' do
+    it 'should increase the address count by 1 for current user' do
       expect {
-        post :create, address: attributes, user_id: user.id
+        post :create, address: attributes, user_id: 'me'
       }.to change{ Address.count }.by(1)
     end
 
-    it 'should create an address object with expected attributes' do
-      post :create, address: attributes, user_id: user.id
+    it 'should create an address object with expected attributes for current user' do
+      post :create, address: attributes, user_id: 'me'
       response_address = JSON.parse(response.body)
       response_address.each do |attr|
         expect(response_address[attr]).to eq(attributes[attr])
@@ -26,29 +26,29 @@ describe AddressesController do
 
     it 'should return a http status 422 if a street address is not provided' do
       attributes[:street_address] = ''
-      post :create, address: attributes, user_id: user.id
+      post :create, address: attributes, user_id: 'me'
       expect(response).to have_http_status(422)
     end
   end
 
   describe "PUT #update" do
-    it 'should update a field' do
-      put :update, :id => address.id, :user_id => user.id, address: { street_address: '123 Baker Street' }
+    it 'should update a field for current user' do
+      put :update, :id => address.id, :user_id => 'me', address: { street_address: '123 Baker Street' }
       expect(address.reload.street_address).to eq('123 Baker Street')
     end
 
     it 'should return a http status 422 if a city is not provided' do
       attributes[:city] = ''
-      post :create, address: attributes, user_id: user.id
+      post :create, address: attributes, user_id: 'me'
       expect(response).to have_http_status(422)
     end
   end
 
   describe "DELETE #destroy" do
-    it 'should delete an address' do
+    it 'should delete an address for current user' do
       address
       expect {
-        delete :destroy, id: address.id, user_id: user.id
+        delete :destroy, id: address.id, user_id: 'me'
       }.to change { Address.count }.by(-1)
     end
   end
