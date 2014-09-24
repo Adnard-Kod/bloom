@@ -20,7 +20,9 @@ class User::DashboardController < UserController
         :description => "payinguser@example.com"
       )
     rescue Stripe::CardError => e
-      # The card has been declined
+      p "STRIPE ERROR #{e}"
     end
+
+    render json: charge
   end
 end
