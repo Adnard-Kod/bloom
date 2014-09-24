@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :memberships
   has_many :subscriptions, :through => :memberships
+  after_create :subscribe_to_mailchimp
 
   def subscribe_to_mailchimp testing=false
     return true if (Rails.env.test? && !testing)
@@ -16,10 +17,6 @@ class User < ActiveRecord::Base
       double_optin: false
       })
     response
-  end
-
-  after_create do
-    subscribe_to_mailchimp
   end
 
 end
