@@ -46,15 +46,14 @@ var AddressStore = (function () {
       $(this).trigger(CHANGE_EVENT, data);
     },
 
-    create: function(user_id, address) {
+    create: function(data) {
       var authenticityToken = SessionStore.getAuthenticityToken();
       $.ajax({
-        url: '/users/' + user_id + '/addresses',
+        url: '/users/' + data.userId + '/addresses',
         type: 'POST',
-        data: { address: address, authenticity_token: authenticityToken }
+        data: { address: data, authenticity_token: authenticityToken }
       })
       .done(function (data) {
-        debugger;
         _addresses.push(data.address);
         this.triggerChange();
       }.bind(this))
@@ -83,12 +82,12 @@ var AddressStore = (function () {
       }.bind(this));
     },
 
-    delete: function (id) {
+    delete: function (data) {
       var authenticityToken = SessionStore.getAuthenticityToken();
       $.ajax({
         type: 'DELETE',
-        url: '/users/current_user/addresses',
-        data: {id: id, authenticity_token: authenticityToken}
+        url: '/users/' + data.userId + '/addresses/' + data.id,
+        data: { authenticity_token: authenticityToken }
       })
       .done(function (data) {
         _addresses.forEach(function (addr, i) {
@@ -113,7 +112,7 @@ var AddressStore = (function () {
           this.update(action.data);
           break;
         case ActionTypes.DESTROY_ADDRESS:
-          this.delete(action.id);
+          this.delete(action.data);
           break;
         default:
       }
