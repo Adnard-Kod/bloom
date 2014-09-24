@@ -11,7 +11,7 @@ describe "#subscribe_to_mailchimp" do
        update_existing: true
      }
      clazz = Rails.configuration.mailchimp.lists.class
-     clazz.any_instance.should_receive(:subscribe).with(opts).once
+     allow(clazz.any_instance).to receive(:subscribe).with(opts).once
      user.send(:subscribe_to_mailchimp, true)
    end
  end
