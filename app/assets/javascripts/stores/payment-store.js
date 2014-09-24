@@ -1,6 +1,10 @@
+//= require constants/blooming-constants
+//= require dispatchers/blooming-dispatcher
 //= require stores/session-store
+//= require checkout
 
 var PaymentStore = (function () {
+  var ActionTypes = BloomingConstants.ActionTypes;
   var paymentInfo = {
     name: 'Blooming Spoon',
     description: '2 widgets ($20.00)',
@@ -24,17 +28,26 @@ var PaymentStore = (function () {
           data: { token: token, authenticity_token: authenticityToken, payment_info: paymentInfo }
         })
         .done(function (data) {
+          debugger
         })
         .fail(function (xhr) {
         })
     },
 
-    paymentListener: function () {
-      $('#customButton').on('click', function(e) {
-        // Open Checkout with further options
+    createPaymentForm: function () {
         handler.open(paymentInfo);
-        e.preventDefault();
-      });
+    },
+
+    payload: function (payload) {
+      var action = payload.action;
+      switch(action.type) {
+        case ActionTypes.CREATE_PAYMENT_FORM:
+          this.createPaymentForm();
+          break;
+        default:
+      }
     }
   };
 }());
+
+BloomingDispatcher.register(PaymentStore.payload.bind(PaymentStore))
