@@ -38,19 +38,13 @@ class AddressesController < UserController
     params.require(:address).permit(:street_address, :apartment_number, :city, :state, :zipcode, :delivery_instructions)
   end
 
-  def authorize_user
-    redirect_to root_path unless params[:user_id] == 'me' || current_user.admin?
+  def load_and_authorize_address
+    @address = Address.find(params[:id])
+    redirect_to root_path unless @address.owner?(@user) || current_user.admin?
   end
 
-  def load_user
-    @user = params[:user_id] == 'me' ? current_user : User.find(params[:user_id])
-  end
-
-  def load_address
-    begin
-      @address = Address.find(params[:id])
-    rescue Exception => e
-      @address = nil
-    end
+  def load_and_authorize_user
+    @user = User.find params[:user_id]
+    redirect_to root_path unless @user == current_user || current_user.admin?
   end
 end
