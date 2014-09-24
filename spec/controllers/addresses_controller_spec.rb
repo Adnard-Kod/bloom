@@ -75,6 +75,14 @@ describe AddressesController do
       }.to change { Address.count }.by(-1)
     end
 
+    it 'should delete an address for an admin' do
+      address
+      user[:admin] = true
+      expect {
+        delete :destroy, id: address.id, user_id: user.id
+      }.to change { Address.count }.by(-1)
+    end
+
     it "redirects user to root path if user_id is not 'me'" do
       address
       delete :destroy, id: address.id, user_id: 1000
