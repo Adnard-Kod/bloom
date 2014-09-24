@@ -91,6 +91,12 @@ describe AddressesController do
   end
 
   describe "GET #show" do
+
+    it 'returns an address for the user' do
+      get :show, id: address.id, user_id: 'me'
+      expect(response.body).to include(address.street_address)
+    end
+
     it "redirects user to root path if user_id is not 'me'" do
       address
       get :show, id: address.id, user_id: 1000
