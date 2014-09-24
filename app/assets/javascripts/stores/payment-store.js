@@ -28,7 +28,6 @@ var PaymentStore = (function () {
           data: { token: token, authenticity_token: authenticityToken, payment_info: paymentInfo }
         })
         .done(function (data) {
-          debugger
         })
         .fail(function (xhr) {
         })
