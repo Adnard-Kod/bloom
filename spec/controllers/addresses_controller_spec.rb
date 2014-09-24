@@ -108,6 +108,11 @@ describe AddressesController do
       expect(response.body).to include(address.street_address)
     end
 
+    it "returns the error message 'An address doesn't exist for this user'" do
+      get :show, id: 10000, user_id: 'me'
+      expect(JSON.parse(response.body)['errors'][0]).to include("An address doesn't exist for this user")
+    end
+
     it "redirects user to root path if user_id is not 'me'" do
       address
       get :show, id: address.id, user_id: 1000
