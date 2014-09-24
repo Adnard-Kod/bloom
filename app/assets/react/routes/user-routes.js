@@ -4,6 +4,7 @@
 //= require router/router
 //= require react/user-dashboard.react
 //= require react/user-addresses.react
+//= require react/user-address-form.react
 
 Router.routes = (function() {
   var _userDashBoard = function() {
@@ -12,9 +13,13 @@ Router.routes = (function() {
   var _userDashboardAddresses = function () {
     React.renderComponent(<UserAddresses />, $('#user-dashboard')[0]);
   };
+  var _userDashboardAddressesCreate = function () {
+    React.renderComponent(<UserAddressForm />, $('#user-dashboard')[0]);
+  };
   return {
     "": _userDashBoard,
-    "#address": _userDashboardAddresses
+    "#address": _userDashboardAddresses,
+    "#create-address": _userDashboardAddressesCreate
   }
 }());
 
