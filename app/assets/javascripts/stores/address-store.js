@@ -13,13 +13,13 @@ var AddressStore = (function () {
       return _addresses;
     },
 
-    getUserAddress: function () {
+    getUserAddresses: function (id) {
       $.ajax({
-        url: '/users/current_user/addresses',
+        url: '/users/' + id + '/addresses',
         type: 'GET'
       })
       .done(function (data) {
-        _addresses.push(data.address);
+        _addresses = data.addresses;
         this.triggerChange();
       }.bind(this))
     },
@@ -46,10 +46,10 @@ var AddressStore = (function () {
       $(this).trigger(CHANGE_EVENT, data);
     },
 
-    create: function(address) {
+    create: function(user_id, address) {
       var authenticityToken = SessionStore.getAuthenticityToken();
       $.ajax({
-        url: '/users/current_user/addresses',
+        url: '/users/' + user_id + '/addresses',
         type: 'POST',
         data: { address: address, authenticity_token: authenticityToken }
       })
@@ -63,12 +63,12 @@ var AddressStore = (function () {
       }.bind(this));
     },
 
-    update: function (address) {
+    update: function (data) {
       var authenticityToken = SessionStore.getAuthenticityToken();
       $.ajax({
-        url: '/users/current_user/addresses',
+        url: '/users/' + data.userId + '/addresses/' + data.id,
         type: 'PUT',
-        data: {address: address, authenticity_token: authenticityToken}
+        data: {address: data, authenticity_token: authenticityToken}
       })
       .done(function (data) {
         _addresses.forEach(function (addr, i) {
