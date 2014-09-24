@@ -16,6 +16,13 @@ describe AddressesController do
       }.to change{ Address.count }.by(1)
     end
 
+    it 'should increase the address count by 1 for an admin' do
+      user[:admin] = true
+      expect {
+        post :create, address: attributes, user_id: user.id
+      }.to change{ Address.count }.by(1)
+    end
+
     it "redirects user to root path if user_id is not 'me'" do
       post :create, address: attributes, user_id: 1000
       expect(response).to redirect_to(root_path)
