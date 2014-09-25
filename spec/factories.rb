@@ -8,6 +8,9 @@ FactoryGirl.define do
 
   factory :menu do
     sequence(:title) {|n| "title #{n}"}
+    trait(:current) do
+      current true
+    end
   end
 
   factory :menu_item do
