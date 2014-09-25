@@ -22,12 +22,6 @@ describe Menu do
       expect( current_menu.current ).to eq(true)
     end
 
-    it "Should change current attribute to true." do
-      new_menu = FactoryGirl.create :menu
-      new_menu.current!
-      expect(new_menu.current).to eq(true)
-    end
-
     it "Should change current attribute to false." do
       menu.decurrent!
       expect(menu.current).to eq(false)
