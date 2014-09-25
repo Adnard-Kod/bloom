@@ -2,9 +2,10 @@
 //= require constants/blooming-constants
 
 var PaymentActions = {
-  createPaymentForm: function () {
+  createPaymentForm: function (data) {
     BloomingDispatcher.handleViewAction({
-      type: BloomingConstants.ActionTypes.CREATE_PAYMENT_FORM
+      type: BloomingConstants.ActionTypes.CREATE_PAYMENT_FORM,
+      data: data
     });
   }
 }
