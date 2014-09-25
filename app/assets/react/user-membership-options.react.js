@@ -2,6 +2,7 @@
 //= require react
 //= require stores/subscription-store
 //= require react/subscriptions.react
+//= require actions/payment-actions
 
 var UserMembershipOptions = React.createClass({
   getInitialState: function() {
@@ -37,6 +38,14 @@ var UserMembershipOptions = React.createClass({
   },
 
   purchase: function(data) {
-    console.log(data)
+    var subs = this.state.subscriptions;
+    var subInfo;
+    for(var i = 0; i < subs.length; i++) {
+      if(subs[i].id === parseInt(data.subscription, 10)) {
+        subInfo = subs[i];
+        break;
+      }
+    }
+    PaymentActions.createPaymentForm(subInfo);
   }
 });
