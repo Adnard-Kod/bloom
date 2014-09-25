@@ -7,8 +7,8 @@ var EditLinks = React.createClass({
   render: function() {
     return (
       <span>
-        <small><a href="#" onClick={this.props.edit}> edit |</a></small>
-        <small><a href="#" onClick={this.props.delete}> delete</a></small>
+        <strong><a href="#" className="text-warning" onClick={this.props.edit}> edit |</a></strong>
+        <strong><a href="#" className="text-danger" onClick={this.props.delete}> delete</a></strong>
       </span>
     );
   }

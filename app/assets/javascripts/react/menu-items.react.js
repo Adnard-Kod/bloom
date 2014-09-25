@@ -11,9 +11,11 @@ var MenuItems = React.createClass({displayName: 'MenuItems',
   },
   componentDidMount: function() {
     MenuItemStore.addChangeEvent(function() {
-      this.setState({
-        menuItems: MenuItemStore.menuItems()
-      });
+      if(this.isMounted()) {
+        this.setState({
+          menuItems: MenuItemStore.menuItems()
+        });
+      }
     }.bind(this))
     MenuItemStore.all()
   },

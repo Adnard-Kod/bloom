@@ -6,9 +6,20 @@
 var MenuItemBox = React.createClass({displayName: 'MenuItemBox',
   render: function(){
     return (
-      React.DOM.div(null,
-        MenuItemForm(null),
-        MenuItems(null)
+      React.DOM.div({className: "container-fluid"},
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+            PageHeader({title: "Menus"}),
+            BreadCrumb({crumbs: ["Menu Management", "Menu Items"]})
+          )
+        ),
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+            MenuItemForm(null),
+            React.DOM.hr(null),
+            MenuItems(null)
+          )
+        )
       )
     )
   }

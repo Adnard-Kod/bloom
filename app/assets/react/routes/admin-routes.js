@@ -3,12 +3,17 @@
  */
 //= require router/router
 //= require react/admin-dashboard.react
+//= require react/menu-item-box.react
 Router.routes = (function() {
   var _adminDashBoard = function() {
-    React.renderComponent(<AdminDashboard />, $('#admin-dashboard')[0])
+    React.renderComponent(<AdminDashboard />, $('#admin-page')[0])
+  }
+  var _menuItemsBox = function() {
+    React.renderComponent(<MenuItemBox />, $('#admin-page')[0])
   }
   return {
-    "": _adminDashBoard
+    "": _adminDashBoard,
+    "#menu-items": _menuItemsBox,
   }
 }());
 

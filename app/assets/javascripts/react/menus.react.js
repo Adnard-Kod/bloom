@@ -27,7 +27,7 @@ var Menus = React.createClass({displayName: 'Menus',
     })
     return (
       React.DOM.div({id: "menus"},
-        React.DOM.h3(null, "Menus"),
+        React.DOM.hr(null),
         menus
       )
     );

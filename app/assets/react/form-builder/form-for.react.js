@@ -30,7 +30,9 @@ var FormFor = React.createClass({
     return this.props.options || {};
   },
   submitText: function() {
-    var submit = this.props.object.id ? 'Update' : 'Create';
+    var submit = this.options().submit;
+    if(submit && submit.value) return submit.value
+    submit = this.props.object.id ? 'Update' : 'Create';
     if(this.options().name) submit = submit + ' ' + this.options().name;
     return submit;
   },

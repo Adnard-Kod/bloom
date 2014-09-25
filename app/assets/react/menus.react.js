@@ -27,7 +27,7 @@ var Menus = React.createClass({
     })
     return (
       <div id="menus">
-        <h3>Menus</h3>
+        <hr />
         {menus}
       </div>
     );

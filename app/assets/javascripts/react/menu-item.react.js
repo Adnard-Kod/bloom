@@ -25,12 +25,20 @@ var MenuItem = React.createClass({displayName: 'MenuItem',
   render: function() {
     var menuItem = this.props.menuItem;
     var editForm = this.state.editing ? MenuItemForm({menuItem: menuItem, editing: "true"}) :undefined;
+    var panelClass = "panel panel-primary";
+    if(this.props.active) panelClass = "panel panel-success"
     return (
-      React.DOM.li(null,
-        React.DOM.b(null, menuItem.name, " (", menuItem.category, "): "),
-        EditLinks({edit: this.edit, delete: this.delete}),
-        React.DOM.p(null, menuItem.description),
-        editForm
+      React.DOM.div({className: panelClass},
+        React.DOM.div({className: "panel-heading"},
+          React.DOM.h3({className: "panel-title"},
+            menuItem.name, " (", menuItem.category, ")",
+            EditLinks({edit: this.edit, delete: this.delete})
+          )
+        ),
+        React.DOM.div({className: "panel-body"},
+          React.DOM.b(null), menuItem.description,
+          editForm
+        )
       )
     );
   },

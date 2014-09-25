@@ -7,9 +7,8 @@ var SelectInput = React.createClass({
   render: function() {
     var data = this.props.data;
     var options = [];
-    var value = data.value || "";
     data.values.forEach(function(value) {
-      options.push(<OptionForSelect value={value}/>)
+      options.push(<OptionForSelect value={value.value} show={value.show}/>)
     }.bind(this))
     console.log(data.value)
     return (

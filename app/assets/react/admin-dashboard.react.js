@@ -5,30 +5,21 @@
 //= require react/menus.react
 //= require react/menu-item-box.react
 //= require react/bread-crumb.react
+//= require react/page-header.react
 var AdminDashboard = React.createClass({
   render: function() {
     return (
-      <div id="admin-dashboard">
-        <div id='content'>
-          <div id='menus-component'>
-            <div id="page-wrapper">
-              <div className="container-fluid">
-                <div className="row">
-                  <div className="col-lg-12">
-                    <h2 className="page-header">
-                      Menus
-                    </h2>
-                    <BreadCrumb crumbs={["Menu", "Menus"]}/>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-lg-12">
-                    <MenuForm />
-                    <Menus />
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-12">
+            <PageHeader title="Menus" />
+            <BreadCrumb crumbs={["Menu Management", "Menus"]}/>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12">
+            <MenuForm />
+            <Menus />
           </div>
         </div>
       </div>
