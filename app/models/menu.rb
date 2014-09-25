@@ -12,6 +12,7 @@ class Menu < ActiveRecord::Base
   end
 
   def deselect_default
+    return unless self.current_changed?
     current_menu = Menu.current
     current_menu.decurrent! unless current_menu.blank? || current_menu == self
   end
