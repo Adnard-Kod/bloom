@@ -9,7 +9,7 @@ var MenuItemBox = React.createClass({displayName: 'MenuItemBox',
       React.DOM.div({className: "container-fluid"},
         React.DOM.div({className: "row"},
           React.DOM.div({className: "col-lg-12"},
-            PageHeader({title: "Menus"}),
+            PageHeader({title: "Menus Items"}),
             BreadCrumb({crumbs: ["Menu Management", "Menu Items"]})
           )
         ),

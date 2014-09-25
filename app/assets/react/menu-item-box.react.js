@@ -9,7 +9,7 @@ var MenuItemBox = React.createClass({
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-12">
-            <PageHeader title="Menus" />
+            <PageHeader title="Menus Items" />
             <BreadCrumb crumbs={["Menu Management", "Menu Items"]}/>
           </div>
         </div>

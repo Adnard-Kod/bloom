@@ -16,7 +16,7 @@ FactoryGirl.define do
   factory :menu_item do
     sequence(:name) {|n| "name #{n}"}
     sequence(:description) {|n| "description #{n}"  }
-    sequence(:category) {|n| ["Entre", "Sidedish"].sample  }
+    sequence(:category) {|n| MenuItem::CATEGORIES.sample  }
   end
 
   factory :user do

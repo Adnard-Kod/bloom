@@ -17,7 +17,6 @@ describe Admin::MenuItemsController do
       expect {
         post :create, :menu_item => valid_attributes
       }.to change { MenuItem.count }.by(1)
-      # expect(JSON.parse(response.body)["menu_item"].keys).to eq(%w{id name description category})
     end
     it "renders error if missing name" do
       expect {
@@ -33,7 +32,6 @@ describe Admin::MenuItemsController do
       expect {
         put :update, id: menu_item.id, :menu_item => { name: new_name }
       }.to change { menu_item.reload.name }.from(menu_item.name).to(new_name)
-      # expect(JSON.parse(response.body)["menu_item"].keys).to eq(%w{ id name description category})
     end
   end
   context "#destroy" do

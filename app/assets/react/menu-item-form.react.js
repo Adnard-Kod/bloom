@@ -29,6 +29,7 @@ var MenuItemForm = React.createClass({
     var menuItem = this.props.menuItem || MenuItemStore.new();
     var formOptions = {
       name: "Menu Item",
+      category: { type: 'select', values: this.categories()},
       onSubmit: this.handleSubmit
     }
     return (
@@ -43,5 +44,10 @@ var MenuItemForm = React.createClass({
     } else {
       MenuItemActions.createMenuItem(data)
     }
+  },
+  categories: function() {
+    return MenuItemStore.categories.map(function(category) {
+      return {value: category, show: category}
+    })
   }
 })
