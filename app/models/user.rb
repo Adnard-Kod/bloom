@@ -9,32 +9,9 @@ class User < ActiveRecord::Base
   after_create :subscribe_to_mailchimp
   after_save :subscribe_to_mailchimp
   before_destroy :unsubscribe_to_mailchimp
+  delegate :subscribe_to_mailchimp, :unsubscribe_to_mailchimp, :to => :mailchimp
 
-  def subscribe_to_mailchimp testing=false
-    return true if (Rails.env.test? && !testing)
-    list_id = ENV['MAILCHIMP_LIST_ID']
-    response = Rails.configuration.mailchimp.lists.subscribe({
-      id: list_id,
-      email: { email: email },
-      merge_vars: {
-        'FNAME'=> first_name,
-        'LNAME'=> last_name
-      },
-      double_optin: false,
-      update_existing: true
-      })
-    p response
+  def mailchimp
+    @mailchimp ||= MailChimp.new self
   end
-
-  def unsubscribe_to_mailchimp testing=false
-    return true if (Rails.env.test? && !testing)
-    list_id = ENV['MAILCHIMP_LIST_ID']
-    response = Rails.configuration.mailchimp.lists.unsubscribe({
-      id: list_id,
-      email: { email: email },
-      delete_member: true
-      })
-    response
-  end
-
 end
