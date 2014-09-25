@@ -24,7 +24,7 @@ var PaymentStore = (function () {
       var authenticityToken = SessionStore.getAuthenticityToken();
         $.ajax({
           type: 'POST',
-          url: '/user/dashboard/charge',
+          url: '/user/payments',
           data: { token: token, authenticity_token: authenticityToken, payment_info: paymentInfo }
         })
         .done(function (data) {
