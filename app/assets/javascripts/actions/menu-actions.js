@@ -13,6 +13,12 @@ var MenuActions = {
       data: data
     });
   },
+  currentMenu: function(data) {
+    BloomingDispatcher.handleViewAction({
+      type: BloomingConstants.ActionTypes.CURRENT_MENU,
+      data: data
+    });
+  },
   destroyMenu: function(id) {
     BloomingDispatcher.handleViewAction({
       type: BloomingConstants.ActionTypes.DESTROY_MENU,

@@ -5,13 +5,16 @@
 
 var EditLinks = React.createClass({
   render: function() {
+    var links = [];
+    this.props.links.forEach(function(link, panel, i) {
+      var className = link.className || 'text-default';
+      links.push(<strong><a href="#" className={className} onClick={link.handler}> {link.name} </a></strong>);
+    })
     return (
       <span>
-        <strong><a href="#" className="text-warning" onClick={this.props.edit}> edit |</a></strong>
-        <strong><a href="#" className="text-danger" onClick={this.props.delete}> delete</a></strong>
+        {links}
       </span>
     );
   }
-
 });
 
