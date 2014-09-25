@@ -32,8 +32,9 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'rails_12factor', group: :production
 gem 'sidekiq'
+gem "debugger", :groups => [:development]
+
 group :development, :test do
-  gem 'debugger'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
