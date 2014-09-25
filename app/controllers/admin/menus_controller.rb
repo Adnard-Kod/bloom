@@ -34,7 +34,7 @@ class Admin::MenusController < AdminController
   private
 
   def menu_params
-    params.require(:menu).permit(:title)
+    params.require(:menu).permit(:title, :current)
   end
 
   def load_menu
