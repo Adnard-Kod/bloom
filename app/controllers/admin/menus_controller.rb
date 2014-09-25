@@ -1,5 +1,5 @@
 class Admin::MenusController < AdminController
-  before_filter :load_menu, :only => [:update, :add_item, :destroy]
+  before_filter :load_menu, :only => [:update, :destroy]
 
   def index
     render json: Menu.all
@@ -20,12 +20,6 @@ class Admin::MenusController < AdminController
     else
       render json: {errors: @menu.errors.full_messages}, status: :unprocessable_entity
     end
-  end
-
-  def add_item
-    menu_item = MenuItem.find params[:item_id]
-    @menu.items << menu_item
-    render :json => {:success => true}
   end
 
   def destroy

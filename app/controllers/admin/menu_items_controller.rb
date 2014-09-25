@@ -1,6 +1,11 @@
 class Admin::MenuItemsController < AdminController
   def index
-    render json: MenuItem.all
+    if params[:menu_id].present?
+      menu = Menu.find params[:menu_id]
+      render :json => {:all => MenuItem.all, :menu_items => menu.items }
+    else
+      render json: MenuItem.all
+    end
   end
 
   def create
