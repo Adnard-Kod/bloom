@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20140925000202) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "current_menu", default: false
+    t.boolean  "current",    default: false
   end
 
   create_table "selected_items", force: true do |t|
