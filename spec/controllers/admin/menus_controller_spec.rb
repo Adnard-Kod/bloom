@@ -45,4 +45,12 @@ describe Admin::MenusController do
       expect { Menu.find(menu.id)}.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
+  context "#add_item" do
+    let!(:menu) { FactoryGirl.create :menu }
+    let!(:menu_item) { FactoryGirl.create :menu_item }
+    it "appends the item to the menu" do
+      post :add_item, :item_id => menu_item.id, :id => menu.id
+      expect(menu.reload.items).to include(menu_item)
+    end
+  end
 end

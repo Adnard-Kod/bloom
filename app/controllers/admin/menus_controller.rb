@@ -1,4 +1,6 @@
 class Admin::MenusController < AdminController
+  before_filter :load_menu, :only => [:update, :add_item, :destroy]
+
   def index
     render json: Menu.all
   end
@@ -13,19 +15,23 @@ class Admin::MenusController < AdminController
   end
 
   def update
-    menu = Menu.find(params[:id])
-    if menu.update_attributes(menu_params)
-      render json: menu
+    if @menu.update_attributes(menu_params)
+      render json: @menu
     else
-      render json: {errors: menu.errors.full_messages}, status: :unprocessable_entity
+      render json: {errors: @menu.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
+  def add_item
+    menu_item = MenuItem.find params[:item_id]
+    @menu.items << menu_item
+    render :json => {:success => true}
+  end
+
   def destroy
-    menu = Menu.find(params[:id])
-    if menu.present?
-      menu.destroy
-      render json: {id: menu.id}
+    if @menu.present?
+      @menu.destroy
+      render json: {id: @menu.id}
     else
       render json: {error: "No Menu found with this id"}
     end
@@ -35,5 +41,9 @@ class Admin::MenusController < AdminController
 
   def menu_params
     params.require(:menu).permit(:title)
+  end
+
+  def load_menu
+    @menu = Menu.find(params[:id])
   end
 end

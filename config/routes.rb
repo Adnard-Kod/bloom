@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   root 'home#index'
 
   namespace :admin do
-    resources :menus, only: [:index, :create, :update, :destroy]
+    resources :menus, only: [:index, :create, :update, :destroy] do
+      member do
+        post 'add_item'
+      end
+    end
     resources :menu_items, only: [:index, :create, :update, :destroy]
     resources :dashboard, :only => [:index]
     resources :subscriptions, :only => [:create, :update, :destroy]
