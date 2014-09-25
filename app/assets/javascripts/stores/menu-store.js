@@ -9,6 +9,11 @@ var MenuStore = (function() {
     menus: function() {
       return _menus;
     },
+    currentMenu: function() {
+      return _menus.filter(function(menu) {
+        return menu.current;
+      })[0]
+    },
     new: function() {
       return {
         id: null,
@@ -67,6 +72,8 @@ var MenuStore = (function() {
       .done(function(data) {
         _menus.forEach(function(menu, i) {
           if(menu.id === data.menu.id) {
+            // if we set this item to be the current menu, then remove the old current.
+            if(data.menu.current) this.removeCurrent();
             _menus[i] = data.menu;
             return this.triggerChange();
           }
@@ -107,6 +114,10 @@ var MenuStore = (function() {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
+    removeCurrent: function() {
+      var indexOfCurrent = _menus.indexOf(this.currentMenu());
+      _menus[indexOfCurrent].current = false;
+    },
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
@@ -114,6 +125,9 @@ var MenuStore = (function() {
           this.create(action.data);
           break;
         case ActionTypes.UPDATE_MENU:
+          this.update(action.data);
+          break;
+        case ActionTypes.CURRENT_MENU:
           this.update(action.data);
           break;
         case ActionTypes.DESTROY_MENU:
