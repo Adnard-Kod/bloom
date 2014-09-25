@@ -5,19 +5,6 @@
 
 var PaymentStore = (function () {
   var ActionTypes = BloomingConstants.ActionTypes;
-  var paymentInfo = {
-    name: 'Blooming Spoon',
-    description: '2 widgets ($20.00)',
-    amount: 2000
-  };
-
-  var handler = StripeCheckout.configure({
-    key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
-    image: '/assets/culinary/01_Blooming_Spoon_Logo_Final.png',
-    token: function(token) {
-      PaymentStore.authorizePayment(token, paymentInfo);
-    }
-  });
 
   return {
     authorizePayment: function (token, paymentInfo) {
@@ -33,15 +20,29 @@ var PaymentStore = (function () {
         })
     },
 
-    createPaymentForm: function () {
-        handler.open(paymentInfo);
+    createPaymentForm: function (data) {
+      var paymentInfo = {
+        name: 'Blooming Spoon',
+        description: data.description + ' ($' + data.price + ')',
+        amount: data.price * 100,
+        subId: data.id
+      };
+
+      var handler = StripeCheckout.configure({
+        key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+        image: '/assets/culinary/01_Blooming_Spoon_Logo_Final.png',
+        token: function(token) {
+          this.authorizePayment(token, paymentInfo);
+        }.bind(this)
+      });
+      handler.open(paymentInfo);
     },
 
     payload: function (payload) {
       var action = payload.action;
       switch(action.type) {
         case ActionTypes.CREATE_PAYMENT_FORM:
-          this.createPaymentForm();
+          this.createPaymentForm(action.data);
           break;
         default:
       }
