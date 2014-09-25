@@ -4,24 +4,34 @@
 
 //= require react
 //= require stores/menu-store
+//= require stores/selected-item-store
 //= require react/menu-form.react
 //= require react/menu-items.react
 //= require react/edit-links.react
 //= require react/list-group.react
 //= require actions/menu-actions
+//= require actions/selected-item-actions
 var Menu = React.createClass({
   getInitialState: function() {
     return {
       editing: false,
-      items: [{id: 1, name: "burger", description: "sweet burger"}, {id: 2, name: "vegie", description: "sweet vegie"}],
-      allItems: [{id: 1, name: "burger", description: "sweet burger"}, {id: 3, name: "sweet potatoes", description: "sweet potatoes"}],
+      items: SelectedItemStore.selectedItems(this.props.menu.id),
+      allItems: MenuItemStore.menuItems(),
       errors: []
     };
   },
   componentDidMount: function() {
     MenuStore.addChangeEvent(function() {
-      if(this.isMounted()) this.setState({editing:false});
+      if(this.isMounted()) this.setState({editing: false});
     }.bind(this))
+    MenuItemStore.addChangeEvent(function(data) {
+      if(this.isMounted()) this.setState({allItems: MenuItemStore.menuItems()});
+    }.bind(this))
+    MenuItemStore.all();
+    SelectedItemStore.addChangeEvent(function(data) {
+      if(this.isMounted()) this.setState({items: SelectedItemStore.selectedItems(this.props.menu.id)});
+    }.bind(this))
+    SelectedItemStore.all(this.props.menu.id);
   },
   componentWillUnmount: function() {
     SubscriptionStore.removeChangeEvent(this);
@@ -66,7 +76,7 @@ var Menu = React.createClass({
     e.preventDefault();
   },
   addItem: function(data) {
-    console.log(data);
+    SelectedItemActions.createSelectedItem(data.id, data.item);
   },
   allItems: function() {
     return this.state.allItems.map(function(item) {

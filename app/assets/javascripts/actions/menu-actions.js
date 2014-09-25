@@ -18,5 +18,11 @@ var MenuActions = {
       type: BloomingConstants.ActionTypes.DESTROY_MENU,
       id: id
     });
+  },
+  additem: function(data) {
+    BloomingDispatcher.handleViewAction({
+      type: BloomingConstants.ActionTypes.ADD_ITEM,
+      data: data
+    });
   }
 }

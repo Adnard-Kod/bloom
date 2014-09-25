@@ -1,31 +1,21 @@
 //= require constants/blooming-constants
 //= require dispatchers/blooming-dispatcher
-var MenuItemStore = (function() {
-  var _menuItems = [];
+var SelectedItemStore = (function() {
+  var _selectedItems = {};
   var CHANGE_EVENT = 'change';
   var FAIL_TO_CREATE_EVENT = 'creation-failed';
   var ActionTypes = BloomingConstants.ActionTypes;
   return {
-    menuItems: function() {
-      return _menuItems;
+    selectedItems: function(id) {
+      return _selectedItems[id] || [];
     },
-    new: function() {
-      return {
-        id: null,
-        name: null,
-        description: null,
-        category: null
-      }
-    },
-
     all: function(menu_id) {
       $.ajax({
-        url: '/admin/menu_items',
-        type: 'GET',
-        data: {menu_id: menu_id}
+        url: '/admin/menus/'+menu_id+'/selected_items',
+        type: 'GET'
       })
       .done(function(data) {
-        _menuItems = data.menu_items;
+        _selectedItems[menu_id] = data.selected_items;
         this.triggerChange();
       }.bind(this))
     },
@@ -47,48 +37,29 @@ var MenuItemStore = (function() {
     triggerChange: function(data) {
       $(this).trigger(CHANGE_EVENT, data);
     },
-    create: function(menuItem) {
+    create: function(menu_id, menuItemId) {
       $.ajax({
-        url: '/admin/menu_items',
+        url: '/admin/menus/'+menu_id+'/selected_items',
         type: 'POST',
-        data: {menu_item: menuItem}
+        data: {menu_item_id: menuItemId}
       })
       .done(function(data) {
-        _menuItems.push(data.menu_item)
+        _selectedItems[menu_id].push(data.menu_item)
         this.triggerChange();
       }.bind(this))
       .fail(function(xhr) {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
-    update: function(menuItem) {
+    destroy: function(menu_id, id) {
       $.ajax({
-        url: '/admin/menu_items/' + menuItem.id,
-        type: 'PUT',
-        data: {menu_item: menuItem}
+        url: '/admin/menus/'+menu_id+'/selected_items/'+id,
+        type: 'DELETE'
       })
       .done(function(data) {
-        _menuItems.forEach(function(menuItem, i) {
-          if(menuItem.id === data.menu_item.id) {
-            _menuItems[i] = data.menu_item;
-            return this.triggerChange();
-          }
-        }.bind(this))
-      }.bind(this))
-      .fail(function(xhr) {
-        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
-      }.bind(this))
-    },
-    destroy: function(id) {
-      $.ajax({
-        url: '/admin/menu_items/'+id,
-        type: 'DELETE',
-        data: {id: id}
-      })
-      .done(function(data) {
-        _menuItems.forEach(function(menuItem, i) {
+        _selectedItems[menu_id].forEach(function(menuItem, i) {
           if (menuItem.id === data.id) {
-            _menuItems.splice(i, 1);
+            _selectedItems.splice(i, 1);
             return this.triggerChange();
           }
         }.bind(this))
@@ -100,14 +71,11 @@ var MenuItemStore = (function() {
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
-        case ActionTypes.CREATE_MENU_ITEM:
-          this.create(action.data);
+        case ActionTypes.CREATE_SELECTED_ITEM:
+          this.create(action.menu_id, action.data);
           break;
-        case ActionTypes.UPDATE_MENU_ITEM:
+        case ActionTypes.DESTROY_SELECTED_ITEM:
           this.update(action.data);
-          break;
-        case ActionTypes.DESTROY_MENU_ITEM:
-          this.destroy(action.id);
           break;
         default:
           // do nothing
@@ -116,4 +84,4 @@ var MenuItemStore = (function() {
   }
 }())
 
-BloomingDispatcher.register(MenuItemStore.payload.bind(MenuItemStore));
+BloomingDispatcher.register(SelectedItemStore.payload.bind(SelectedItemStore));

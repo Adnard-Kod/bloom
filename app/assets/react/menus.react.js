@@ -13,9 +13,7 @@ var Menus = React.createClass({
   },
   componentDidMount: function() {
     MenuStore.addChangeEvent(function() {
-      this.setState({
-        menus: MenuStore.menus()
-      });
+      if(this.isMounted()) this.setState({ menus: MenuStore.menus() });
     }.bind(this));
     MenuStore.all();
   },

@@ -8,11 +8,11 @@ var SelectInput = React.createClass({
     var data = this.props.data;
     var options = [];
     data.values.forEach(function(value) {
-      options.push(<OptionForSelect value={value.value} show={value.show}/>)
+      options.push(<OptionForSelect key={value.value} value={value.value} show={value.show}/>)
     }.bind(this))
     console.log(data.value)
     return (
-      <select ref={data.name} value={data.value} className={data.className}>
+      <select ref={data.name} defaultValue={data.value} className={data.className}>
         {options}
       </select>
     );

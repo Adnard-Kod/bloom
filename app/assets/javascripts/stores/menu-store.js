@@ -94,6 +94,19 @@ var MenuStore = (function() {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
+    addItem: function(data) {
+      $.ajax({
+        url: '/admin/menus/'+data.id+'/add_item',
+        type: 'POST',
+        data: {item_id: data.item}
+      })
+      .done(function(data) {
+        this.triggerChange(data);
+      }.bind(this))
+      .fail(function(xhr) {
+        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
+      }.bind(this))
+    },
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
@@ -105,6 +118,9 @@ var MenuStore = (function() {
           break;
         case ActionTypes.DESTROY_MENU:
           this.destroy(action.id);
+          break;
+        case ActionTypes.ADD_ITEM:
+          this.addItem(action.data);
           break;
         default:
           // do nothing
