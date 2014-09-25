@@ -14,6 +14,9 @@ gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
+# Stripe gem for payments
+gem 'stripe'
+
 gem 'geocoder'
 gem 'bcrypt', '~> 3.1.7'
 # Use jquery as the JavaScript library

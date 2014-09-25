@@ -5,6 +5,7 @@
 //= require react/user-dashboard.react
 //= require react/user-addresses.react
 //= require react/user-address-form.react
+//= require react/user-payment.react
 
 Router.routes = (function() {
   var _userDashBoard = function() {
@@ -16,10 +17,15 @@ Router.routes = (function() {
   var _userDashboardAddressesCreate = function () {
     React.renderComponent(UserAddressForm(null), $('#user-dashboard')[0]);
   };
+  var _userDashboardPayment = function () {
+    React.renderComponent(UserPayment(null), $('#user-dashboard')[0]);
+  };
+
   return {
     "": _userDashBoard,
     "#address": _userDashboardAddresses,
-    "#create-address": _userDashboardAddressesCreate
+    "#create-address": _userDashboardAddressesCreate,
+    "#payment": _userDashboardPayment
   }
 }());
 

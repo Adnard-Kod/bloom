@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :dashboard, :only => [:index] do
       collection do
         get 'my_account'
+        post 'charge'
       end
     end
   end
