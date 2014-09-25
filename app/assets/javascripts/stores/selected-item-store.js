@@ -58,8 +58,8 @@ var SelectedItemStore = (function() {
       })
       .done(function(data) {
         _selectedItems[menu_id].forEach(function(menuItem, i) {
-          if (menuItem.id === data.id) {
-            _selectedItems.splice(i, 1);
+          if (menuItem.id === data.menu_item.id) {
+            _selectedItems[menu_id].splice(i, 1);
             return this.triggerChange();
           }
         }.bind(this))
@@ -75,7 +75,7 @@ var SelectedItemStore = (function() {
           this.create(action.menu_id, action.data);
           break;
         case ActionTypes.DESTROY_SELECTED_ITEM:
-          this.update(action.data);
+          this.destroy(action.menu_id, action.id);
           break;
         default:
           // do nothing

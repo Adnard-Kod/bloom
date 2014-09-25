@@ -72,8 +72,8 @@ var Menu = React.createClass({displayName: 'Menu',
     e.preventDefault();
     MenuActions.destroyMenu(this.props.menu.id);
   },
-  removeItem: function(e) {
-    e.preventDefault();
+  removeItem: function(id) {
+    SelectedItemActions.destroySelectedItem(this.props.menu.id, id);
   },
   addItem: function(data) {
     SelectedItemActions.createSelectedItem(data.id, data.item);
