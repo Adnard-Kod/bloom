@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   namespace :user do
     resources :subscriptions, :only => [:index]
-    resources :payments, :only => [:create]
+    resources :memberships, :only => [:create]
     resources :dashboard, :only => [:index] do
       collection do
         get 'my_account'
