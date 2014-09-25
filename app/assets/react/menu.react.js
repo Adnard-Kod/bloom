@@ -40,7 +40,13 @@ var Menu = React.createClass({
   render: function() {
     var menu = this.props.menu;
     var editForm = this.state.editing ? <MenuForm menu={menu} editing="true"/> :undefined;
-    var panelClass = "panel panel-primary";
+    var panelClass = "panel panel-info";
+    if(menu.current) panelClass = 'panel panel-success'
+    var editLinks = [
+      {handler: this.current, name: 'current', className: 'text-warning'},
+      {handler: this.edit, name: 'edit', className: 'text-warning'},
+      {handler: this.delete, name: 'delete', className: 'text-danger'}
+    ];
      var formOptions = {
       name: "Menu Item",
       submit: { value: "Add Menu Item" },
@@ -53,7 +59,7 @@ var Menu = React.createClass({
         <div className="panel-heading">
           <h3 className="panel-title">
             {menu.title}
-            <EditLinks edit={this.edit} delete={this.delete} />
+            <EditLinks links={editLinks} />
           </h3>
           {editForm}
         </div>
@@ -72,8 +78,12 @@ var Menu = React.createClass({
     e.preventDefault();
     MenuActions.destroyMenu(this.props.menu.id);
   },
-  removeItem: function(id) {
-    SelectedItemActions.destroySelectedItem(this.props.menu.id, id);
+  current: function(e){
+    e.preventDefault();
+    MenuActions.currentMenu({id: this.props.menu.id, current: true});
+  },
+  removeItem: function(e) {
+    e.preventDefault();
   },
   addItem: function(data) {
     SelectedItemActions.createSelectedItem(data.id, data.item);
