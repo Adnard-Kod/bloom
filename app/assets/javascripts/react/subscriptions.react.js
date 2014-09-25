@@ -17,9 +17,10 @@ var Subscriptions = React.createClass({displayName: 'Subscriptions',
     SubscriptionStore.all();
   },
   render: function() {
+    var admin = this.props.admin;
     var subscriptions = [];
     this.state.subscriptions.forEach(function(sub) {
-      subscriptions.push(Subscription({key: sub.id, sub: sub}))
+      subscriptions.push(Subscription({key: sub.id, sub: sub, admin: admin}))
     })
     return (
       React.DOM.div({id: "subscriptions"},
