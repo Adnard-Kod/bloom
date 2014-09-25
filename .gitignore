@@ -42,6 +42,7 @@ ignored
 database.yml
 tmp
 .rspec
+.env
 
 # cache
 ######################
