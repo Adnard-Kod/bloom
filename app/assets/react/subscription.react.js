@@ -2,12 +2,19 @@
  * @jsx React.DOM
  */
  //= require stores/subscription-store
-  //= require react/subscription-form.react
-  //= require actions/subscription-actions
+//= require react/subscription-form.react
+//= require actions/subscription-actions
+//= require react/edit-links.react
+
  var Subscription = React.createClass({
   getInitialState: function() {
     return {
       editing: false
+    };
+  },
+  getDefaultProps: function() {
+    return {
+      admin: false
     };
   },
   componentDidMount: function() {
@@ -18,11 +25,11 @@
   render: function() {
     var sub = this.props.sub;
     var editForm = this.state.editing ? <SubscriptionForm subscription={sub} editing="true"/> : undefined;
+    var adminButtons = this.props.admin ? <EditLinks /> : undefined
     return (
       <li>
         <p>{sub.name}: {sub.description} for ${sub.price}</p>
-        <span><a href="#" onClick={this.edit}>edit</a></span>
-        <span><a href="#" onClick={this.delete}>delete</a></span>
+        {adminButtons}
         {editForm}
       </li>
     );

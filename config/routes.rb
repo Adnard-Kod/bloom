@@ -17,12 +17,12 @@ Rails.application.routes.draw do
   resource :sessions, only: [:create, :destroy]
 
   namespace :user do
+    resources :subscriptions, :only => [:index]
+    resources :memberships, :only => [:create]
     resources :dashboard, :only => [:index] do
       collection do
         get 'my_account'
-        post 'charge'
       end
     end
   end
-
 end
