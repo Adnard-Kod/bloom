@@ -29,6 +29,7 @@ var MenuItemGroup = React.createClass({
       {handler: this.removeDefault, name: 'remove default', className: 'text-warning'},
       {handler: this.removeItem, name: 'x', className: 'text-danger'}
     ]
+
     var formOptions = {
       name: "Menu Item",
       submit: { value: "Add Menu Item" },
@@ -37,10 +38,35 @@ var MenuItemGroup = React.createClass({
     }
     return (
       <div className="panel-body">
-        <ListGroup list={this.state.items} itemEditLinks={itemEditLinks} />
+        <h4><i>Defaults:</i></h4>
+        {this.renderDefaults()}
+        <hr />
+        <h4><i>Entres:</i></h4>
+        {this.renderEntres()}
+        <hr />
+        <h4><i>Sidedishes:</i></h4>
+        {this.renderSidedishes()}
         <FormFor object={{id: this.props.menu.id, item: this.allItems()[0]}} options={formOptions} errors={[]}/>
       </div>
     )
+  },
+  renderDefaults: function() {
+    return this.renderSection(this.state.items.filter(function(item) {
+      return item.default;
+    }))
+  },
+  renderEntres: function() {
+    return this.renderSection(this.state.items.filter(function(item) {
+      return item.menu_item.category === 'Entre';
+    }))
+  },
+  renderSidedishes: function() {
+   return this.renderSection(this.state.items.filter(function(item) {
+      return item.menu_item.category === 'Sidedish';
+    }))
+  },
+  renderSection: function(list) {
+    return (<ListGroup list={list} />)
   },
   makeDefault: function(e) {
     e.preventDefault();

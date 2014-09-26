@@ -49,7 +49,7 @@ var SelectedItemStore = (function() {
         data: {menu_item_id: menuItemId}
       })
       .done(function(data) {
-        _selectedItems[menu_id].push(data.menu_item)
+        _selectedItems[menu_id].push(data.selected_item)
         this.triggerChange();
       }.bind(this))
       .fail(function(xhr) {
