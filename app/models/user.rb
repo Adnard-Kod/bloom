@@ -4,4 +4,6 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates_confirmation_of :password
   has_many :addresses
+  has_many :memberships
+  has_many :subscriptions, :through => :memberships
 end
