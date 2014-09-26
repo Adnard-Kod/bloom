@@ -12,12 +12,20 @@ class User::MembershipsController < UserController
         :amount => params[:payment_info][:amount].to_i, # amount in cents, again
         :currency => "usd",
         :card => token,
-        :description => "payinguser@example.com"
+        :description => current_user[:email]
       )
     rescue Stripe::CardError => e
       p "STRIPE ERROR #{e}"
     end
 
-    render json: charge
+    if charge[:paid]
+      subscription = Subscription.find(params[:payment_info][:subId])
+      membership = current_user.memberships.new :subscription => subscription
+      if membership.save
+        render json: membership
+      else
+        render json: { error: membership.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
   end
 end
