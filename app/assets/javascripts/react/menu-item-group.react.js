@@ -24,18 +24,6 @@ var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
     SelectedItemStore.all(this.props.menu.id);
   },
   render: function() {
-    var itemEditLinks = [
-      {handler: this.makeDefault, name: 'make default', className: 'text-warning'},
-      {handler: this.removeDefault, name: 'remove default', className: 'text-warning'},
-      {handler: this.removeItem, name: 'x', className: 'text-danger'}
-    ]
-
-    var formOptions = {
-      name: "Menu Item",
-      submit: { value: "Add Menu Item" },
-      item: { type: 'select', values: this.allItems()},
-      onSubmit: this.addItem
-    }
     return (
       React.DOM.div({className: "panel-body"},
         React.DOM.h4(null, React.DOM.i(null, "Defaults:")),
@@ -46,7 +34,7 @@ var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
         React.DOM.hr(null),
         React.DOM.h4(null, React.DOM.i(null, "Sidedishes:")),
         this.renderSidedishes(),
-        FormFor({object: {id: this.props.menu.id, item: this.allItems()[0]}, options: formOptions, errors: []})
+        this.renderSelectionForm()
       )
     )
   },
@@ -66,22 +54,19 @@ var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
     }))
   },
   renderSection: function(list) {
-    return (ListGroup({list: list}))
+    return this.transferPropsTo(ListGroup({list: list, id: this.props.menu.id}));
   },
-  makeDefault: function(e) {
-    e.preventDefault();
-  },
-  removeDefault: function(e) {
-    e.preventDefault();
-  },
-  removeItem: function(e) {
-    e.preventDefault();
+  renderSelectionForm: function() {
+    var formOptions = {
+      name: "Menu Item",
+      submit: { value: "Add Menu Item" },
+      item: { type: 'select', values: this.allItems()},
+      onSubmit: this.addItem
+    }
+    if(this.props.admin) return(FormFor({object: {id: this.props.menu.id, item: this.allItems()[0]}, options: formOptions, errors: []}));
   },
   addItem: function(data) {
     SelectedItemActions.createSelectedItem(data.id, data.item);
-  },
-  selectItem: function(e) {
-    SelectedItemActions.makeDefault(this.props.menu.id, id)
   },
   allItems: function() {
     return this.state.allItems.map(function(item) {

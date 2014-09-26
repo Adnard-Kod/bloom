@@ -7,21 +7,13 @@ var ListGroup = React.createClass({displayName: 'ListGroup',
   render: function() {
     var items = [];
     this.props.list.forEach(function(item) {
-      items.push(ListGroupItem({key: item.id, heading: item.menu_item.name, text: item.menu_item.description, id: item.menu_item.id, editLinks: this.editLinks(item)}))
+      items.push(ListGroupItem({key: item.id, id: this.props.id, default: item.default, item: item.menu_item, admin: this.props.admin}))
     }.bind(this))
     return (
       React.DOM.div({className: "list-group"},
         items
       )
     );
-  },
-  editLinks: function(link) {
-    if(!this.props.itemEditLinks) return false;
-    var filter = "remove default";
-    if (link.default) filter = "make default";
-    return this.props.itemEditLinks.filter(function(link) {
-      return link.name !== filter;
-    });
   }
 
 });

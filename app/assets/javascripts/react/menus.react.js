@@ -19,10 +19,9 @@ var Menus = React.createClass({displayName: 'Menus',
   },
   render: function() {
     var menus = []
-
     this.state.menus.forEach(function(menu) {
-      menus.push(Menu({key: menu.id, menu: menu}))
-    })
+      menus.push(this.transferPropsTo(Menu({key: menu.id, menu: menu})))
+    }.bind(this));
     return (
       React.DOM.div({id: "menus"},
         React.DOM.hr(null),

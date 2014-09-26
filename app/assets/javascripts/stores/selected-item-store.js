@@ -73,15 +73,16 @@ var SelectedItemStore = (function() {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
-    makeDefault: function(menu_id, id) {
+    update: function(menu_id, id, data) {
       $.ajax({
         url: '/admin/menus/'+menu_id+'/selected_items/'+id,
-        type: 'PUT'
+        type: 'PUT',
+        data: {selected_item: data}
       })
       .done(function(data) {
-        _selectedItems[menu_id].forEach(function(menuItem, i) {
-          if (menuItem.id === data.menu_item.id) {
-            _selectedItems[menu_id] = data.menu_item;
+        _selectedItems[menu_id].forEach(function(selectedItem, i) {
+          if (selectedItem.id === data.selected_item.id) {
+            _selectedItems[menu_id][i] = data.selected_item;
             return this.triggerChange();
           }
         }.bind(this))
@@ -90,6 +91,13 @@ var SelectedItemStore = (function() {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
+    makeDefault: function(menu_id, id) {
+      this.update(menu_id, id, {default: true});
+    },
+    removeDefault: function(menu_id, id) {
+      this.update(menu_id, id, {default: false});
+    },
+
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
@@ -101,6 +109,9 @@ var SelectedItemStore = (function() {
           break;
         case ActionTypes.SELECTED_ITEM_DEFAULT:
           this.makeDefault(action.menu_id, action.id);
+          break;
+        case ActionTypes.SELECTED_ITEM_REMOVE_DEFAULT:
+          this.removeDefault(action.menu_id, action.id);
           break;
         default:
           // do nothing

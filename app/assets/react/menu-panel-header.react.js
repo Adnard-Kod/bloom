@@ -22,20 +22,13 @@ var MenuPanelHeader = React.createClass({
 
   render: function() {
     var menu = this.props.menu;
-    var editForm = this.state.editing ? <MenuForm menu={menu} editing="true"/> : undefined;
-    var editLinks = [
-      {handler: this.current, name: 'current', className: 'text-warning'},
-      {handler: this.edit, name: 'edit', className: 'text-warning'},
-      {handler: this.delete, name: 'delete', className: 'text-danger'}
-    ];
-
     return (
       <div className="panel-heading">
         <h3 className="panel-title">
           {menu.title}
-          <EditLinks links={editLinks} />
+          {this.renderEditLinks()}
         </h3>
-        {editForm}
+        {this.renderEditForm()}
       </div>
     )
   },
@@ -50,5 +43,18 @@ var MenuPanelHeader = React.createClass({
   current: function(e){
     e.preventDefault();
     MenuActions.currentMenu({id: this.props.menu.id, current: true});
+  },
+  renderEditLinks: function() {
+    if (this.props.admin) {
+      var editLinks = [
+        {handler: this.current, name: 'current', className: 'text-warning'},
+        {handler: this.edit, name: 'edit', className: 'text-warning'},
+        {handler: this.delete, name: 'delete', className: 'text-danger'}
+      ];
+      return(<EditLinks links={editLinks} />)
+    }
+  },
+  renderEditForm: function() {
+    if (this.props.admin && this.state.editing) return(<MenuForm menu={this.props.menu} editing="true"/>);
   }
 })

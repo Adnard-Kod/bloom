@@ -10,6 +10,13 @@ class Admin::SelectedItemsController < AdminController
     render :json => SelectedItem.find_by_menu_id_and_menu_item_id(@menu.id, menu_item.id)
   end
 
+  def update
+    menu_item = MenuItem.find params[:id]
+    selected_item = SelectedItem.find_by_menu_id_and_menu_item_id @menu.id, menu_item.id
+    selected_item.update_attributes selected_item_params
+    render :json => selected_item
+  end
+
   def destroy
     menu_item = MenuItem.find params[:id]
     selected_item = SelectedItem.find_by_menu_id_and_menu_item_id @menu.id, menu_item.id
@@ -20,5 +27,8 @@ class Admin::SelectedItemsController < AdminController
   private
   def load_menu
     @menu = Menu.find params[:menu_id]
+  end
+  def selected_item_params
+    params.require(:selected_item).permit(:default)
   end
 end

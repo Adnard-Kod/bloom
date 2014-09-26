@@ -19,7 +19,7 @@ var AdminDashboard = React.createClass({
         <div className="row">
           <div className="col-lg-12">
             <MenuForm />
-            <Menus />
+            <Menus admin={true}/>
           </div>
         </div>
       </div>

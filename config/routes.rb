@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :menus, only: [:index, :create, :update, :destroy] do
-      resources :selected_items, :only => [:index, :create, :destroy]
+      resources :selected_items, :only => [:index, :create, :update, :destroy]
     end
     resources :menu_items, only: [:index, :create, :update, :destroy]
     resources :dashboard, :only => [:index]

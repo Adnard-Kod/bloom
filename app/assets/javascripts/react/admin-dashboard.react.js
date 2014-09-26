@@ -19,7 +19,7 @@ var AdminDashboard = React.createClass({displayName: 'AdminDashboard',
         React.DOM.div({className: "row"},
           React.DOM.div({className: "col-lg-12"},
             MenuForm(null),
-            Menus(null)
+            Menus({admin: true})
           )
         )
       )
