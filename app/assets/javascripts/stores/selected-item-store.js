@@ -62,8 +62,8 @@ var SelectedItemStore = (function() {
         type: 'DELETE'
       })
       .done(function(data) {
-        _selectedItems[menu_id].forEach(function(menuItem, i) {
-          if (menuItem.id === data.menu_item.id) {
+        _selectedItems[menu_id].forEach(function(selectedItem, i) {
+          if (selectedItem.id === data.selected_item.id) {
             _selectedItems[menu_id].splice(i, 1);
             return this.triggerChange();
           }

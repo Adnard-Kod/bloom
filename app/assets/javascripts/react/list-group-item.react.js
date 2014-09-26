@@ -41,5 +41,6 @@ var ListGroupItem = React.createClass({displayName: 'ListGroupItem',
   },
   removeItem: function(e) {
     e.preventDefault();
+    SelectedItemActions.destroySelectedItem(this.props.id, this.props.item.id)
   },
 });

@@ -56,7 +56,7 @@ var MenuItemStore = (function() {
         data: {menu_item: menuItem}
       })
       .done(function(data) {
-        _menuItems.push(data.menu_item)
+        _menuItems.unshift(data.menu_item)
         this.triggerChange();
       }.bind(this))
       .fail(function(xhr) {
