@@ -1,22 +1,7 @@
 class User::MembershipsController < UserController
   def create
-    # Set your secret key: remember to change this to your live secret key in production
-    # See your keys here https://dashboard.stripe.com/account
-    Stripe.api_key = "sk_test_BQokikJOvBiI2HlWgH4olfQ2"
-
-    # Get the stripe token generated from the submitted form
-    token = params[:token][:id]
-    # Create the charge on Stripe's servers - this will charge the user's card
-    begin
-      charge = Stripe::Charge.create(
-        :amount => params[:payment_info][:amount].to_i, # amount in cents, again
-        :currency => "usd",
-        :card => token,
-        :description => current_user[:email]
-      )
-    rescue Stripe::CardError => e
-      p "STRIPE ERROR #{e}"
-    end
+    stripe_api = StripeApi.new params, current_user
+    charge = stripe_api.charge!
 
     if charge[:paid]
       subscription = Subscription.find(params[:payment_info][:subId])
@@ -26,6 +11,8 @@ class User::MembershipsController < UserController
       else
         render json: { error: membership.errors.full_messages }, status: :unprocessable_entity
       end
+    else
+      render json: {error: 'Payment not valid. Please try again.'}
     end
   end
 end
