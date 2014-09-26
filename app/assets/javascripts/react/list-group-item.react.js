@@ -4,10 +4,10 @@
 //= require react
 var ListGroupItem = React.createClass({displayName: 'ListGroupItem',
   render: function() {
-    var removeLink = this.props.removeHandler ? React.DOM.a({href: "#", onClick: this.removeHandler}, "x") : undefined;
+    var editLinks = this.props.editLinks ? EditLinks({links: this.props.editLinks}) : undefined
     return (
       React.DOM.div({className: "list-group-item"},
-        React.DOM.h4({className: "list-group-item-heading"}, removeLink, " ", this.props.heading),
+        React.DOM.h4({className: "list-group-item-heading"}, this.props.heading, " ", editLinks),
         React.DOM.p({className: "list-group-item-text"}, this.props.text)
       )
     );

@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20140925004022) do
   create_table "selected_items", force: true do |t|
     t.integer  "menu_id"
     t.integer  "menu_item_id"
-    t.boolean  "default"
+    t.boolean  "default",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -14,5 +14,12 @@ var SelectedItemActions = {
       id: id,
       menu_id: menu_id
     });
+  },
+  makeDefault: function(menu_id, id) {
+    BloomingDispatcher.handleViewAction({
+      type: BloomingConstants.ActionTypes.SELECTED_ITEM_DEFAULT,
+      id: id,
+      menu_id: menu_id
+    });
   }
 }

@@ -116,7 +116,7 @@ var MenuStore = (function() {
     },
     removeCurrent: function() {
       var indexOfCurrent = _menus.indexOf(this.currentMenu());
-      _menus[indexOfCurrent].current = false;
+      if(_menus[indexOfCurrent]) _menus[indexOfCurrent].current = false;
     },
     payload: function(payload) {
       var action = payload.action;
