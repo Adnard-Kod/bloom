@@ -12,9 +12,12 @@ var Menu = React.createClass({
     if(this.props.active) panelClass = "panel panel-success";
     return (
       <div className={panelClass}>
-        {this.transferPropsTo(<MenuPanelHeader menu={this.props.menu} />)}
-        {this.transferPropsTo(<MenuItemGroup menu={this.props.menu} />)}
+        {this.transferPropsTo(<MenuPanelHeader />)}
+        {this.renderMenuItems()}
       </div>
     );
+  },
+  renderMenuItems: function() {
+    if(this.props.menu.id) return this.transferPropsTo(<MenuItemGroup />);
   }
 })

@@ -6,6 +6,7 @@
 //= require stores/selected-item-store
 //= require react/edit-links.react
 //= require actions/selected-item-actions
+//= require stores/menu-item-store
 var MenuItemGroup = React.createClass({
   getInitialState: function() {
     return {
@@ -14,13 +15,15 @@ var MenuItemGroup = React.createClass({
     };
   },
   componentDidMount: function() {
-    MenuItemStore.addChangeEvent(function(data) {
-      if(this.isMounted()) this.setState({allItems: MenuItemStore.menuItems()});
-    }.bind(this))
+    if(this.props.admin) {
+      MenuItemStore.addChangeEvent(function(data) {
+        if(this.isMounted()) this.setState({allItems: MenuItemStore.menuItems()});
+      }.bind(this))
+      MenuItemStore.all();
+    }
     SelectedItemStore.addChangeEvent(function(data) {
       if(this.isMounted()) this.setState({items: SelectedItemStore.selectedItems(this.props.menu.id)});
     }.bind(this))
-    MenuItemStore.all();
     SelectedItemStore.all(this.props.menu.id);
   },
   render: function() {
