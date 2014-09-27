@@ -27,7 +27,7 @@
     var editForm = this.state.editing ? <SubscriptionForm subscription={sub} editing="true"/> : undefined;
     var adminButtons = this.props.admin ? <EditLinks /> : undefined
     return (
-      <li>
+      <li className="list-group-item">
         <p>{sub.name}: {sub.description} for ${sub.price}</p>
         {adminButtons}
         {editForm}

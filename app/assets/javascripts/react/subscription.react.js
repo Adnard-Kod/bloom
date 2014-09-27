@@ -27,7 +27,7 @@
     var editForm = this.state.editing ? SubscriptionForm({subscription: sub, editing: "true"}) : undefined;
     var adminButtons = this.props.admin ? EditLinks(null) : undefined
     return (
-      React.DOM.li(null,
+      React.DOM.li({className: "list-group-item"},
         React.DOM.p(null, sub.name, ": ", sub.description, " for $", sub.price),
         adminButtons,
         editForm

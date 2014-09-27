@@ -2,6 +2,7 @@
 //= require react
 //= require react/subscription.react
 //= require stores/subscription-store
+//= require react/subscription-form.react
 var Subscriptions = React.createClass({displayName: 'Subscriptions',
   getInitialState: function() {
     return {
@@ -23,8 +24,12 @@ var Subscriptions = React.createClass({displayName: 'Subscriptions',
       subscriptions.push(Subscription({key: sub.id, sub: sub, admin: admin}))
     })
     return (
-      React.DOM.div({id: "subscriptions"},
-        subscriptions
+      React.DOM.div({className: "subscriptions"},
+        SubscriptionForm(null),
+        React.DOM.h4(null, "Current Subscriptions and Packages"),
+        React.DOM.ul({className: "list-group"},
+          subscriptions
+        )
       )
     );
   }
