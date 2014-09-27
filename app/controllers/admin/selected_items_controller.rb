@@ -6,8 +6,12 @@ class Admin::SelectedItemsController < AdminController
 
   def create
     menu_item = MenuItem.find params[:menu_item_id]
-    @menu.items << menu_item
-    render :json => SelectedItem.find_by_menu_id_and_menu_item_id(@menu.id, menu_item.id)
+    selected_item = SelectedItem.new :menu => @menu, :menu_item => menu_item
+    if selected_item.save
+      render :json => selected_item
+    else
+      render :json => {:errors => selected_item.errors.full_messages}, :status => :unprocessable_entity
+    end
   end
 
   def update

@@ -11,7 +11,8 @@ var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
   getInitialState: function() {
     return {
       items: SelectedItemStore.selectedItems(this.props.menu.id),
-      allItems: MenuItemStore.menuItems()
+      allItems: MenuItemStore.menuItems(),
+      errors: [],
     };
   },
   componentDidMount: function() {
@@ -25,6 +26,9 @@ var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
       if(this.isMounted()) this.setState({items: SelectedItemStore.selectedItems(this.props.menu.id)});
     }.bind(this))
     SelectedItemStore.all(this.props.menu.id);
+    SelectedItemStore.addFailToTakeAction(function(e, data) {
+      this.setState({errors: data})
+    }.bind(this))
   },
   render: function() {
     return (
@@ -66,7 +70,7 @@ var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
       item: { type: 'select', values: this.allItems()},
       onSubmit: this.addItem
     }
-    if(this.props.admin) return(FormFor({object: {id: this.props.menu.id, item: this.allItems()[0]}, options: formOptions, errors: []}));
+    if(this.props.admin) return(FormFor({object: {id: this.props.menu.id, item: this.allItems()[0]}, options: formOptions, errors: this.state.errors}));
   },
   addItem: function(data) {
     SelectedItemActions.createSelectedItem(data.id, data.item);
