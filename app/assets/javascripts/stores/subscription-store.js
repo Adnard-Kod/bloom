@@ -54,7 +54,7 @@ var SubscriptionStore = (function() {
         data: {subscription: subscription}
       })
       .done(function(data) {
-        _subscriptions.push(data.subscription)
+        _subscriptions.unshift(data.subscription)
         this.triggerChange();
       }.bind(this))
       .fail(function(xhr) {

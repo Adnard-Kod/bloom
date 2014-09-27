@@ -25,12 +25,15 @@ var Subscriptions = React.createClass({
     })
     return (
       <div className="subscriptions">
-        <SubscriptionForm />
+        {this.renderSubscriptionForm()}
         <h4>Current Subscriptions and Packages</h4>
         <ul className="list-group">
           {subscriptions}
         </ul>
       </div>
     );
+  },
+  renderSubscriptionForm: function() {
+    if(this.props.admin) return(<SubscriptionForm />);
   }
 })

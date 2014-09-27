@@ -23,7 +23,7 @@ Router.routes = (function() {
     React.renderComponent(<UserPayment />, $('#user-dashboard')[0]);
   };
   var _userDashBoardSubscriptions = function () {
-    React.renderComponent(<Subscriptions admin={false} />, $('#user-dashboard')[0])
+    React.renderComponent(<Subscriptions />, $('#user-dashboard')[0])
   };
   var _userMembershipOptions = function () {
     React.renderComponent(<UserMembershipOptions />, $('#user-dashboard')[0])

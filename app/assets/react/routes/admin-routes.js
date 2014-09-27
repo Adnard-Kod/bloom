@@ -13,7 +13,7 @@ Router.routes = (function() {
     React.renderComponent(<MenuItemBox />, $('#admin-page')[0])
   }
   var _subscriptions = function() {
-    React.renderComponent(<Subscriptions />, $('#admin-page')[0])
+    React.renderComponent(<Subscriptions admin={true} />, $('#admin-page')[0])
   }
   return {
     "": _adminDashBoard,

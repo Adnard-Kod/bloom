@@ -24,15 +24,25 @@
   },
   render: function() {
     var sub = this.props.sub;
-    var editForm = this.state.editing ? <SubscriptionForm subscription={sub} editing="true"/> : undefined;
-    var adminButtons = this.props.admin ? <EditLinks /> : undefined
     return (
       <li className="list-group-item">
         <p>{sub.name}: {sub.description} for ${sub.price}</p>
-        {adminButtons}
-        {editForm}
+        {this.renderAdminButtons()}
+        {this.renderEditForm()}
       </li>
     );
+  },
+  renderAdminButtons: function() {
+    if(this.props.admin) {
+      var editLinks = [
+        {handler: this.edit, name: 'edit', className: 'text-warning'},
+        {handler: this.delete, name: 'delete', className: 'text-danger'}
+      ];
+      return(<EditLinks links={editLinks} />);
+    }
+  },
+  renderEditForm: function() {
+    if (this.state.editing) return(<SubscriptionForm subscription={this.props.sub} editing="true"/>);
   },
   edit: function(e) {
     e.preventDefault();
