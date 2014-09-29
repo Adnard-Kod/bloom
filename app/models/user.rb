@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :subscriptions, :through => :memberships
   has_many :selected_items, :class_name => 'UserSelectedItem'
   has_many :default_selected_items, ->{where(:default => true)}, :class_name => 'UserSelectedItem'
+  Membership::STATUSES.keys.each do |status|
+    has_many :"#{status}_memberships", -> { send status }, :class_name => 'Membership'
+  end
   after_create :subscribe_to_mailchimp
   after_save :subscribe_to_mailchimp
   before_destroy :unsubscribe_to_mailchimp
