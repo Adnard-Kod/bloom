@@ -46,7 +46,7 @@ var MenuItemGroup = React.createClass({
     }))
   },
   renderSection: function(name, list) {
-    return (<div><hr /><h4><i>{name}</i></h4><hr /><ListGroup list={list} id={this.props.menu.id} admin={this.props.admin}/></div>);
+    return (<div><h4><i>{name}</i></h4><ListGroup list={list} id={this.props.menu.id} admin={this.props.admin}/></div>);
   },
   renderSelectionForm: function() {
     if(this.props.admin) {

@@ -33,7 +33,7 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
       var selectedItems = this.state.menu.selected_items.filter(function(item) {
         return item.default;
       });
-      return(ListGroup({list: selectedItems}));
+      return(MenuItemGroup({menu: {selected_items: selectedItems}}));
     }
   },
 });
