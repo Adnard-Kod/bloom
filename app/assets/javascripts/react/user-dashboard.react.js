@@ -4,7 +4,13 @@
 var UserDashboard = React.createClass({displayName: 'UserDashboard',
   render: function () {
     return (
-      CurrentMenu(null)
+      React.DOM.div({className: "container-fluid"},
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+            CurrentMenu(null)
+          )
+        )
+      )
     )
   }
 });

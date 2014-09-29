@@ -17,9 +17,23 @@ var CurrentMenu = React.createClass({
   render: function () {
     return (
       <div>
-        <h3>{"This Week's Menu"}</h3>
-        <Menu menu={this.state.menu} />
+        <div className="col-lg-6">
+          <h3>{"This Week's Menu"}</h3>
+          <Menu menu={this.state.menu} />
+        </div>
+        <div className="col-lg-6">
+          <h3>Your Selected Meals</h3>
+          {this.renderDefaultSelectedItems()}
+        </div>
       </div>
     )
-  }
+  },
+  renderDefaultSelectedItems: function() {
+    if(this.state.menu.id) {
+      var selectedItems = this.state.menu.selected_items.filter(function(item) {
+        return item.default;
+      });
+      return(<ListGroup list={selectedItems} />);
+    }
+  },
 });

@@ -21,44 +21,43 @@ var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
   render: function() {
     return (
       React.DOM.div({className: "panel-body"},
-        React.DOM.h4(null, React.DOM.i(null, "Defaults:")),
         this.renderDefaults(),
-        React.DOM.hr(null),
-        React.DOM.h4(null, React.DOM.i(null, "Entres:")),
         this.renderEntres(),
-        React.DOM.hr(null),
-        React.DOM.h4(null, React.DOM.i(null, "Sidedishes:")),
         this.renderSidedishes(),
         this.renderSelectionForm()
       )
     )
   },
   renderDefaults: function() {
-    return this.renderSection(this.props.menu.selected_items.filter(function(item) {
-      return item.default;
-    }))
+    if(this.props.admin) {
+      return this.renderSection('Defaults', this.props.menu.selected_items.filter(function(item) {
+        return item.default;
+      }));
+    }
   },
   renderEntres: function() {
-    return this.renderSection(this.props.menu.selected_items.filter(function(item) {
+    return this.renderSection('Entres', this.props.menu.selected_items.filter(function(item) {
       return item.menu_item.category === 'Entre';
     }))
   },
   renderSidedishes: function() {
-   return this.renderSection(this.props.menu.selected_items.filter(function(item) {
+   return this.renderSection('Sidedishes', this.props.menu.selected_items.filter(function(item) {
       return item.menu_item.category === 'Sidedish';
     }))
   },
-  renderSection: function(list) {
-    return this.transferPropsTo(ListGroup({list: list, id: this.props.menu.id}));
+  renderSection: function(name, list) {
+    return (React.DOM.div(null, React.DOM.hr(null), React.DOM.h4(null, React.DOM.i(null, name)), React.DOM.hr(null), ListGroup({list: list, id: this.props.menu.id, admin: this.props.admin})));
   },
   renderSelectionForm: function() {
-    var formOptions = {
-      name: "Menu Item",
-      submit: { value: "Add Menu Item" },
-      item: { type: 'select', values: this.allItems()},
-      onSubmit: this.addItem
+    if(this.props.admin) {
+      var formOptions = {
+        name: "Menu Item",
+        submit: { value: "Add Menu Item" },
+        item: { type: 'select', values: this.allItems()},
+        onSubmit: this.addItem
+      }
+      if(this.props.admin) return(FormFor({object: {id: this.props.menu.id, item: this.allItems()[0]}, options: formOptions, errors: this.state.errors}));
     }
-    if(this.props.admin) return(FormFor({object: {id: this.props.menu.id, item: this.allItems()[0]}, options: formOptions, errors: this.state.errors}));
   },
   addItem: function(data) {
     SelectedItemActions.createSelectedItem(data.id, data.item);
