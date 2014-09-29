@@ -9,6 +9,10 @@ var SelectedItemStore = (function() {
     selectedItems: function(id) {
       return _selectedItems[id] || [];
     },
+    setSelectedItems: function(data) {
+      _selectedItems = data;
+      this.triggerChange();
+    },
     menuItems: function(id) {
       return this.selectedItems(id).map(function(item) {
         return item.menu_item

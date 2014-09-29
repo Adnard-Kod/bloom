@@ -10,22 +10,10 @@
 var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
   getInitialState: function() {
     return {
-      items: SelectedItemStore.selectedItems(this.props.menu.id),
-      allItems: MenuItemStore.menuItems(),
-      errors: [],
+      errors: []
     };
   },
   componentDidMount: function() {
-    if(this.props.admin) {
-      MenuItemStore.addChangeEvent(function(data) {
-        if(this.isMounted()) this.setState({allItems: MenuItemStore.menuItems()});
-      }.bind(this))
-      MenuItemStore.all();
-    }
-    SelectedItemStore.addChangeEvent(function(data) {
-      if(this.isMounted()) this.setState({items: SelectedItemStore.selectedItems(this.props.menu.id)});
-    }.bind(this))
-    SelectedItemStore.all(this.props.menu.id);
     SelectedItemStore.addFailToTakeAction(function(e, data) {
       this.setState({errors: data})
     }.bind(this))
@@ -46,17 +34,17 @@ var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
     )
   },
   renderDefaults: function() {
-    return this.renderSection(this.state.items.filter(function(item) {
+    return this.renderSection(this.props.menu.selected_items.filter(function(item) {
       return item.default;
     }))
   },
   renderEntres: function() {
-    return this.renderSection(this.state.items.filter(function(item) {
+    return this.renderSection(this.props.menu.selected_items.filter(function(item) {
       return item.menu_item.category === 'Entre';
     }))
   },
   renderSidedishes: function() {
-   return this.renderSection(this.state.items.filter(function(item) {
+   return this.renderSection(this.props.menu.selected_items.filter(function(item) {
       return item.menu_item.category === 'Sidedish';
     }))
   },
@@ -76,7 +64,7 @@ var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
     SelectedItemActions.createSelectedItem(data.id, data.item);
   },
   allItems: function() {
-    return this.state.allItems.map(function(item) {
+    return this.props.menuItems.map(function(item) {
       return {value: item.id, show: item.name}
     })
   }
