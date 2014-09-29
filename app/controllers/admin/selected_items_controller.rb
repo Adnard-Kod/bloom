@@ -6,7 +6,7 @@ class Admin::SelectedItemsController < AdminController
 
   def create
     menu_item = MenuItem.find params[:menu_item_id]
-    selected_item = SelectedItem.new :menu => @menu, :menu_item => menu_item
+    selected_item = MenuSelectedItem.new :menu => @menu, :menu_item => menu_item
     if selected_item.save
       render :json => selected_item
     else
@@ -16,14 +16,14 @@ class Admin::SelectedItemsController < AdminController
 
   def update
     menu_item = MenuItem.find params[:id]
-    selected_item = SelectedItem.find_by_menu_id_and_menu_item_id @menu.id, menu_item.id
+    selected_item = MenuSelectedItem.find_by_menu_id_and_menu_item_id @menu.id, menu_item.id
     selected_item.update_attributes selected_item_params
     render :json => selected_item
   end
 
   def destroy
     menu_item = MenuItem.find params[:id]
-    selected_item = SelectedItem.find_by_menu_id_and_menu_item_id @menu.id, menu_item.id
+    selected_item = MenuSelectedItem.find_by_menu_id_and_menu_item_id @menu.id, menu_item.id
     selected_item.destroy
     render :json => selected_item
   end

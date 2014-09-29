@@ -5,7 +5,6 @@
 var ListGroupItem = React.createClass({
   render: function() {
     var item = this.props.item;
-    console.log('le item', item)
     return (
       <div className="list-group-item">
         <h4 className="list-group-item-heading">{item.name} {this.renderEditLinks()}</h4>

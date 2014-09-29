@@ -24,7 +24,7 @@ var SelectedItemStore = (function() {
         type: 'GET'
       })
       .done(function(data) {
-        _selectedItems[menu_id] = data.selected_items;
+        _selectedItems[menu_id] = data.menu_selected_items;
         this.triggerChange();
       }.bind(this))
     },
@@ -53,7 +53,7 @@ var SelectedItemStore = (function() {
         data: {menu_item_id: menuItemId}
       })
       .done(function(data) {
-        _selectedItems[menu_id].push(data.selected_item)
+        _selectedItems[menu_id].push(data.menu_selected_item)
         this.triggerChange();
       }.bind(this))
       .fail(function(xhr) {
@@ -67,7 +67,7 @@ var SelectedItemStore = (function() {
       })
       .done(function(data) {
         _selectedItems[menu_id].forEach(function(selectedItem, i) {
-          if (selectedItem.id === data.selected_item.id) {
+          if (selectedItem.id === data.menu_selected_item.id) {
             _selectedItems[menu_id].splice(i, 1);
             return this.triggerChange();
           }
@@ -85,8 +85,8 @@ var SelectedItemStore = (function() {
       })
       .done(function(data) {
         _selectedItems[menu_id].forEach(function(selectedItem, i) {
-          if (selectedItem.id === data.selected_item.id) {
-            _selectedItems[menu_id][i] = data.selected_item;
+          if (selectedItem.id === data.menu_selected_item.id) {
+            _selectedItems[menu_id][i] = data.menu_selected_item;
             return this.triggerChange();
           }
         }.bind(this))

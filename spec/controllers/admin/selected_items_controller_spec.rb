@@ -23,10 +23,10 @@ describe Admin::SelectedItemsController do
       post :create, :menu_id => menu.id, :menu_item_id => menu_item.id
       serialized_selected_items = ActiveModel::ArraySerializer.new(menu.reload.selected_items).as_json.first
       parsed_response = JSON.parse(response.body)
-      parsed_response["selected_item"].symbolize_keys!
-      parsed_response["selected_item"][:menu_item].symbolize_keys!
+      parsed_response["menu_selected_item"].symbolize_keys!
+      parsed_response["menu_selected_item"][:menu_item].symbolize_keys!
       expect(menu.reload.items).to eq [menu_item]
-      expect(parsed_response).to eq({"selected_item" =>serialized_selected_items})
+      expect(parsed_response).to eq({"menu_selected_item" =>serialized_selected_items})
     end
   end
   context "#update" do
@@ -35,10 +35,10 @@ describe Admin::SelectedItemsController do
       put :update, :menu_id => menu.id, :id => menu_item.id, :selected_item => {:default => true}
       serialized_selected_items = ActiveModel::ArraySerializer.new(menu.reload.selected_items).as_json.first
       parsed_response = JSON.parse(response.body)
-      parsed_response["selected_item"].symbolize_keys!
-      parsed_response["selected_item"][:menu_item].symbolize_keys!
+      parsed_response["menu_selected_item"].symbolize_keys!
+      parsed_response["menu_selected_item"][:menu_item].symbolize_keys!
       expect(menu.reload.selected_items.first.default).to be true
-      expect(parsed_response).to eq({"selected_item" =>serialized_selected_items})
+      expect(parsed_response).to eq({"menu_selected_item" =>serialized_selected_items})
     end
   end
   context "#destroy" do
@@ -47,10 +47,10 @@ describe Admin::SelectedItemsController do
       serialized_selected_items = ActiveModel::ArraySerializer.new(menu.reload.selected_items).as_json.first
       delete :destroy, :menu_id => menu.id, :id => menu_item.id
       parsed_response = JSON.parse(response.body)
-      parsed_response["selected_item"].symbolize_keys!
-      parsed_response["selected_item"][:menu_item].symbolize_keys!
+      parsed_response["menu_selected_item"].symbolize_keys!
+      parsed_response["menu_selected_item"][:menu_item].symbolize_keys!
       expect(menu.reload.items).to be_empty
-      expect(parsed_response).to eq({"selected_item" =>serialized_selected_items})
+      expect(parsed_response).to eq({"menu_selected_item" =>serialized_selected_items})
     end
   end
 end

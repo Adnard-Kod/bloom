@@ -5,12 +5,17 @@
 var CurrentMenu = React.createClass({
   getInitialState: function() {
     return {
-      menu: {}
+      menu: {},
+      selectedItems: {}
     };
   },
   componentDidMount: function() {
     MenuStore.addChangeEvent(function() {
-      this.setState({menu: MenuStore.currentMenu()})
+      var menu = MenuStore.currentMenu();
+      selectedItems = menu.selected_items.filter(function(item) {
+        return item.default;
+      });
+      this.setState({menu: menu, selectedItems: selectedItems })
     }.bind(this))
     MenuStore.all();
   },
@@ -29,11 +34,7 @@ var CurrentMenu = React.createClass({
     )
   },
   renderDefaultSelectedItems: function() {
-    if(this.state.menu.id) {
-      var selectedItems = this.state.menu.selected_items.filter(function(item) {
-        return item.default;
-      });
-      return(<MenuItemGroup menu={{selected_items: selectedItems}} />);
-    }
+    if(this.state.menu.id)
+      return(<MenuItemGroup menu={{selected_items: this.state.selectedItems}} />);
   },
 });
