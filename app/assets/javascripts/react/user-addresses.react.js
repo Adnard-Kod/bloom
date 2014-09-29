@@ -21,12 +21,14 @@ var UserAddresses = React.createClass({displayName: 'UserAddresses',
   },
   render: function() {
     var addresses = [];
+    var createAddress = this.state.addresses.length === 0 ? UserAddressForm(null) : undefined;
     this.state.addresses.forEach(function (addr) {
       addresses.push(UserAddress({key: addr.id, addr: addr}))
     });
 
     return (
       React.DOM.div({id: "user-address"},
+        createAddress,
         addresses
       )
     );
