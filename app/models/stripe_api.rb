@@ -2,15 +2,16 @@ class StripeApi
 
   US_DOLLAR = 'usd'
   API_KEY = "sk_test_BQokikJOvBiI2HlWgH4olfQ2"
-  attr_accessor :card, :token, :currency, :description, :payment_info
+  attr_accessor :card, :token, :currency, :description, :payment_info, :receipt_email
 
   def initialize params, current_user
     set_api_key!
     @card = params[:token]
     @token = @card[:id]
     @currency = params[:currency] || US_DOLLAR
-    @description = current_user[:email]
+    @description = params[:payment_info][:subscription]
     @payment_info = params[:payment_info]
+    @receipt_email = current_user[:email]
   end
 
   def charge!
@@ -31,7 +32,8 @@ class StripeApi
       :amount => amount, # amount in cents, again
       :currency => currency,
       :card => token,
-      :description => description
+      :description => description,
+      :receipt_email => receipt_email
     )
   end
 
