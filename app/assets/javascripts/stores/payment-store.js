@@ -23,8 +23,9 @@ var PaymentStore = (function () {
     createPaymentForm: function (data) {
       var paymentInfo = {
         name: 'Blooming Spoon',
-        description: data.description + ' ($' + data.price + ')',
+        description: data.name + ' ($' + data.price + ')',
         amount: data.price * 100,
+        subscription: data.name + data.description,
         subId: data.id
       };
 
