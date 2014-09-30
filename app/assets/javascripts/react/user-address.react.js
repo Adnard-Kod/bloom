@@ -28,6 +28,7 @@ var UserAddress = React.createClass({displayName: 'UserAddress',
     var editForm = this.state.editing ? UserAddressForm({address: addr, editing: "true"}) : undefined;
     var deleteButton = this.props.admin ? React.DOM.span(null, React.DOM.a({href: "#", onClick: this.delete}, "Delete")) : undefined;
     return (
+      React.DOM.div(null,
       React.DOM.div({className: "col-lg-4"},
         React.DOM.h3(null, "Current Address"),
         React.DOM.ul({className: "list-group"},
@@ -40,6 +41,8 @@ var UserAddress = React.createClass({displayName: 'UserAddress',
           editForm
         )
       )
+      )
+
     )
   },
 

@@ -28,6 +28,7 @@ var UserAddress = React.createClass({
     var editForm = this.state.editing ? <UserAddressForm address={addr} editing="true" /> : undefined;
     var deleteButton = this.props.admin ? <span><a href="#" onClick={this.delete}>Delete</a></span> : undefined;
     return (
+      <div>
       <div className="col-lg-4">
         <h3>Current Address</h3>
         <ul className="list-group">
@@ -40,6 +41,8 @@ var UserAddress = React.createClass({
           {editForm}
         </ul>
       </div>
+      </div>
+
     )
   },
 
