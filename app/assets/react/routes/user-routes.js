@@ -7,6 +7,7 @@
 //= require react/user-payment.react
 //= require react/subscriptions.react
 //= require react/user-membership-options.react
+//= require react/user-account.react
 
 Router.routes = (function() {
   var _userDashBoard = function() {
@@ -24,12 +25,16 @@ Router.routes = (function() {
   var _userMembershipOptions = function () {
     React.renderComponent(<UserMembershipOptions />, $('#user-dashboard')[0])
   };
+  var _userDashboardAccount = function() {
+    React.renderComponent(<UserAccount />, $('#user-dashboard')[0]);
+  }
   return {
     "": _userDashBoard,
     "#address": _userDashboardAddresses,
     "#payment": _userDashboardPayment,
     "#subscriptions": _userDashBoardSubscriptions,
-    "#options": _userMembershipOptions
+    "#options": _userMembershipOptions,
+    "#account": _userDashboardAccount
   }
 }());
 
