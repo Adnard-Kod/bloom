@@ -23,7 +23,7 @@ var PromotionForm = React.createClass({
   render: function() {
     var promotion = this.props.promotion || PromotionStore.new();
     var formOptions = {
-      name: "promotion",
+      name: "Promotion",
       onSubmit: this.handleSubmit,
       description: {
         type: 'textarea'
