@@ -20,7 +20,7 @@ var AddOn = React.createClass({displayName: 'AddOn',
 
   render: function() {
     var addOn = this.props.addOn;
-    var editForm = this.state.editing ? MenuItemForm({addOn: addOn, editing: "true"}) :undefined;
+    var editForm = this.state.editing ? AddOnForm({addOn: addOn, editing: "true"}) :undefined;
     var panelClass = "panel panel-info";
     var editLinks = [
       {handler: this.edit, name: 'edit', className: 'text-warning'},
@@ -28,15 +28,15 @@ var AddOn = React.createClass({displayName: 'AddOn',
     ];
     if(this.props.active) panelClass = "panel panel-success"
     return (
-      React.DOM.div({className: panelClass}, 
-        React.DOM.div({className: "panel-heading"}, 
-          React.DOM.h3({className: "panel-title"}, 
-            addOn.name, " (", addOn.price, ")", 
+      React.DOM.div({className: panelClass},
+        React.DOM.div({className: "panel-heading"},
+          React.DOM.h3({className: "panel-title"},
+            addOn.name, " (", addOn.price, ")",
             EditLinks({links: editLinks})
           )
-        ), 
-        React.DOM.div({className: "panel-body"}, 
-          React.DOM.b(null), addOn.description, 
+        ),
+        React.DOM.div({className: "panel-body"},
+          React.DOM.b(null), addOn.description,
           editForm
         )
       )
@@ -48,6 +48,6 @@ var AddOn = React.createClass({displayName: 'AddOn',
   },
   delete: function(e) {
     e.preventDefault();
-    AddOnActions.destroyAddOnItem(this.props.menuItem.id);
+    AddOnActions.destroyAddOn(this.props.addOn.id);
   }
 })

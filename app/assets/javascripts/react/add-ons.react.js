@@ -25,7 +25,7 @@ var AddOns = React.createClass({displayName: 'AddOns',
       addOns.push(AddOn({key: item.id, addOn: item}))
     })
     return (
-      React.DOM.div({className: "add-ons"}, 
+      React.DOM.div({className: "add-ons"},
         addOns
       )
     )

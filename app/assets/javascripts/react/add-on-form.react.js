@@ -31,7 +31,7 @@ var AddOnForm = React.createClass({displayName: 'AddOnForm',
       onSubmit: this.handleSubmit
     }
     return (
-      React.DOM.div(null, 
+      React.DOM.div(null,
         FormFor({object: addOn, options: formOptions, errors: this.state.errors})
       )
     );

@@ -101,13 +101,13 @@ var AddOnStore = (function() {
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
-        case ActionTypes.CREATE_MENU_ITEM:
+        case ActionTypes.CREATE_ADD_ON:
           this.create(action.data);
           break;
-        case ActionTypes.UPDATE_MENU_ITEM:
+        case ActionTypes.UPDATE_ADD_ON:
           this.update(action.data);
           break;
-        case ActionTypes.DESTROY_MENU_ITEM:
+        case ActionTypes.DESTROY_ADD_ON:
           this.destroy(action.id);
           break;
         default:
