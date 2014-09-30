@@ -2,6 +2,7 @@
 //= require dispatchers/blooming-dispatcher
 //= require stores/session-store
 //= require checkout
+//= require stores/user-store
 
 var PaymentStore = (function () {
   var ActionTypes = BloomingConstants.ActionTypes;
@@ -15,6 +16,7 @@ var PaymentStore = (function () {
           data: { token: token, authenticity_token: authenticityToken, payment_info: paymentInfo }
         })
         .done(function (data) {
+          UserStore.addPropertyToUser('active_memberships', data.membership);
         })
         .fail(function (xhr) {
         })
