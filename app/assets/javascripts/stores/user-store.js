@@ -20,6 +20,13 @@ var UserStore = (function () {
         password_confirmation: null
       }
     },
+
+    addPropertyToUser: function(key, properties) {
+      if(key in _user) {
+        _user[key] = [properties];
+        this.triggerChange();
+      }
+    },
     create: function (userData) {
 
       $.ajax({
