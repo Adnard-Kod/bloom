@@ -1,8 +1,13 @@
 //= require constants/blooming-constants
 //= require dispatchers/blooming-dispatcher
+
 var UserStore = (function () {
   var ActionTypes = BloomingConstants.ActionTypes;
+
   return {
+    currentUser: function() {
+      return _user;
+    },
     new: function() {
       return {
         email: null,
