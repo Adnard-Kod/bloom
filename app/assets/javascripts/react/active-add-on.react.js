@@ -2,6 +2,7 @@
  * @jsx React.DOM
  */
 //= require react
+
 var ActiveAddOn = React.createClass({displayName: 'ActiveAddOn',
 
   render: function() {
