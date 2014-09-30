@@ -7,6 +7,7 @@
 //= require stores/session-store
 //= require react/user-membership-options.react
 //= require react/subscriptions.react
+//= require react/user-active-membership.react
 
 var UserAccount = React.createClass({
   getInitialState: function() {
@@ -25,11 +26,15 @@ var UserAccount = React.createClass({
   },
 
   render: function() {
-
+    var user = this.state.user;
+    var subscriptions = 'active_memberships' in user && user.active_memberships.length > 0 ? undefined : <Subscriptions />;
+    var userMembershipOptions = 'active_memberships' in user && user.active_memberships.length === 0 ? <UserMembershipOptions /> : undefined;
+    var userActiveMembership = 'active_memberships' in user && user.active_memberships.length > 0 ? <UserActiveMembership membership={user.active_memberships[0]} /> : undefined;
     return (
       <div>
-        <Subscriptions />
-        <UserMembershipOptions />
+        {subscriptions}
+        {userMembershipOptions}
+        {userActiveMembership}
       </div>
     )
   }
