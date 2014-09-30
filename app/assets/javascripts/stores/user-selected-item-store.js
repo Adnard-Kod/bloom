@@ -14,16 +14,29 @@ var UserSelectedItemStore = (function() {
       this.triggerChange();
     },
     appendToSelectedItems: function(data) {
-      _selectedItems.push(data);
+      previouslySelected = _selectedItems.filter(function(item) {
+        return item.menu_item.id === data.menu_item.id
+      })[0]
+      if(previouslySelected) {
+        previouslySelected.quantity += 1;
+      } else {
+        data.quantity = 1;
+        _selectedItems.push(data);
+      }
+
       this.triggerChange();
     },
-    removeFromSelectedItems: function(menu_id, data) {
+    removeFromSelectedItems: function(data) {
       _selectedItems.forEach(function(selectedItem, i) {
-        if (selectedItem.id === data.id) {
-          _selectedItems.splice(i, 1);
+        if (selectedItem.menu_item.id === data.menu_item.id) {
+          if (selectedItem.quantity === 1) {
+            _selectedItems.splice(i, 1);
+          } else {
+            selectedItem.quantity -= 1;
+          }
           return this.triggerChange();
         }
-      });
+      }.bind(this));
     },
     menuItems: function(id) {
       return this.selectedItems(id).map(function(item) {
@@ -102,12 +115,12 @@ var UserSelectedItemStore = (function() {
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
-        // case ActionTypes.CREATE_USER_SELECTED_ITEM:
-        //   this.create(action.menu_id, action.data);
-        //   break;
-        // case ActionTypes.DESTROY_USER_SELECTED_ITEM:
-        //   this.destroy(action.menu_id, action.id);
-        //   break;
+        case ActionTypes.CREATE_USER_SELECTED_ITEM:
+          this.create(action.menu_id, action.data);
+          break;
+        case ActionTypes.DESTROY_USER_SELECTED_ITEM:
+          this.destroy(action.menu_id, action.id);
+          break;
         case ActionTypes.USER_SELECT_ITEM:
           this.appendToSelectedItems(action.data);
           break;

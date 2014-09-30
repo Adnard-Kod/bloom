@@ -35,7 +35,8 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
     )
   },
   renderDefaultSelectedItems: function() {
-    if(this.state.menu.id)
+    if(this.state.menu.id) {
       return(MenuItemGroup({menu: {selected_items: this.state.selectedItems}, user: true, selected: true}));
+    }
   },
 });

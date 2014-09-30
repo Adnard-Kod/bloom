@@ -8,7 +8,10 @@ var ListGroupItem = React.createClass({
     return (
       <div className="list-group-item">
         <h4 className="list-group-item-heading">{item.name} {this.renderEditLinks()}</h4>
-        <p className="list-group-item-text">{item.description}</p>
+        <p className="list-group-item-text">
+          {item.description}
+          {this.renderBadge()}
+          </p>
       </div>
     );
   },
@@ -34,6 +37,10 @@ var ListGroupItem = React.createClass({
       if(this.props.selected) itemEditLinks = [{handler: this.userDeselect, name: 'remove', className: 'text-danger'}]
     }
     return(<EditLinks links={itemEditLinks} />)
+  },
+  renderBadge: function() {
+    if(this.props.quantity)
+      return(<div className="badge">{this.props.quantity}</div>)
   },
   makeDefault: function(e) {
     e.preventDefault();

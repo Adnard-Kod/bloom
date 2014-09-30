@@ -15,5 +15,15 @@ class User < ActiveRecord::Base
 
   def mailchimp
     @mailchimp ||= MailChimp.new self
+
+  def find_or_create_selected_items(default_selected_items)
+    if self.selected_items.blank?
+      default_selected_items.each do |selected_item|
+        self.selected_items.create :menu_item => selected_item.menu_item
+      end
+    end
+    sum = []
+    self.selected_items.group_by(&:menu_item_id).each_value {|v| v.first.quantity = v.length; sum.push(v.first)}
+    sum
   end
 end
