@@ -5,3 +5,16 @@
 .menu-item {
   margin-bottom: 25px;
 }*/
+
+#page-wrapper {
+  color: lightgrey;
+}
+
+.panel {
+    color: black;
+}
+
+.list-group {
+  color: black;
+}
+
