@@ -21,7 +21,7 @@ Router.routes = (function() {
     React.renderComponent(AddOnBox(null), $('#admin-page')[0])
   }
   var _promotions = function() {
-    React.renderComponent(Promotions(null), $('#admin-page')[0])
+    React.renderComponent(Promotions({admin: true}), $('#admin-page')[0])
   }
   return {
     "": _adminDashBoard,
