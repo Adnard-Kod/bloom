@@ -2,6 +2,8 @@
 //= require dispatchers/blooming-dispatcher
 
 var UserStore = (function () {
+  var _user = {};
+  var CHANGE_EVENT = 'change';
   var ActionTypes = BloomingConstants.ActionTypes;
 
   return {
@@ -32,6 +34,18 @@ var UserStore = (function () {
         $(this).trigger('creation-error', JSON.parse(xhr.responseText));
       }.bind(this));
     },
+
+    getCurrentUserInfo: function(userId) {
+      $.ajax({
+        type: 'GET',
+        url: '/users/' + userId
+      })
+      .done(function(data) {
+        _user = data.user;
+        this.triggerChange();
+      }.bind(this))
+    },
+
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
