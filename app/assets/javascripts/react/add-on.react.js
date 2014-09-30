@@ -27,7 +27,7 @@ var AddOn = React.createClass({displayName: 'AddOn',
       {handler: this.edit, name: 'edit', className: 'text-warning'},
       {handler: this.delete, name: 'delete', className: 'text-danger'}
     ];
-    if(this.props.active) panelClass = "panel panel-success"
+    if(this.props.addOn.active) panelClass = 'panel panel-success';
     return (
       React.DOM.div({className: panelClass},
         React.DOM.div({className: "panel-heading"},
@@ -53,6 +53,6 @@ var AddOn = React.createClass({displayName: 'AddOn',
   },
   active: function(e){
     e.preventDefault();
-    AddOnActions.updateAddOn({id: this.props.addOn.id, active: true});
+    AddOnActions.updateAddOn({id: this.props.addOn.id, active: !this.props.addOn.active });
   }
 })

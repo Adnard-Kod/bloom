@@ -69,7 +69,6 @@ var AddOnStore = (function() {
         data: {add_on: addOn}
       })
       .done(function(data) {
-        debugger
         _addOns.forEach(function(addOn, i) {
           if(addOn.id === data.add_on.id) {
             _addOns[i] = data.add_on;
