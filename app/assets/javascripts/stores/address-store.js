@@ -1,6 +1,7 @@
 //= require constants/blooming-constants
 //= require dispatchers/blooming-dispatcher
 //= require stores/session-store
+//= require stores/user-store
 
 var AddressStore = (function () {
   var _addresses = [];
@@ -55,6 +56,7 @@ var AddressStore = (function () {
       })
       .done(function (data) {
         _addresses.push(data.address);
+        UserStore.addPropertyToUser('addresses', data.address);
         this.triggerChange();
       }.bind(this))
       .fail(function (xhr) {
@@ -92,7 +94,8 @@ var AddressStore = (function () {
       .done(function (data) {
         _addresses.forEach(function (addr, i) {
           if (addr.id === data.id) {
-            _addresses.splice(i, 1);
+            addrToRemove = _addresses.splice(i, 1)[0];
+            UserStore.removePropertyFromUser('addresses', addrToRemove);
             return this.triggerChange();
           }
         }.bind(this));
