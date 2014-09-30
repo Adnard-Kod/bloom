@@ -21,10 +21,11 @@ var UserAddresses = React.createClass({
   },
   render: function() {
     var addresses = [];
+    var name = this.props.name;
     var createAddress = this.state.addresses.length === 0 ? <UserAddressForm /> : undefined;
     this.state.addresses.forEach(function (addr) {
-      addresses.push(<UserAddress key={addr.id} addr={addr} />)
-    });
+      addresses.push(<UserAddress name={this.props.name} key={addr.id} addr={addr} />)
+    }.bind(this));
 
     return (
       <div id="user-address">
