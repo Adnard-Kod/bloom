@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   namespace :user do
     resources :subscriptions, :only => [:index]
+    resources :add_ons, :only => [:create]
     get '/add_ons/active', to:'add_ons#active'
     resources :memberships, :only => [:create]
     resources :menus, :only => [:index]
