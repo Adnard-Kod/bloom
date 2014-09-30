@@ -4,6 +4,7 @@
  // require react
 //= require stores/add-on-store
 //= require react/active-add-on.react
+//= require react/purchase-add-ons.react
 
 var ActiveAddOns = React.createClass({
   getInitialState: function() {
@@ -25,6 +26,7 @@ var ActiveAddOns = React.createClass({
     return (
       <div className="add-ons">
         {addOns}
+        < PurchaseAddOn addOn={this.state.addOns} />
       </div>
     );
   }
