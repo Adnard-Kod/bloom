@@ -1,6 +1,10 @@
 class User::MembershipsController < UserController
   before_filter :load_and_authorize_user, only: [:index]
 
+  def index
+    @user.expired_memberships
+  end
+
   def create
     stripe_api = StripeApi.new params, current_user
     charge = stripe_api.charge!
