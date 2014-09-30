@@ -3,22 +3,17 @@
  */
 //= require router/router
 //= require react/user-dashboard.react
-//= require react/user-addresses.react
 //= require react/user-account.react
 
 Router.routes = (function() {
   var _userDashBoard = function() {
     React.renderComponent(UserDashboard(null), $('#user-dashboard')[0]);
   };
-  var _userDashboardAddresses = function () {
-    React.renderComponent(UserAddresses(null), $('#user-dashboard')[0]);
-  };
   var _userDashboardAccount = function() {
     React.renderComponent(UserAccount(null), $('#user-dashboard')[0]);
   }
   return {
     "": _userDashBoard,
-    "#address": _userDashboardAddresses,
     "#account": _userDashboardAccount
   }
 }());
