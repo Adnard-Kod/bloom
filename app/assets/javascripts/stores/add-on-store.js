@@ -18,7 +18,6 @@ var AddOnStore = (function() {
         price: null
       }
     },
-
     all: function(add_on_id) {
       $.ajax({
         url: '/admin/add_ons',
@@ -98,6 +97,18 @@ var AddOnStore = (function() {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
+    active: function(id) {
+      $.ajax({
+        url: '/admin/add_ons/active',
+        type: 'GET'
+      })
+      .done(function(data) {
+
+        _addOns = data.add_ons;
+        this.triggerChange();
+      }.bind(this))
+    },
+
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
