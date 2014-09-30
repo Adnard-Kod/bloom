@@ -27,6 +27,18 @@ var UserStore = (function () {
         this.triggerChange();
       }
     },
+
+    removePropertyFromUser: function(key, properties) {
+      if (key in _user) {
+        _user[key].forEach(function(addr, index) {
+          if (addr.id === properties.id) {
+            _user[key].splice(index, 1);
+            this.triggerChange();
+          }
+        }.bind(this))
+      }
+    },
+
     create: function (userData) {
 
       $.ajax({
