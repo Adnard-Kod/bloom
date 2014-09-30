@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 //= require react
 //= require react/add-ons.react
-//= require react/menu-item-form.react
+//= require react/add-on-form.react
 
 var AddOnBox = React.createClass({
   render: function(){
@@ -15,7 +15,7 @@ var AddOnBox = React.createClass({
         </div>
         <div className="row">
           <div className="col-lg-12">
-            <MenuItemForm />
+            <AddOnForm />
             <hr />
             <AddOns />
           </div>
