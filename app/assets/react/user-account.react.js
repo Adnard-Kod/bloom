@@ -3,7 +3,10 @@
  */
 //= require react
 //= require stores/user-store
+//= require stores/payment-store
 //= require stores/session-store
+//= require react/user-membership-options.react
+//= require react/subscriptions.react
 
 var UserAccount = React.createClass({
   getInitialState: function() {
@@ -22,8 +25,12 @@ var UserAccount = React.createClass({
   },
 
   render: function() {
+
     return (
-      <div />
+      <div>
+        <Subscriptions />
+        <UserMembershipOptions />
+      </div>
     )
   }
 });
