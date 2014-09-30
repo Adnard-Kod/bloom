@@ -10,12 +10,4 @@ describe User::DashboardController do
       expect(response).to be_success
     end
   end
-
-  context "#my_account" do
-    it "is successful" do
-      get :my_account
-      expect(response).to be_success
-    end
-  end
-
 end
