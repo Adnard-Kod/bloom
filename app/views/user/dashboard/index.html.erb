@@ -1,22 +1,14 @@
-<div id="page-wrapper">
-  <div class="container" id="user-dashboard">
-    <%= render 'navbar'%>
-
-    <div class="col-md-12">
-
-        <h1 class="text-center">Menu of the Week</h1>
-
-        <hr>
-
+<div id='wrapper'>
+  <div id='content'>
+    <div id="page-wrapper" style="background-image: url(<%= asset_path('culinary/bg-header.jpg') %>)" >
+      <div id="user-dashboard"></div>
+      <%#= render 'menu_of_the_week'%>
+      <%#= render 'addresses'%>
+      <%#= render 'logo'%>
+      <%#= render 'order_history'%>
+      <%#= render 'password_email'%>
+      <%#= render 'my_account'%>
     </div>
-
-    <div>
-      <% 5.times do %>
-        <%= render 'menu_row' %>
-      <% end %>
-    </div>
-
-    <%= render 'footer' %>
   </div>
 </div>
 <script>
