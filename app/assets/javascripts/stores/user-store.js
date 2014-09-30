@@ -46,6 +46,13 @@ var UserStore = (function () {
       }.bind(this))
     },
 
+    addChangeEvent: function(callback) {
+      $(this).on(CHANGE_EVENT, callback);
+    },
+    triggerChange: function(data) {
+      $(this).trigger(CHANGE_EVENT, data);
+    },
+
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
