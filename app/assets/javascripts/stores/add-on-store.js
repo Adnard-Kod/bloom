@@ -25,6 +25,7 @@ var AddOnStore = (function() {
         data: {add_on_id: add_on_id}
       })
       .done(function(data) {
+
         _addOns = data.add_ons;
         this.triggerChange();
       }.bind(this))
@@ -99,11 +100,11 @@ var AddOnStore = (function() {
     },
     active: function(id) {
       $.ajax({
-        url: '/admin/add_ons/active',
+        url: '/user/add_ons/active',
         type: 'GET'
       })
       .done(function(data) {
-
+        console.log(data)
         _addOns = data.add_ons;
         this.triggerChange();
       }.bind(this))
