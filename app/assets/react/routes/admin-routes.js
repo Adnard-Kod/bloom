@@ -19,11 +19,15 @@ Router.routes = (function() {
   var _addOnBox = function() {
     React.renderComponent(<AddOnBox />, $('#admin-page')[0])
   }
+  var _promotions = function() {
+    React.renderComponent(<Promotions />, $('#admin-page')[0])
+  }
   return {
     "": _adminDashBoard,
     "#menu-items": _menuItemsBox,
     "#subscriptions": _subscriptions,
-    "#add-ons": _addOnBox
+    "#add-ons": _addOnBox, 
+    "#promotions": _promotions
   }
 }());
 
