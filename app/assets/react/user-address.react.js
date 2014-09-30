@@ -24,7 +24,7 @@ var UserAddress = React.createClass({
       <div className="col-lg-4">
         <h3>Current Address</h3>
         <ul className="list-group">
-          <li className="list-group-item">Name</li>
+          <li className="list-group-item">{this.props.name}</li>
           <li className="list-group-item">{addr.street_address}</li>
           <li className="list-group-item">{addr.apartment_number}</li>
           <li className="list-group-item">{addr.city}, {addr.state}, {addr.zipcode}</li>
