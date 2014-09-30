@@ -1,4 +1,6 @@
 class User::MembershipsController < UserController
+  before_filter :load_and_authorize_user, only: [:index]
+
   def create
     stripe_api = StripeApi.new params, current_user
     charge = stripe_api.charge!
@@ -14,5 +16,11 @@ class User::MembershipsController < UserController
     else
       render json: {error: 'Payment not valid. Please try again.'}
     end
+  end
+
+  private
+  def load_and_authorize_user
+    @user = User.find(params[:user_id])
+    redirect_to root_path unless @user == current_user || current_user.admin?
   end
 end
