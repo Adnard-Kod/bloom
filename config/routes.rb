@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   namespace :user do
     resources :subscriptions, :only => [:index]
     resources :memberships, :only => [:create]
+    resources :menus, :only => [:index]
     resources :dashboard, :only => [:index] do
       collection do
         get 'my_account'

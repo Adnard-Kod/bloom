@@ -28,5 +28,17 @@ var SelectedItemActions = {
       id: id,
       menu_id: menu_id
     });
-  }
+  },
+  userSelect: function(data) {
+    BloomingDispatcher.handleViewAction({
+      type: BloomingConstants.ActionTypes.USER_SELECT_ITEM,
+      data: data
+    });
+  },
+  userDeselect: function(data) {
+    BloomingDispatcher.handleViewAction({
+      type: BloomingConstants.ActionTypes.USER_DESELECT_ITEM,
+      data: data
+    });
+  },
 }

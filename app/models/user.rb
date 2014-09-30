@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :memberships
   has_many :subscriptions, :through => :memberships
+  has_many :selected_items, :class_name => 'UserSelectedItem'
+  has_many :default_selected_items, ->{where(:default => true)}, :class_name => 'UserSelectedItem'
   after_create :subscribe_to_mailchimp
   after_save :subscribe_to_mailchimp
   before_destroy :unsubscribe_to_mailchimp

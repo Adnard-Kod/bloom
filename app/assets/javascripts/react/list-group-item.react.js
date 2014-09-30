@@ -17,18 +17,23 @@ var ListGroupItem = React.createClass({displayName: 'ListGroupItem',
     this.props.removeHandler(this.props.id)
   },
   renderEditLinks: function() {
-    if(!this.props.admin) return;
-    var itemEditLinks = [
-      {handler: this.makeDefault, name: 'make default', className: 'text-ewarning'},
-      {handler: this.removeDefault, name: 'remove default', className: 'text-warning'},
-      {handler: this.removeItem, name: 'x', className: 'text-danger'}
-    ]
-    var filter = "remove default";
-    console.log(this.props)
-    if (this.props.default) filter = "make default";
-    return(EditLinks({links: itemEditLinks.filter(function(link) {
-      return link.name !== filter;
-    })}))
+    var itemEditLinks = [];
+    if(this.props.admin) {
+      itemEditLinks = [
+        {handler: this.makeDefault, name: 'make default', className: 'text-ewarning'},
+        {handler: this.removeDefault, name: 'remove default', className: 'text-warning'},
+        {handler: this.removeItem, name: 'x', className: 'text-danger'}
+      ]
+      var filter = "remove default";
+      if (this.props.default) filter = "make default";
+      itemEditLinks = itemEditLinks.filter(function(link) {
+        return link.name !== filter;
+      });
+    } else if(this.props.user) {
+      itemEditLinks = [{handler: this.userSelect, name: 'select', className: 'text-warning'}]
+      if(this.props.selected) itemEditLinks = [{handler: this.userDeselect, name: 'remove', className: 'text-danger'}]
+    }
+    return(EditLinks({links: itemEditLinks}))
   },
   makeDefault: function(e) {
     e.preventDefault();
@@ -42,4 +47,12 @@ var ListGroupItem = React.createClass({displayName: 'ListGroupItem',
     e.preventDefault();
     SelectedItemActions.destroySelectedItem(this.props.id, this.props.item.id)
   },
+  userSelect: function(e) {
+    e.preventDefault();
+    SelectedItemActions.userSelect({menu_item: this.props.item})
+  },
+  userDeselect: function(e) {
+    e.preventDefault();
+    SelectedItemActions.userDeselect({menu_item: this.props.item})
+  }
 });

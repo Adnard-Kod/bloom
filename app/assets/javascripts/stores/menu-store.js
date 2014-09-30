@@ -9,18 +9,21 @@ var MenuStore = (function() {
     menus: function() {
       return _menus;
     },
-    currentMenu: function() {
-      return _menus.filter(function(menu) {
-        return menu.current;
-      })[0]
-    },
     new: function() {
       return {
         id: null,
         title: null
       }
     },
-
+    getCurrentMenu: function() {
+      $.ajax({
+        url: '/user/menus',
+        type: 'GET'
+      })
+      .done(function(data) {
+        this.triggerChange(data);
+      }.bind(this))
+    },
     all: function() {
       $.ajax({
         url: '/admin/menus',

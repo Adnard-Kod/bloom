@@ -42,7 +42,7 @@ var MenuPanelHeader = React.createClass({displayName: 'MenuPanelHeader',
   },
   current: function(e){
     e.preventDefault();
-    MenuActions.currentMenu({id: this.props.menu.id, current: true});
+    MenuActions.makeMenuCurrent({id: this.props.menu.id, current: true});
   },
   renderEditLinks: function() {
     if (this.props.admin) {

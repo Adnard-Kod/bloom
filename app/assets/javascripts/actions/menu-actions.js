@@ -13,7 +13,7 @@ var MenuActions = {
       data: data
     });
   },
-  currentMenu: function(data) {
+  makeMenuCurrent: function(data) {
     BloomingDispatcher.handleViewAction({
       type: BloomingConstants.ActionTypes.CURRENT_MENU,
       data: data
