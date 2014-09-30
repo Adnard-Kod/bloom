@@ -20,7 +20,7 @@ var AddOn = React.createClass({
 
   render: function() {
     var addOn = this.props.addOn;
-    var editForm = this.state.editing ? <MenuItemForm addOn={addOn} editing="true"/> :undefined;
+    var editForm = this.state.editing ? <AddOnForm addOn={addOn} editing="true"/> :undefined;
     var panelClass = "panel panel-info";
     var editLinks = [
       {handler: this.edit, name: 'edit', className: 'text-warning'},
@@ -48,6 +48,6 @@ var AddOn = React.createClass({
   },
   delete: function(e) {
     e.preventDefault();
-    AddOnActions.destroyAddOnItem(this.props.menuItem.id);
+    AddOnActions.destroyAddOn(this.props.addOn.id);
   }
 })
