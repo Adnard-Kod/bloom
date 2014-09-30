@@ -15,7 +15,7 @@ var ActiveAddOn = React.createClass({displayName: 'ActiveAddOn',
           )
         ),
         React.DOM.div({className: "panel-body"},
-          React.DOM.b(null), addOn.description
+          React.DOM.b(null, addOn.description)
         )
       )
     );
