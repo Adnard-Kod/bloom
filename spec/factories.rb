@@ -19,6 +19,12 @@ FactoryGirl.define do
     sequence(:category) {|n| MenuItem::CATEGORIES.sample  }
   end
 
+  factory :add_on do
+    sequence(:name) {|n| "name #{n}"}
+    sequence(:description) {|n| "description #{n}"  }
+    sequence(:price) {|n| n }
+  end
+
   factory :user do
     email { Faker::Internet.email }
     first_name { Faker::Name.first_name }
