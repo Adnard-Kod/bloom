@@ -31,6 +31,10 @@ class Admin::AddOnsController < AdminController
     end
   end
 
+  def active
+    render json: AddOn.where(active: true)
+  end
+
   private
 
   def add_on_params
