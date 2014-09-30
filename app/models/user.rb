@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
   def mailchimp
     @mailchimp ||= MailChimp.new self
+  end
 
   def find_or_create_selected_items(default_selected_items)
     if self.selected_items.blank?
