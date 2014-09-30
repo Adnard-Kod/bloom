@@ -2,6 +2,7 @@
 //= require react
 //= require stores/subscription-store
 //= require react/subscriptions.react
+//= require react/address-required.react
 //= require actions/payment-actions
 
 var UserMembershipOptions = React.createClass({displayName: 'UserMembershipOptions',
@@ -26,8 +27,12 @@ var UserMembershipOptions = React.createClass({displayName: 'UserMembershipOptio
       subscription: { type: 'select', values: this.allSubscriptions() },
       onSubmit: this.purchase
     }
+    var object = {subscription: this.allSubscriptions()[0]};
+    var optionsOrAddrRequired = this.props.hasAddr ? FormFor({object: object, options: formOptions, errors: this.state.errors}) : AddressRequired(null)
     return (
-        FormFor({object: {subscription: this.allSubscriptions()[0]}, options: formOptions, errors: this.state.errors})
+      React.DOM.div(null,
+        optionsOrAddrRequired
+      )
     );
   },
 

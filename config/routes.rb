@@ -21,10 +21,6 @@ Rails.application.routes.draw do
     resources :subscriptions, :only => [:index]
     resources :memberships, :only => [:create]
     resources :menus, :only => [:index]
-    resources :dashboard, :only => [:index] do
-      collection do
-        get 'my_account'
-      end
-    end
+    resources :dashboard, :only => [:index]
   end
 end
