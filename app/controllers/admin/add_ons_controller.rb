@@ -1,4 +1,4 @@
-class Admin::AddOnsController < ApplicationController
+class Admin::AddOnsController < AdminController
   def index
     render json: AddOn.all
   end
