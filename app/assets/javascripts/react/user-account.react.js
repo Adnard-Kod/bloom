@@ -30,8 +30,10 @@ var UserAccount = React.createClass({displayName: 'UserAccount',
     var user = this.state.user;
     var firstName = 'first_name' in user ? user.first_name : '';
     var lastName = 'last_name' in user ? user.last_name : '';
-    var subscriptions = 'active_memberships' in user && user.active_memberships.length > 0 ? undefined : Subscriptions(null);
-    var userMembershipOptions = 'active_memberships' in user && user.active_memberships.length === 0 ? UserMembershipOptions(null) : undefined;
+    var hasAddr = 'addresses' in user && user.addresses.length > 0 ? true : false;
+    var subscriptions = 'active_memberships' in user && user.active_memberships.length > 0 ? undefined : Subscriptions(null)
+    var subscriptions = 'active_memberships' in user && user.active_memberships.length > 0 ? undefined : Subscriptions(null)
+    var userMembershipOptions = 'active_memberships' in user && user.active_memberships.length === 0 ? UserMembershipOptions({hasAddr: hasAddr}) : undefined;
     var userActiveMembership = 'active_memberships' in user && user.active_memberships.length > 0 ? UserActiveMembership({membership: user.active_memberships[0]}) : undefined;
     return (
       React.DOM.div(null,
