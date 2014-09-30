@@ -26,7 +26,7 @@
     var promo = this.props.promo;
     return (
       <li className="list-group-item">
-        <p>{promo.name}: {promo.description} for ${promo.price}</p>
+        <p>{promo.code}: {promo.description} (Gives {promo.discount_type}{promo.discount_amount})</p>
         {this.renderAdminButtons()}
         {this.renderEditForm()}
       </li>
