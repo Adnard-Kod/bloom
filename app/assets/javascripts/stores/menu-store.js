@@ -15,6 +15,11 @@ var MenuStore = (function() {
         title: null
       }
     },
+    currentMenu: function() {
+      return _menus.filter(function(menu) {
+        return menu.current;
+      })[0]
+    },
     getCurrentMenu: function() {
       $.ajax({
         url: '/user/menus',
