@@ -4,7 +4,6 @@
 //= require router/router
 //= require react/user-dashboard.react
 //= require react/user-addresses.react
-//= require react/user-payment.react
 //= require react/subscriptions.react
 //= require react/user-membership-options.react
 //= require react/user-account.react
@@ -15,9 +14,6 @@ Router.routes = (function() {
   };
   var _userDashboardAddresses = function () {
     React.renderComponent(UserAddresses(null), $('#user-dashboard')[0]);
-  };
-  var _userDashboardPayment = function () {
-    React.renderComponent(UserPayment(null), $('#user-dashboard')[0]);
   };
   var _userDashBoardSubscriptions = function () {
     React.renderComponent(Subscriptions(null), $('#user-dashboard')[0])
@@ -31,7 +27,6 @@ Router.routes = (function() {
   return {
     "": _userDashBoard,
     "#address": _userDashboardAddresses,
-    "#payment": _userDashboardPayment,
     "#subscriptions": _userDashBoardSubscriptions,
     "#options": _userMembershipOptions,
     "#account": _userDashboardAccount
