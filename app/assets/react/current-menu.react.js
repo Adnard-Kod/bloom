@@ -30,6 +30,7 @@ var CurrentMenu = React.createClass({
         <div className="col-lg-6">
           <h3>Your Selected Meals</h3>
           {this.renderDefaultSelectedItems()}
+          <a className='col-lg-12 btn btn-primary' onClick={this.saveUserSelection}>Save</a>
         </div>
       </div>
     )
@@ -39,4 +40,8 @@ var CurrentMenu = React.createClass({
       return(<MenuItemGroup menu={{selected_items: this.state.selectedItems}} user={true} selected={true} />);
     }
   },
+  saveUserSelection: function(e) {
+    e.preventDefault();
+    SelectedItemActions.saveUserSelectedItems();
+  }
 });

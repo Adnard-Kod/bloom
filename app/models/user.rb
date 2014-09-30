@@ -23,11 +23,23 @@ class User < ActiveRecord::Base
   def find_or_create_selected_items(default_selected_items)
     if self.selected_items.blank?
       default_selected_items.each do |selected_item|
-        self.selected_items.create :menu_item => selected_item.menu_item
+        self.selected_items.create :menu_item => selected_item.menu_item, :default => true
       end
     end
+    self.grouped_selected_items
+  end
+  def grouped_selected_items
     sum = []
     self.selected_items.group_by(&:menu_item_id).each_value {|v| v.first.quantity = v.length; sum.push(v.first)}
     sum
+  end
+  def replace_selected_items! items
+    self.default_selected_items.destroy_all
+    items.each do |item_id, quantity|
+      item = Item.find item_id
+      quantity.to_i.times {
+        self.selected_items.create :menu_item => item, :default => true
+      }
+    end
   end
 end

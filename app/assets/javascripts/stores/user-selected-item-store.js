@@ -9,6 +9,11 @@ var UserSelectedItemStore = (function() {
     selectedItems: function() {
       return _selectedItems;
     },
+    selectedMenuItems: function() {
+      var items = {};
+      this.selectedItems().forEach(function(item){ items[item.menu_item.id] = item.quantity});
+      return items;
+    },
     setSelectedItems: function(data) {
       _selectedItems = data;
       this.triggerChange();
@@ -111,7 +116,19 @@ var UserSelectedItemStore = (function() {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
-
+    saveUserSelectedItems: function() {
+      $.ajax({
+        url: '/user/selected_items',
+        type: 'POST',
+        data: {authenticity_token: SessionStore.getAuthenticityToken(), selected_items: this.selectedMenuItems()}
+      })
+      .done(function(data) {
+        this.setSelectedItems(data.selected_items)
+      }.bind(this))
+      .fail(function(xhr) {
+        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
+      }.bind(this))
+    },
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
@@ -126,6 +143,9 @@ var UserSelectedItemStore = (function() {
           break;
         case ActionTypes.USER_DESELECT_ITEM:
           this.removeFromSelectedItems(action.data);
+          break;
+        case ActionTypes.SAVE_USER_SELECTED_ITEMS:
+          this.saveUserSelectedItems();
           break;
         default:
           // do nothing

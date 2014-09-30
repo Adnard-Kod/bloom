@@ -41,4 +41,9 @@ var SelectedItemActions = {
       data: data
     });
   },
+  saveUserSelectedItems: function() {
+    BloomingDispatcher.handleViewAction({
+      type: BloomingConstants.ActionTypes.SAVE_USER_SELECTED_ITEMS
+    });
+  }
 }

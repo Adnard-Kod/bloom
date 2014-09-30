@@ -29,7 +29,8 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
         ),
         React.DOM.div({className: "col-lg-6"},
           React.DOM.h3(null, "Your Selected Meals"),
-          this.renderDefaultSelectedItems()
+          this.renderDefaultSelectedItems(),
+          React.DOM.a({className: "col-lg-12 btn btn-primary", onClick: this.saveUserSelection}, "Save")
         )
       )
     )
@@ -39,4 +40,8 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
       return(MenuItemGroup({menu: {selected_items: this.state.selectedItems}, user: true, selected: true}));
     }
   },
+  saveUserSelection: function(e) {
+    e.preventDefault();
+    SelectedItemActions.saveUserSelectedItems();
+  }
 });
