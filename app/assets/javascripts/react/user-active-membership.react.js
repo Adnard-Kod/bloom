@@ -13,7 +13,7 @@ var UserActiveMembership = React.createClass({displayName: 'UserActiveMembership
           React.DOM.li({className: "list-group-item"}, "Weeks Remaining: ", mem.weeks_remaining),
           React.DOM.li({className: "list-group-item"}, "Meals Remaining: ", mem.meals_remaining),
           React.DOM.li({className: "list-group-item"}, "Meals per Week: ", mem.meals_per_week),
-          React.DOM.li({className: "list-group-item"}, "Start Date: ", mem.meals_per_week),
+          React.DOM.li({className: "list-group-item"}, "Start Date: ", mem.start_date),
           React.DOM.li({className: "list-group-item"}, "End Date: ", mem.end_date),
           React.DOM.li({className: "list-group-item"}, "Status: ", mem.status)
         )
