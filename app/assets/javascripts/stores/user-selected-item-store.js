@@ -14,9 +14,9 @@ var UserSelectedItemStore = (function() {
       this.selectedItems().forEach(function(item){ items[item.menu_item.id] = item.quantity});
       return items;
     },
-    setSelectedItems: function(data) {
+    setSelectedItems: function(data, message) {
       _selectedItems = data;
-      this.triggerChange();
+      this.triggerChange(message);
     },
     appendToSelectedItems: function(data) {
       previouslySelected = _selectedItems.filter(function(item) {
@@ -123,7 +123,7 @@ var UserSelectedItemStore = (function() {
         data: {authenticity_token: SessionStore.getAuthenticityToken(), selected_items: this.selectedMenuItems()}
       })
       .done(function(data) {
-        this.setSelectedItems(data.selected_items)
+        this.setSelectedItems(data.selected_items, 'Item Saved!')
       }.bind(this))
       .fail(function(xhr) {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);

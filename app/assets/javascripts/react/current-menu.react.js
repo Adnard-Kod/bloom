@@ -3,6 +3,7 @@
 //= require stores/menu-store
 //= require stores/user-selected-item-store
 //= require react/menu.react
+//= require react/alert.react
 var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
   getInitialState: function() {
     return {
@@ -16,13 +17,14 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
       UserSelectedItemStore.setSelectedItems(data.selected_items);
     }.bind(this))
     MenuStore.getCurrentMenu();
-    UserSelectedItemStore.addChangeEvent(function() {
-      this.setState({selectedItems: UserSelectedItemStore.selectedItems() })
+    UserSelectedItemStore.addChangeEvent(function(e, message) {
+      this.setState({selectedItems: UserSelectedItemStore.selectedItems(), message: message })
     }.bind(this))
   },
   render: function () {
     return (
       React.DOM.div(null,
+        this.renderSuccessMessage(),
         React.DOM.div({className: "col-lg-6"},
           React.DOM.h3(null, "This Week's Menu"),
           Menu({menu: this.state.menu, user: true})
@@ -43,5 +45,8 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
   saveUserSelection: function(e) {
     e.preventDefault();
     SelectedItemActions.saveUserSelectedItems();
+  },
+  renderSuccessMessage: function() {
+    if(this.state.message) return(Alert({message: this.state.message}))
   }
 });
