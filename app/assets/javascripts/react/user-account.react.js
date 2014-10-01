@@ -29,12 +29,22 @@ var UserAccount = React.createClass({displayName: 'UserAccount',
   render: function() {
     return (
       React.DOM.div(null,
-        UserAddresses({name: this.fullName()}),
-        this.renderSubscription(),
-        this.renderMembershipOptions(),
-        this.renderCurrentMembership()
-      )
+        React.DOM.div({className: "col-lg-6"},
+          UserAddresses({name: this.fullName()})
+        ),
 
+        React.DOM.div({className: "col-lg-6"},
+          this.renderSubscription()
+        ),
+
+        React.DOM.div({className: "col-lg-6"},
+          this.renderMembershipOptions()
+        ),
+
+        React.DOM.div({className: "col-lg-6"},
+          this.renderCurrentMembership()
+        )
+      )
 
     )
   },
