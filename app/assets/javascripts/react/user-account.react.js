@@ -27,21 +27,39 @@ var UserAccount = React.createClass({displayName: 'UserAccount',
   },
 
   render: function() {
-    var user = this.state.user;
-    var firstName = 'first_name' in user ? user.first_name : '';
-    var lastName = 'last_name' in user ? user.last_name : '';
-    var hasAddr = 'addresses' in user && user.addresses.length > 0 ? true : false;
-    var subscriptions = 'active_memberships' in user && user.active_memberships.length > 0 ? undefined : Subscriptions(null)
-    var subscriptions = 'active_memberships' in user && user.active_memberships.length > 0 ? undefined : Subscriptions(null)
-    var userMembershipOptions = 'active_memberships' in user && user.active_memberships.length === 0 ? UserMembershipOptions({hasAddr: hasAddr}) : undefined;
-    var userActiveMembership = 'active_memberships' in user && user.active_memberships.length > 0 ? Membership({membership: user.active_memberships[0]}) : undefined;
     return (
       React.DOM.div(null,
-        UserAddresses({name: firstName + ' ' + lastName}),
-        subscriptions,
-        userMembershipOptions,
-        userActiveMembership
+        UserAddresses({name: this.fullName()}),
+        this.renderSubscription(),
+        this.renderMembershipOptions(),
+        this.renderCurrentMembership()
       )
     )
+  },
+
+  hasAddr: function() {
+    return this.state.user.addresses && this.state.user.addresses.length > 0;
+  },
+
+  renderSubscription: function() {
+    if(!this.hasActiveMembership()) return (Subscriptions(null));
+  },
+
+  hasActiveMembership: function() {
+    return this.state.user.active_memberships && this.state.user.active_memberships.length > 0;
+  },
+
+  renderMembershipOptions: function() {
+    if(!this.hasActiveMembership()) return (UserMembershipOptions({hasAddr: this.hasAddr()}));
+  },
+
+  renderCurrentMembership: function() {
+    if(this.hasActiveMembership()) return (Membership({membership: this.state.user.active_memberships[0]}));
+  },
+
+  fullName: function(first, last) {
+    var firstName = this.state.user.first_name || '';
+    var lastName = this.state.user.last_name || '';
+    return firstName + ' ' + lastName;
   }
 });
