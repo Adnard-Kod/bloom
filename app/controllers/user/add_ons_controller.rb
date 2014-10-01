@@ -17,7 +17,7 @@ class User::AddOnsController < UserController
   end
 
   def active
-    render json: AddOn.where(active: true)
+    render json: AddOn.active_add_on
   end
 
 end
