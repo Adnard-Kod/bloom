@@ -68,10 +68,17 @@ ActiveRecord::Schema.define(version: 20141001001528) do
     t.boolean  "current",    default: false
   end
 
+  create_table "promotions", force: true do |t|
+    t.string  "code",            null: false
+    t.string  "description",     null: false
+    t.string  "discount_type",   null: false
+    t.integer "discount_amount", null: false
+  end
+
   create_table "selected_items", force: true do |t|
     t.integer  "menu_id"
     t.integer  "menu_item_id"
-    t.boolean  "default"
+    t.boolean  "default",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"

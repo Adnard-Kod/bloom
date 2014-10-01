@@ -6,6 +6,13 @@ FactoryGirl.define do
     sequence(:meals) {|n| n }
   end
 
+  factory :promotion do
+    sequence(:code) {|n| "PROMOCODE#{n}"}
+    sequence(:description) {|n| "promo description #{1}"}
+    discount_type { %w[$ %].sample }
+    discount_amount { %w[5 10 15 20].sample }
+  end
+
   factory :menu do
     sequence(:title) {|n| "title #{n}"}
     trait(:current) do
