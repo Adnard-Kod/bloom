@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     end
     resources :menu_items, only: [:index, :create, :update, :destroy]
     resources :add_ons, only: [:index, :create, :update, :destroy]
+    resources :users, only: [:index, :update, :destroy]
     resources :dashboard, :only => [:index]
     resources :subscriptions, :only => [:create, :update, :destroy]
     resources :promotions, :only => [:create, :update, :destroy]
