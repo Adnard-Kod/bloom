@@ -23,10 +23,10 @@
     }.bind(this))
   },
   render: function() {
-    var promo = this.props.promo;
+    var promo = this.props.promo; 
     return (
       <li className="list-group-item">
-        <p>{promo.code}: {promo.description} (Gives {promo.discount_type}{promo.discount_amount})</p>
+        <p>{promo.code}: {promo.description} (Discount: {promo.discount_amount}{promo.discount_type})</p>
         {this.renderAdminButtons()}
         {this.renderEditForm()}
       </li>

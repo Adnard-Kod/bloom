@@ -26,7 +26,7 @@
     var promo = this.props.promo;
     return (
       React.DOM.li({className: "list-group-item"},
-        React.DOM.p(null, promo.code, ": ", promo.description, " (Gives ", promo.discount_type, promo.discount_amount, ")"),
+        React.DOM.p(null, promo.code, ": ", promo.description, " (Discount: ", promo.discount_amount, promo.discount_type, ")"),
         this.renderAdminButtons(),
         this.renderEditForm()
       )
