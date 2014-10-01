@@ -7,7 +7,7 @@
 //= require stores/session-store
 //= require react/user-membership-options.react
 //= require react/subscriptions.react
-//= require react/user-active-membership.react
+//= require react/membership.react
 //= require react/user-addresses.react
 
 var UserAccount = React.createClass({
@@ -34,7 +34,7 @@ var UserAccount = React.createClass({
     var subscriptions = 'active_memberships' in user && user.active_memberships.length > 0 ? undefined : <Subscriptions />
     var subscriptions = 'active_memberships' in user && user.active_memberships.length > 0 ? undefined : <Subscriptions />
     var userMembershipOptions = 'active_memberships' in user && user.active_memberships.length === 0 ? <UserMembershipOptions hasAddr={hasAddr}/> : undefined;
-    var userActiveMembership = 'active_memberships' in user && user.active_memberships.length > 0 ? <UserActiveMembership membership={user.active_memberships[0]} /> : undefined;
+    var userActiveMembership = 'active_memberships' in user && user.active_memberships.length > 0 ? <Membership membership={user.active_memberships[0]} /> : undefined;
     return (
       <div>
         <UserAddresses name={firstName + ' ' + lastName}/>
