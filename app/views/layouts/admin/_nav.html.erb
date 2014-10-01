@@ -12,27 +12,18 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Test Admin <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
-                    </ul>
+                <li>
+                    <%= link_to 'Logout', sessions_path, :method => :delete %>
                 </li>
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Orders</a>
+                        <a href="#orders">Orders</a>
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Menu Management</a>
+                        <a>Menu Management</a>
                         <ul id="demo">
                             <li>
                                 <a href="#">Menus</a>
@@ -46,19 +37,19 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#promotions"><i class="fa fa-fw fa-edit"></i> Promotions</a>
+                        <a href="#promotions">Promotions</a>
                     </li>
                     <li>
-                        <a href="#subscriptions"><i class="fa fa-fw fa-desktop"></i> Subscriptions</a>
+                        <a href="#subscriptions">Subscriptions</a>
                     </li>
                     <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> User Management</a>
-                                                <ul id="demo">
+                        <a>User Management</a>
+                        <ul id="demo">
                             <li>
-                                <a href="#">Users</a>
+                                <a href="#users">Users</a>
                             </li>
                             <li>
-                                <a href="#">User Communication</a>
+                                <a href="#user-communication">User Communication</a>
                             </li>
                         </ul>
                     </li>
