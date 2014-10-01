@@ -1,8 +1,6 @@
 class User::MembershipsController < UserController
-  before_filter :load_and_authorize_user, only: [:index]
-
   def index
-    render json: @user.expired_memberships
+    render json: current_user.expired_memberships
   end
 
   def create
@@ -20,11 +18,5 @@ class User::MembershipsController < UserController
     else
       render json: {error: 'Payment not valid. Please try again.'}
     end
-  end
-
-  private
-  def load_and_authorize_user
-    @user = User.find(params[:user_id])
-    redirect_to root_path unless @user == current_user || current_user.admin?
   end
 end
