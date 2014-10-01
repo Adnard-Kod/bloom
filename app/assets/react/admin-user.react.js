@@ -1,23 +1,11 @@
 /**
  * @jsx React.DOM
  */
-
 //= require react
 //= require stores/user-store
 //= require actions/user-actions
 //= require react/edit-links.react
 var AdminUser = React.createClass({
-  getInitialState: function() {
-    return {
-      editing: false
-    };
-  },
-  componentDidMount: function() {
-    UserStore.addChangeEvent(function()
-    {
-      if(this.isMounted()) this.setState({editing:false});
-    }.bind(this))
-  },
   render: function() {
     var user = this.props.user;
     // var editForm = this.state.editing ? <AddOnForm addOn={addOn} editing="true"/> :undefined;
