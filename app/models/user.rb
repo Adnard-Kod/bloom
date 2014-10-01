@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   after_save :subscribe_to_mailchimp
   before_destroy :unsubscribe_to_mailchimp
   delegate :subscribe_to_mailchimp, :unsubscribe_to_mailchimp, :to => :mailchimp
+  has_many :add_on_users
+  has_many :add_ons, through: :add_on_users
 
   def mailchimp
     @mailchimp ||= MailChimp.new self

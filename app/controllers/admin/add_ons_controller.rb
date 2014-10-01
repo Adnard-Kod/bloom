@@ -34,6 +34,6 @@ class Admin::AddOnsController < AdminController
   private
 
   def add_on_params
-    params.require(:add_on).permit(:name, :description, :price)
+    params.require(:add_on).permit(:name, :description, :price, :active)
   end
 end

@@ -1,3 +1,3 @@
 class AddOnSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :price
+  attributes :id, :name, :description, :price, :active, :type
 end

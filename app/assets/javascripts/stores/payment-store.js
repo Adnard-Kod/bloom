@@ -8,7 +8,7 @@ var PaymentStore = (function () {
   var ActionTypes = BloomingConstants.ActionTypes;
 
   return {
-    authorizePayment: function (token, paymentInfo) {
+    purchaseMembership: function (token, paymentInfo) {
       var authenticityToken = SessionStore.getAuthenticityToken();
         $.ajax({
           type: 'POST',
@@ -20,6 +20,18 @@ var PaymentStore = (function () {
         })
         .fail(function (xhr) {
         })
+      },
+    purchaseAddOn: function (token, paymentInfo) {
+      var authenticityToken = SessionStore.getAuthenticityToken();
+        $.ajax({
+          type: 'POST',
+          url: '/user/add_ons',
+          data: { token: token, authenticity_token: authenticityToken, payment_info: paymentInfo }
+        })
+        .done(function (data) {
+          })
+        .fail(function (xhr) {
+        })
     },
 
     createPaymentForm: function (data) {
@@ -28,14 +40,19 @@ var PaymentStore = (function () {
         description: data.name + ' ($' + data.price + ')',
         amount: data.price * 100,
         subscription: data.name + data.description,
-        subId: data.id
+        subId: data.id,
+        purchaseType: data.type
       };
 
       var handler = StripeCheckout.configure({
         key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
         image: '/assets/culinary/01_Blooming_Spoon_Logo_Final.png',
         token: function(token) {
-          this.authorizePayment(token, paymentInfo);
+          if (paymentInfo.purchaseType === 'AddOn'){
+            this.purchaseAddOn(token, paymentInfo);
+          } else if(paymentInfo.purchaseType === ""){
+            this.purchaseMembership(token, paymentInfo)
+          }
         }.bind(this)
       });
       handler.open(paymentInfo);
