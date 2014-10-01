@@ -48,6 +48,7 @@ var UserMembershipOptions = React.createClass({
     for(var i = 0; i < subs.length; i++) {
       if(subs[i].id === parseInt(data.subscription, 10)) {
         subInfo = subs[i];
+        subInfo.type = 'Membership';
         break;
       }
     }
