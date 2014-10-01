@@ -1,10 +1,14 @@
 require 'rails_helper'
 describe User::AddOnsController do
+  let(:user) { FactoryGirl.create :user }
+  before :each do
+    stub_current_user controller, user
+  end
   let!(:add_on){ FactoryGirl.create :add_on, :active}
   context "#active" do
-    it "It show the active add on for the week" do
+    it "returns a json of the active add on items" do
       get :active
-      expect( AddOn.find_by_active(true) ).to eq( add_on )
+      expect(JSON.parse(response.body).count).to eq(1)
     end
   end
 end
