@@ -55,4 +55,18 @@ FactoryGirl.define do
     delivery_instructions { Faker::Lorem.paragraph }
     user
   end
+
+  factory :membership do
+    subscription
+    user
+    trait :active do
+      status Membership::STATUSES[:active]
+    end
+    trait :expired do
+      status Membership::STATUSES[:expired]
+    end
+    trait :on_hold do
+      status Membership::STATUSES[:on_hold]
+    end
+  end
 end

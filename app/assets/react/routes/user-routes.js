@@ -4,6 +4,7 @@
 //= require router/router
 //= require react/user-dashboard.react
 //= require react/user-account.react
+//= require react/memberships.react
 
 Router.routes = (function() {
   var _userDashBoard = function() {
@@ -12,9 +13,13 @@ Router.routes = (function() {
   var _userDashboardAccount = function() {
     React.renderComponent(<UserAccount />, $('#user-dashboard')[0]);
   }
+  var _userOrderHistory = function() {
+    React.renderComponent(<Memberships />, $('#user-dashboard')[0]);
+  };
   return {
     "": _userDashBoard,
-    "#account": _userDashboardAccount
+    "#account": _userDashboardAccount,
+    "#order-history": _userOrderHistory
   }
 }());
 

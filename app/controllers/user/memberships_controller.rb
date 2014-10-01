@@ -1,4 +1,8 @@
 class User::MembershipsController < UserController
+  def index
+    render json: current_user.expired_memberships
+  end
+
   def create
     stripe_api = StripeApi.new params, current_user
     charge = stripe_api.charge!

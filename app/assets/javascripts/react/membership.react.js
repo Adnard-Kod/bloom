@@ -3,12 +3,13 @@
  */
 //= require react
 
-var UserActiveMembership = React.createClass({displayName: 'UserActiveMembership',
+var Membership = React.createClass({displayName: 'Membership',
   render: function() {
     var mem = this.props.membership;
+    var activeMembershipDetails = mem.status === 'active' ? React.DOM.h4(null, "Active Membership Details") : undefined;
     return (
       React.DOM.div(null,
-        React.DOM.h4(null, "Active Membership Details"),
+        activeMembershipDetails,
         React.DOM.ul(null,
           React.DOM.li({className: "list-group-item"}, "Weeks Remaining: ", mem.weeks_remaining),
           React.DOM.li({className: "list-group-item"}, "Meals Remaining: ", mem.meals_remaining),
