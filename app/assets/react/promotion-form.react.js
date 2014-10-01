@@ -4,7 +4,6 @@
 //= require react
 //= require stores/promotion-store
 //= require react/form-builder/form-for.react
-//= require stores/promotion-store
 //= require actions/promotion-actions
 var PromotionForm = React.createClass({
   getInitialState: function() {
@@ -24,10 +23,11 @@ var PromotionForm = React.createClass({
     var promotion = this.props.promotion || PromotionStore.new();
     var formOptions = {
       name: "Promotion",
-      onSubmit: this.handleSubmit,
       description: {
         type: 'textarea'
-      }
+      },
+      discount_type: { type: 'select', values: this.discountTypes()},
+      onSubmit: this.handleSubmit
     }
     return (
       <div>
@@ -41,5 +41,10 @@ var PromotionForm = React.createClass({
     } else {
       PromotionActions.createPromotion(data)
     }
+  },
+  discountTypes: function() {
+    return PromotionStore.discountTypes.map(function(discountType) {
+      return { value: discountType, show: discountType}
+    })
   }
 })
