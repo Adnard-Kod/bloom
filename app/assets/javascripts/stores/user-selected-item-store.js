@@ -1,7 +1,7 @@
 //= require constants/blooming-constants
 //= require dispatchers/blooming-dispatcher
 var UserSelectedItemStore = (function() {
-  var _selectedItems = {};
+  var _selectedItems = [];
   var CHANGE_EVENT = 'change';
   var FAIL_TO_CREATE_EVENT = 'creation-failed';
   var ActionTypes = BloomingConstants.ActionTypes;
@@ -13,6 +13,11 @@ var UserSelectedItemStore = (function() {
       var items = {};
       this.selectedItems().forEach(function(item){ items[item.menu_item.id] = item.quantity});
       return items;
+    },
+    selectedItemsCount: function() {
+      var count = 0;
+      _selectedItems.forEach(function(item) {count += item.quantity});
+      return count;
     },
     setSelectedItems: function(data, message) {
       _selectedItems = data;

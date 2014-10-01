@@ -4,17 +4,19 @@
 //= require stores/user-selected-item-store
 //= require react/menu.react
 //= require react/alert.react
+//= require react/progress-bar.react
 var CurrentMenu = React.createClass({
   getInitialState: function() {
     return {
       menu: {},
-      selectedItems: {}
+      selectedItems: []
     };
   },
   componentDidMount: function() {
     MenuStore.addChangeEvent(function(e, data) {
-      this.setState({menu: data.menu, selectedItems: data.selected_items })
+      this.setState({menu: data.menu, selectedItems: data.selected_items, maxMeals: data.max_meals })
       UserSelectedItemStore.setSelectedItems(data.selected_items);
+      UserSelectedItemStore.maxMeals = data.max_meals;
     }.bind(this))
     MenuStore.getCurrentMenu();
     UserSelectedItemStore.addChangeEvent(function(e, message) {
@@ -24,6 +26,7 @@ var CurrentMenu = React.createClass({
   render: function () {
     return (
       <div>
+        <ProgressBar min={0} max={this.state.maxMeals} value={this.currentMealsSelected()} />
         {this.renderSuccessMessage()}
         <div className="col-lg-6">
           <h3>{"This Week's Menu"}</h3>
@@ -39,14 +42,20 @@ var CurrentMenu = React.createClass({
   },
   renderDefaultSelectedItems: function() {
     if(this.state.menu.id) {
-      return(<MenuItemGroup menu={{selected_items: this.state.selectedItems}} user={true} selected={true} />);
+      return(<MenuItemGroup menu={{selected_items: this.state.selectedItems}} user={true} selected={true}/>);
     }
   },
   saveUserSelection: function(e) {
+    var currentCount = UserSelectedItemStore.selectedItemsCount();
+    var maxCount = UserSelectedItemStore.maxMeals;
+    if(currentCount < maxCount) return alert("You must select "+maxCount+" meals. Please add " + (maxCount - currentCount) + " more meals.")
     e.preventDefault();
     SelectedItemActions.saveUserSelectedItems();
   },
   renderSuccessMessage: function() {
     if(this.state.message) return(<Alert message={this.state.message}/>)
+  },
+  currentMealsSelected: function() {
+    return UserSelectedItemStore.selectedItemsCount();
   }
 });

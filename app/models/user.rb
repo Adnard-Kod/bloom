@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :memberships
   has_many :subscriptions, :through => :memberships
+  has_many :active_memberships, ->{ active? }, :class_name => 'Membership'
+  has_many :active_subscription, :through => :active_memberships, :source => :subscription
   has_many :selected_items, :class_name => 'UserSelectedItem'
   has_many :default_selected_items, ->{where(:default => true)}, :class_name => 'UserSelectedItem'
   Membership::STATUSES.keys.each do |status|

@@ -55,6 +55,7 @@ var ListGroupItem = React.createClass({
     SelectedItemActions.destroySelectedItem(this.props.id, this.props.item.id)
   },
   userSelect: function(e) {
+    if(UserSelectedItemStore.selectedItemsCount() === UserSelectedItemStore.maxMeals) return alert("You can only select "+UserSelectedItemStore.maxMeals+" meals. Please remove an item first.")
     e.preventDefault();
     SelectedItemActions.userSelect({menu_item: this.props.item})
   },
