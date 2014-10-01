@@ -23,6 +23,9 @@ FactoryGirl.define do
     sequence(:name) {|n| "name #{n}"}
     sequence(:description) {|n| "description #{n}"  }
     sequence(:price) {|n| n }
+    trait :active do
+      active true
+    end
   end
 
   factory :user do
