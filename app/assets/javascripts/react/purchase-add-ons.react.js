@@ -8,7 +8,7 @@ var PurchaseAddOn = React.createClass({displayName: 'PurchaseAddOn',
   render: function() {
     return (
       React.DOM.div(null,
-        React.DOM.button({id: "customButton", onClick: this.purchase}, "Purchase")
+        React.DOM.a({className: "col-lg-12 btn btn-success", onClick: this.purchase}, "Purchase Add On")
       )
     );
   },

@@ -24,9 +24,12 @@ var ActiveAddOns = React.createClass({
       addOns.push(<ActiveAddOn key={item.id} addOn={item} />)
       })
     return (
-      <div className="add-ons">
-        {addOns}
-        < PurchaseAddOn addOn={this.state.addOns} />
+      <div className="col-lg-6">
+        <h3>Add On Options</h3>
+        <div className="add-ons">
+          {addOns}
+          < PurchaseAddOn addOn={this.state.addOns} />
+        </div>
       </div>
     );
   }
