@@ -59,7 +59,7 @@ RSpec.describe SessionsController, :type => :controller do
 
     it "should return the correct redirect path" do
       delete :destroy
-      expect(JSON.parse(response.body)["redirect"]).to eq(root_path)
+      expect(response).to redirect_to(root_path)
     end
   end
 end
