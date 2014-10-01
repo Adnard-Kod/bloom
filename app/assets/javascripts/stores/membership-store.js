@@ -18,8 +18,9 @@ var MembershipStore = (function() {
         data: { user_id: SessionStore.currentUser }
       })
       .done(function(data) {
-        debugger
-      });
+        _memberships = data.memberships;
+        this.triggerChange();
+      }.bind(this));
     },
 
     addChangeEvent: function(callback) {

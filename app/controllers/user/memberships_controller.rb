@@ -2,7 +2,7 @@ class User::MembershipsController < UserController
   before_filter :load_and_authorize_user, only: [:index]
 
   def index
-    @user.expired_memberships
+    render json: @user.expired_memberships
   end
 
   def create
