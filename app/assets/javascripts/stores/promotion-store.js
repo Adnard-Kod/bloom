@@ -4,8 +4,10 @@ var PromotionStore = (function() {
   var _promotions = [];
   var CHANGE_EVENT = 'change';
   var FAIL_TO_CREATE_EVENT = 'creation-failed';
+  var DISCOUNT_TYPES = ["$", "%"]
   var ActionTypes = BloomingConstants.ActionTypes;
   return {
+    discountTypes: DISCOUNT_TYPES,
     promotions: function() {
       return _promotions;
     },
