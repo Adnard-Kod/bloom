@@ -6,8 +6,7 @@ class User::AddOnsController < UserController
 
     if charge[:paid]
       add_on = AddOn.find(params[:payment_info][:subId])
-      # add_on = current_user.add_ons.new :add_on => add_on
-      if add_on.save
+      if current_user.add_ons << add_on
         render json: add_on
       else
         render json: { error: add_on.errors.full_messages }, status: :unprocessable_entity
