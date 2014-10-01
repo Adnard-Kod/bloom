@@ -50,7 +50,7 @@ var PaymentStore = (function () {
         token: function(token) {
           if (paymentInfo.purchaseType === 'AddOn'){
             this.purchaseAddOn(token, paymentInfo);
-          } else if(paymentInfo.purchaseType === ""){
+          } else if(paymentInfo.purchaseType === 'Membership'){
             this.purchaseMembership(token, paymentInfo)
           }
         }.bind(this)
