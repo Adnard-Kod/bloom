@@ -35,7 +35,7 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
         React.DOM.div({className: "col-lg-6"},
           React.DOM.h3(null, "Your Selected Meals"),
           this.renderDefaultSelectedItems(),
-          React.DOM.a({className: "col-lg-12 btn btn-success", onClick: this.saveUserSelection}, "Save")
+          React.DOM.a({className: "col-lg-12 btn btn-success", onClick: this.saveUserSelection}, "Save Your Selected Meals")
         )
       )
     )
