@@ -34,6 +34,8 @@ var UserAccount = React.createClass({displayName: 'UserAccount',
         this.renderMembershipOptions(),
         this.renderCurrentMembership()
       )
+
+
     )
   },
 
