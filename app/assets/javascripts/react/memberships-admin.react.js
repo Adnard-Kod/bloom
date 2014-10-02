@@ -21,9 +21,11 @@ var MembershipsAdmin = React.createClass({displayName: 'MembershipsAdmin',
 
   componentDidMount: function() {
     MembershipStore.addChangeEvent(function() {
-      this.setState({
-        memberships: MembershipStore.memberships()
-      })
+      if(this.isMounted()) {
+        this.setState({
+          memberships: MembershipStore.memberships()
+        })
+      }
     }.bind(this));
     MembershipStore.getUserMembershipsAdmin();
   },
