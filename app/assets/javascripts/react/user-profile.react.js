@@ -10,7 +10,7 @@
 //= require react/user-addresses.react
 //= require react/user-membership-form.react
 //= require react/page-header.react
-
+//= require react/user-promotion-form.react
 var UserProfile = React.createClass({displayName: 'UserProfile',
   getInitialState: function() {
     return {
@@ -51,6 +51,7 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
         this.renderUserAddresses(),
         this.renderSubscription(),
         this.renderMembershipForm(),
+        this.renderPromotionForm(),
         this.renderCurrentMembership(),
         Memberships({memberships: this.state.memberships})
       )
@@ -73,6 +74,10 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
 
   renderMembershipForm: function() {
     if(!this.hasActiveMembership()) return (UserMembershipForm({subscriptions: this.state.subscriptions, hasAddr: this.hasAddr(), errors: this.state.errors}));
+  },
+
+  renderPromotionForm: function() {
+    return (UserPromotionForm({errors: this.state.errors}));
   },
 
   renderCurrentMembership: function() {
