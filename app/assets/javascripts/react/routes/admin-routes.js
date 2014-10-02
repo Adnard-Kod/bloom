@@ -40,6 +40,7 @@ Router.routes = (function() {
     React.renderComponent(UserProfile({admin: true, userId: id}), $('#admin-page')[0])
   }
   var _memberships = function() {
+    React.unmountComponentAtNode($('#admin-page')[0]);
     React.renderComponent(MembershipsAdmin(null), $('#admin-page')[0]);
   };
   return {
