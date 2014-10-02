@@ -9,7 +9,7 @@ var TogglableTabs = React.createClass({displayName: 'TogglableTabs',
   render: function() {
     return (
       React.DOM.div(null, 
-        Tablist(null), 
+        Tablist({tabs: this.props.tabNames}), 
         TabContent(null)
       )
     );
