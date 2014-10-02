@@ -68,7 +68,14 @@ var MembershipsAdmin = React.createClass({
 
   renderMembershipSection: function(memberships) {
     if(memberships && memberships.length > 0) {
-      return (<Table tableInfo={memberships} />);
+      return (<Table tableInfo={this.renderOnlySubscriptionId(memberships)} />);
     }
+  },
+
+  renderOnlySubscriptionId: function(memberships) {
+    return memberships.map(function(membership) {
+      membership.subscription = membership.subscription.id;
+      return membership;
+    });
   }
 });
