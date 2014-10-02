@@ -23,6 +23,17 @@ var MembershipStore = (function() {
       }.bind(this));
     },
 
+    getUserMembershipsAdmin: function() {
+      $.ajax({
+        type: 'GET',
+        url: '/admin/memberships'
+      })
+      .done(function(data) {
+        _memberships = data;
+        this.triggerChange();
+      }.bind(this));
+    },
+
     addChangeEvent: function(callback) {
       $(this).on(CHANGE_EVENT, callback);
     },
