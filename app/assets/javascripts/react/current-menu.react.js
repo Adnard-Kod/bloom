@@ -5,6 +5,7 @@
 //= require react/menu.react
 //= require react/alert.react
 //= require react/progress-bar.react
+//= require stores/session-store
 var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
   getInitialState: function() {
     return {
@@ -30,17 +31,23 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
   render: function () {
     return (
       React.DOM.div(null,
-        ProgressBar({min: 0, max: this.state.maxMeals, value: this.currentMealsSelected()}),
-        this.renderSuccessMessage(),
         React.DOM.div({className: "col-lg-6"},
           React.DOM.h3(null, "This Week's Menu"),
           Menu({menu: this.state.menu, user: true})
         ),
-        React.DOM.div({className: "col-lg-6"},
-          React.DOM.h3(null, "Your Selected Meals"),
-          this.renderDefaultSelectedItems(),
-          React.DOM.a({className: "col-lg-12 btn btn-success", onClick: this.saveUserSelection}, "Save Your Selected Meals")
-        )
+        this.renderUserSelectedItems()
+      )
+    )
+  },
+  renderUserSelectedItems: function() {
+    if(SessionStore.currentUser.active_memberships.length === 0) return;
+    return(
+      React.DOM.div({className: "col-lg-6"},
+        ProgressBar({min: 0, max: this.state.maxMeals, value: this.currentMealsSelected()}),
+        this.renderSuccessMessage(),
+        React.DOM.h3(null, "Your Selected Meals"),
+        this.renderDefaultSelectedItems(),
+        React.DOM.a({className: "col-lg-12 btn btn-success", onClick: this.saveUserSelection}, "Save Your Selected Meals")
       )
     )
   },
@@ -49,6 +56,7 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
       return(MenuItemGroup({menu: {selected_items: this.state.selectedItems}, user: true, selected: true}));
     }
   },
+
   saveUserSelection: function(e) {
     var currentCount = UserSelectedItemStore.selectedItemsCount();
     var maxCount = UserSelectedItemStore.maxMeals;

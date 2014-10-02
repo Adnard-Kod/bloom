@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   end
 
   def find_or_create_selected_items(default_selected_items)
-    if self.selected_items.blank?
+    if self.selected_items.blank? && self.active_subscription.present?
       default_selected_items.each do |selected_item|
         self.selected_items.create :menu_item => selected_item.menu_item, :default => true
       end
