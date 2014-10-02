@@ -8,7 +8,7 @@ var Tablist = React.createClass({
   render: function() {
     var tabs = [];
     this.props.tabs.forEach(function(tab, index) {
-      if (index === 0) classActive = 'active';
+      if (index === 0) var classActive = 'active';
       tabs.push(<Tab active={classActive} tab={this.props.tabs[index]} />);
     }.bind(this));
 
