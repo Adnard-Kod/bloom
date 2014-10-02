@@ -36,8 +36,7 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
       }
       AddressStore.setAddresses(this.state.user.addresses)
     }.bind(this));
-    var userId = this.props.admin && this.props.userId ? this.props.userId : SessionStore.currentUser;
-    console.log(userId)
+    var userId = this.props.admin && this.props.userId ? this.props.userId : SessionStore.currentUser.id;
     UserStore.getCurrentUserInfo(userId);
 
     AddressStore.addChangeEvent(function() {
