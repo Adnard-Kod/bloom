@@ -4,7 +4,7 @@
 
 var AddressActions = {
   _addUserId: function (data) {
-    data.userId = SessionStore.currentUser;
+    data.userId = SessionStore.currentUser.id;
     return data;
   },
 
