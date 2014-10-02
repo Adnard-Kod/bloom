@@ -28,7 +28,7 @@ var Memberships = React.createClass({displayName: 'Memberships',
     });
     return (
       React.DOM.div(null,
-        React.DOM.h4(null, "Order History"),
+        React.DOM.h3(null, "Order History"),
         React.DOM.ul({className: "list-group"},
           memberships
         )

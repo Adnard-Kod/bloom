@@ -26,7 +26,7 @@ var Subscriptions = React.createClass({
     return (
       <div className="subscriptions">
         {this.renderSubscriptionForm()}
-        <h4>Current Subscriptions and Packages</h4>
+        <h3>Current Subscriptions and Packages</h3>
         <ul className="list-group">
           {subscriptions}
         </ul>

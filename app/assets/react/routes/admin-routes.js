@@ -9,25 +9,30 @@
 //= require react/promotions.react
 Router.routes = (function() {
   var _adminDashBoard = function() {
+    React.unmountComponentAtNode($('#admin-page')[0]);
     React.renderComponent(<AdminDashboard />, $('#admin-page')[0])
   }
   var _menuItemsBox = function() {
+    React.unmountComponentAtNode($('#admin-page')[0]);
     React.renderComponent(<MenuItemBox />, $('#admin-page')[0])
   }
   var _subscriptions = function() {
+    React.unmountComponentAtNode($('#admin-page')[0]);
     React.renderComponent(<Subscriptions admin={true} />, $('#admin-page')[0])
   }
   var _addOnBox = function() {
+    React.unmountComponentAtNode($('#admin-page')[0]);
     React.renderComponent(<AddOnBox />, $('#admin-page')[0])
   }
   var _promotions = function() {
+    React.unmountComponentAtNode($('#admin-page')[0]);
     React.renderComponent(<Promotions admin={true} />, $('#admin-page')[0])
   }
   return {
     "": _adminDashBoard,
     "#menu-items": _menuItemsBox,
     "#subscriptions": _subscriptions,
-    "#add-ons": _addOnBox, 
+    "#add-ons": _addOnBox,
     "#promotions": _promotions
   }
 }());

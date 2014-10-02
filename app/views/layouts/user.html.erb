@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
   <title>BloomingSpoon</title>
+
   <%= stylesheet_link_tag    'user', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'user', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
 </head>
-<body>
+<body id="page-top" class="modern">
+
+<%= render 'user/dashboard/account_nav'%>
 
 <%= yield %>
+
+<%= render 'user/dashboard/footer' %>
 
 </body>
 </html>

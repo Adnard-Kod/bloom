@@ -8,12 +8,15 @@
 
 Router.routes = (function() {
   var _userDashBoard = function() {
+    React.unmountComponentAtNode($('#user-dashboard')[0]);
     React.renderComponent(<UserDashboard />, $('#user-dashboard')[0]);
   };
   var _userDashboardAccount = function() {
+    React.unmountComponentAtNode($('#user-dashboard')[0]);
     React.renderComponent(<UserAccount />, $('#user-dashboard')[0]);
   }
   var _userOrderHistory = function() {
+    React.unmountComponentAtNode($('#user-dashboard')[0]);
     React.renderComponent(<Memberships />, $('#user-dashboard')[0]);
   };
   return {
