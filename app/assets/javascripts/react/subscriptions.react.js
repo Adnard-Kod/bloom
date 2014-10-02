@@ -26,11 +26,23 @@ var Subscriptions = React.createClass({displayName: 'Subscriptions',
       subscriptions.push(Subscription({key: sub.id, sub: sub, admin: admin}))
     })
     return (
-      React.DOM.div({className: "subscriptions"},
-        this.renderSubscriptionForm(),
-        React.DOM.h3(null, "Current Subscriptions and Packages"),
-        React.DOM.ul({className: "list-group"},
-          subscriptions
+      React.DOM.div({className: "container-fluid"},
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+            PageHeader({title: "Subscriptions"})
+          )
+        ),
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+            React.DOM.div({className: "subscriptions"},
+              this.renderSubscriptionForm(),
+              React.DOM.hr(null),
+              PageHeader({title: "Current Subscriptions and Packages"}),
+              React.DOM.ul({className: "list-group"},
+                subscriptions
+              )
+            )
+          )
         )
       )
     );
