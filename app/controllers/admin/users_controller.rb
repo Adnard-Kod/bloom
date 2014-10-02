@@ -5,22 +5,11 @@ class Admin::UsersController < AdminController
   end
 
   def update
-    user = User.find(params[:id])
-    if user.update_attributes(user_params)
-      render json: user
-    else
-      render json: {errors: user.errors.full_messages}, status: :unprocessable_entity
-    end
+    render json: User.find(params[:id]).update_attributes(user_params)
   end
 
   def destroy
-    user = User.find(params[:id])
-    if user.present?
-      user.destroy
-      render json: {id: user.id}
-    else
-      render json: {errors: "No User found with this id"}
-    end
+    render json: User.find(params[:id]).destroy
   end
 
 
