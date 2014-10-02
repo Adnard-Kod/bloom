@@ -13,7 +13,7 @@ var UserProfile = React.createClass({
   getInitialState: function() {
     return {
       memberships: [],
-      user: UserStore.currentUser(),
+      user: SessionStore.currentUser,
       addresses: [],
       errors: [],
       subscriptions: SubscriptionStore.subscriptions()
@@ -27,17 +27,21 @@ var UserProfile = React.createClass({
 
     UserStore.addChangeEvent(function() {
       var user = UserStore.currentUser();
-      this.setState({
-        user: user,
-        addresses: user.addresses,
-        memberships: user.expired_memberships
-      });
+      if (this.isMounted()) {
+        this.setState({
+          user: user,
+          addresses: user.addresses,
+          memberships: user.expired_memberships
+        });
+      }
       AddressStore.setAddresses(this.state.user.addresses)
     }.bind(this));
-    UserStore.getCurrentUserInfo(SessionStore.currentUser);
+    var userId = this.props.admin && this.props.userId ? this.props.userId : SessionStore.currentUser;
+    console.log(userId)
+    UserStore.getCurrentUserInfo(userId);
 
     AddressStore.addChangeEvent(function() {
-      this.setState({addresses: AddressStore.addresses()})
+      if (this.isMounted()) this.setState({addresses: AddressStore.addresses()})
     }.bind(this))
   },
   render: function() {

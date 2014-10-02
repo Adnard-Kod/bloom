@@ -11,9 +11,11 @@ var Subscriptions = React.createClass({
   },
   componentDidMount: function() {
     SubscriptionStore.addChangeEvent(function() {
-      this.setState({
-        subscriptions: SubscriptionStore.subscriptions()
-      })
+      if(this.isMounted()) {
+        this.setState({
+          subscriptions: SubscriptionStore.subscriptions()
+        })
+      }
     }.bind(this));
     SubscriptionStore.all();
   },

@@ -11,14 +11,16 @@ var AdminUsers = React.createClass({displayName: 'AdminUsers',
   },
   componentDidMount: function() {
     UserStore.addChangeEvent(function() {
+      if(this.isMounted()) {
         this.setState({
           users: UserStore.users()
         });
+      }
     }.bind(this))
     UserStore.all()
   },
   render:function(){
-    var users = []
+    var users = [];
     this.state.users.forEach(function(user){
       users.push(AdminUser({key: user.id, user: user}))
     })

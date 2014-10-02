@@ -24,7 +24,8 @@ var AdminUser = React.createClass({displayName: 'AdminUser',
           )
         ),
         React.DOM.div({className: "panel-body"},
-          React.DOM.b(null, user.first_name, " ", user.last_name)
+          React.DOM.b(null, user.first_name, " ", user.last_name),
+          React.DOM.a({href: "#user-profile/"+user.id}, " view profile")
         )
       )
     );

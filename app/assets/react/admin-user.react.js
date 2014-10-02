@@ -25,6 +25,7 @@ var AdminUser = React.createClass({
         </div>
         <div className="panel-body">
           <b>{user.first_name} {user.last_name}</b>
+          <a href={"#user-profile/"+user.id}> view profile</a>
         </div>
       </div>
     );
