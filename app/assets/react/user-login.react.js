@@ -19,11 +19,12 @@ var UserLogin = React.createClass({
   render: function () {
     var errors = [];
     var fomrOptions = {
-      onSubmit: this.userLogin
+      onSubmit: this.userLogin,
+      submit: {value: "Login"}
     }
     return (
       <nav id="user-login">
-        <p>Login</p>
+        <br></br><p>Login</p>
         <FormFor object={SessionStore.new()} options={fomrOptions} errors={this.state.errors}/>
       </nav>
     )
