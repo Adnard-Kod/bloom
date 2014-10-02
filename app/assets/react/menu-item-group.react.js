@@ -22,7 +22,7 @@ var MenuItemGroup = React.createClass({
     return (
       <div className="panel-body">
         {this.renderDefaults()}
-        {this.renderEntres()}
+        {this.renderEntrees()}
         {this.renderSidedishes()}
         {this.renderSelectionForm()}
       </div>
@@ -35,14 +35,14 @@ var MenuItemGroup = React.createClass({
       }));
     }
   },
-  renderEntres: function() {
-    return this.renderSection('Entres', this.props.menu.selected_items.filter(function(item) {
-      return item.menu_item.category === 'Entre';
+  renderEntrees: function() {
+    return this.renderSection('Entrees', this.props.menu.selected_items.filter(function(item) {
+      return item.menu_item.category === 'Entree';
     }))
   },
   renderSidedishes: function() {
-   return this.renderSection('Sidedishes', this.props.menu.selected_items.filter(function(item) {
-      return item.menu_item.category === 'Sidedish';
+   return this.renderSection('Side Dishes', this.props.menu.selected_items.filter(function(item) {
+      return item.menu_item.category === 'Side Dish';
     }))
   },
   renderSection: function(name, list) {

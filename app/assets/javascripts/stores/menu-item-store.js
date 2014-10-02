@@ -4,7 +4,7 @@ var MenuItemStore = (function() {
   var _menuItems = [];
   var CHANGE_EVENT = 'change';
   var FAIL_TO_CREATE_EVENT = 'creation-failed';
-  var CATEGORIES = ['Entre', 'Sidedish']
+  var CATEGORIES = ['Entree', 'Side Dish']
   var ActionTypes = BloomingConstants.ActionTypes;
   return {
     categories: CATEGORIES,

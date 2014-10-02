@@ -11,8 +11,8 @@ All your react work should happen in app/assets/react. You should NOT touch any 
 jsx --watch app/assets/react app/assets/javascripts/react
 ```
 ## Terminology
-- meal: 16 ounces of entre, 8 ounces of side dish (feeds 1)
-- container: contains 2 portions of entre or side dish
+- meal: 16 ounces of entree, 8 ounces of side dish (feeds 1)
+- container: contains 2 portions of entree or side dish
 
 *We don't deliver half containers, minimum serving is 1 container*
 
@@ -69,11 +69,11 @@ Clients can signup/login with info:
 - All items are in serving 2, no single servings.
 - Admin can create future/unpublished menus
 - Admin creates/customize weekly menu (by defining it or choosing from pre-defined):
-  - 5 entres
+  - 5 entrees
   - 5 side dishes
 - Admin can choose the defaults for all clients
 - Client can change their defaults by choosing:
-  - How many entres and how many side dishes, keeping in mind that 2 side dishes == 1 entre.
+  - How many entrees and how many side dishes, keeping in mind that 2 side dishes == 1 entree.
 - Clients receive notice about menu on Tuesdays
 - Clients can customize menu By end of day Thursday
 - Admin can customize when is the notice date and when is the cutoff/deadline date
@@ -83,7 +83,7 @@ Use Github's philosophy on upgrading, just a checkbox.
 
 ### Menu Items
 - Name
-- Entre / side dish
+- Entree / Side Dish
 - Description
 - Ingredients
 - Tags (Gluten free, spicy, etc.)
