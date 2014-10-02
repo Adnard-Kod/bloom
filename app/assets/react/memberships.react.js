@@ -28,7 +28,7 @@ var Memberships = React.createClass({
     });
     return (
       <div>
-        <h4>Order History</h4>
+        <h3>Order History</h3>
         <ul className="list-group">
           {memberships}
         </ul>
