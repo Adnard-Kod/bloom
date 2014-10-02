@@ -4,6 +4,12 @@
 //= require react
 
 var Membership = React.createClass({
+  getDefaultProps: function() {
+    return {
+      admin: false
+    };
+  },
+
   render: function() {
     var mem = this.props.membership;
     var activeMembershipDetails = mem.status === 'active' ? <h3>Active Membership Details</h3> : undefined;
