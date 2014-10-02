@@ -8,12 +8,11 @@ var AdminUsersBox = React.createClass({
         <div className="row">
           <div className="col-lg-12">
             <PageHeader title="Users" />
-            <BreadCrumb crumbs={["Admin Management", "Users"]}/>
+            <BreadCrumb crumbs={["User Management", "Users"]}/>
           </div>
         </div>
         <div className="row">
           <div className="col-lg-12">
-            <hr />
             <AdminUsers />
           </div>
         </div>

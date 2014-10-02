@@ -8,12 +8,11 @@ var AdminUsersBox = React.createClass({displayName: 'AdminUsersBox',
         React.DOM.div({className: "row"},
           React.DOM.div({className: "col-lg-12"},
             PageHeader({title: "Users"}),
-            BreadCrumb({crumbs: ["Admin Management", "Users"]})
+            BreadCrumb({crumbs: ["User Management", "Users"]})
           )
         ),
         React.DOM.div({className: "row"},
           React.DOM.div({className: "col-lg-12"},
-            React.DOM.hr(null),
             AdminUsers(null)
           )
         )
