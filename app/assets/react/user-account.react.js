@@ -42,7 +42,9 @@ var UserAccount = React.createClass({
         </div>
 
         <div className="col-lg-6">
-          {this.renderCurrentMembership()}
+          <ul className="list-group">
+            {this.renderCurrentMembership()}
+          </ul>
         </div>
       </div>
 
