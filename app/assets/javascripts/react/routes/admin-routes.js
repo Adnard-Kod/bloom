@@ -7,6 +7,7 @@
 //= require react/subscriptions.react
 //= require react/add-on-box.react
 //= require react/promotions.react
+//= require react/admin-users-box.react
 Router.routes = (function() {
   var _adminDashBoard = function() {
     React.unmountComponentAtNode($('#admin-page')[0]);
@@ -28,12 +29,16 @@ Router.routes = (function() {
     React.unmountComponentAtNode($('#admin-page')[0]);
     React.renderComponent(Promotions({admin: true}), $('#admin-page')[0])
   }
+   var _adminUserBox = function() {
+    React.renderComponent(AdminUsersBox(null), $('#admin-page')[0])
+  }
   return {
     "": _adminDashBoard,
     "#menu-items": _menuItemsBox,
     "#subscriptions": _subscriptions,
     "#add-ons": _addOnBox,
-    "#promotions": _promotions
+    "#promotions": _promotions,
+    "#admin-users": _adminUserBox
   }
 }());
 
