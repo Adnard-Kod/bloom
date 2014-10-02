@@ -8,4 +8,9 @@ class UserSelectedItem < SelectedItem
     self.all.group_by(&:menu_item_id).each_value {|v| v.first.quantity = v.length; sum.push(v.first)}
     sum.map {|selected| {:item => selected.menu_item.name, :quantity => selected.quantity}}
   end
+
+  def self.user_and_menu_items
+
+  end
+
 end
