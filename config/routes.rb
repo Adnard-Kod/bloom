@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :add_ons, only: [:index, :create, :update, :destroy]
     resources :users, only: [:index, :update, :destroy]
     resources :dashboard, :only => [:index]
+    resources :memberships, :only => [:index]
     resources :subscriptions, :only => [:create, :update, :destroy]
     resources :promotions, :only => [:create, :update, :destroy]
   end

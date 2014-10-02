@@ -9,6 +9,7 @@
 //= require react/promotions.react
 //= require react/admin-users-box.react
 //= require react/user-profile.react
+//= require react/memberships-admin.react
 Router.routes = (function() {
   var _adminDashBoard = function() {
     React.unmountComponentAtNode($('#admin-page')[0]);
@@ -38,6 +39,10 @@ Router.routes = (function() {
     React.unmountComponentAtNode($('#admin-page')[0]);
     React.renderComponent(UserProfile({admin: true, userId: id}), $('#admin-page')[0])
   }
+  var _memberships = function() {
+    React.unmountComponentAtNode($('#admin-page')[0]);
+    React.renderComponent(MembershipsAdmin(null), $('#admin-page')[0]);
+  };
   return {
     "": _adminDashBoard,
     "#menu-items": _menuItemsBox,
@@ -45,7 +50,8 @@ Router.routes = (function() {
     "#add-ons": _addOnBox,
     "#promotions": _promotions,
     "#admin-users": _adminUserBox,
-    "#user-profile/": _userProfile
+    "#user-profile/": _userProfile,
+    "#memberships": _memberships
   }
 }());
 
