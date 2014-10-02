@@ -18,5 +18,11 @@ var PromotionActions = {
       type: BloomingConstants.ActionTypes.DESTROY_PROMOTION,
       id: id
     });
+  },
+  validatePromotionCode: function(data) {
+    BloomingDispatcher.handleViewAction({
+      type: BloomingConstants.ActionTypes.VALIDATE_PROMOTION_CODE,
+      data: data
+    })
   }
 }
