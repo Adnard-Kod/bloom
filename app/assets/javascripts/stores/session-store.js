@@ -6,6 +6,9 @@ var SessionStore = (function () {
     getAuthenticityToken: function() {
       return $('meta[name="csrf-token"]')[0].content
     },
+    setCurrentUser: function(user) {
+      this.currentUser = JSON.parse(user);
+    },
     new: function() {
       return {
         email: null,
