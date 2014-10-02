@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   namespace :admin do
+    resources :weekly_orders, only: [:index]
     resources :menus, only: [:index, :create, :update, :destroy] do
       resources :selected_items, :only => [:index, :create, :update, :destroy]
     end
