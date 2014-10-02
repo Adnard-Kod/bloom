@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 //= require react
 //= require stores/user-selected-item-store
+//= require react/tabs/togglable-tabs.react
+//= require react/order-quantity.react
 
 var WeeklyOrdersBox = React.createClass({displayName: 'WeeklyOrdersBox',
   getInitialState: function() {
@@ -18,17 +20,26 @@ var WeeklyOrdersBox = React.createClass({displayName: 'WeeklyOrdersBox',
     }.bind(this))
     UserSelectedItemStore.weeklyItems()
   },
+  renderOrderQuantity: function(){
+    var orderQuantity = []
+    this.state.weeklyOrders.forEach(function(order){
+      orderQuantity.push(OrderQuantity({order: order}))
+    }.bind(this))
+    return orderQuantity
+  },
   render:function(){
+    var tabs = [ { href: 'amount', name: 'Amount' },
+                 { href: 'weeklyOrders', name: 'Weekly Orders' }];
+    var tabContents = [ { id: 'amount', content: this.renderOrderQuantity() },
+                        { id: 'weeklyOrders', content: "eiko" }];
    return (
       React.DOM.div({className: "container-fluid"},
         React.DOM.div({className: "row"},
           React.DOM.div({className: "col-lg-12"},
-            PageHeader({title: "Weekly Order"}),
-            BreadCrumb({crumbs: ["Weekly Order Management", "Weekly Orders"]})
+            PageHeader({title: "Orders"})
           )
         ),
-          React.DOM.h1(null, " you did it "),
-            React.DOM.hr(null)
+          TogglableTabs({tabs: tabs, tabContents: tabContents})
       )
     )
   }
