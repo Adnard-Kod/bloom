@@ -3,10 +3,10 @@
  */
 //= require react
 
-var TogglableTabs = React.createClass({
+var Tablist = React.createClass({displayName: 'Tablist',
   render: function() {
     return (
-      <div />
+      React.DOM.div(null)
     );
   }
-});
+})
