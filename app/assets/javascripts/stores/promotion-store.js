@@ -2,6 +2,7 @@
 //= require dispatchers/blooming-dispatcher
 var PromotionStore = (function() {
   var _promotions = [];
+  var _current_discount = {};
   var CHANGE_EVENT = 'change';
   var FAIL_TO_CREATE_EVENT = 'creation-failed';
   var DISCOUNT_TYPES = ["$", "%"]
@@ -10,6 +11,9 @@ var PromotionStore = (function() {
     discountTypes: DISCOUNT_TYPES,
     promotions: function() {
       return _promotions;
+    },
+    currentDiscount: function() {
+      return _current_discount;
     },
     new: function() {
       return {
@@ -98,6 +102,19 @@ var PromotionStore = (function() {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
+    validatePromotionCode: function(data){
+      $.ajax({
+        type: 'GET',
+        url: '/promotions/validate_promotion_code',
+        data: { promo_code: data }
+      })
+      .done(function(data){
+        _current_discount = data.promotion;
+      })
+      .fail(function(xhr){
+
+      })
+    },
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
@@ -110,6 +127,8 @@ var PromotionStore = (function() {
         case ActionTypes.DESTROY_PROMOTION:
           this.destroy(action.id);
           break;
+        case ActionTypes.VALIDATE_PROMOTION_CODE:
+          this.validatePromotionCode(action.data);
         default:
           // do nothing
       }
