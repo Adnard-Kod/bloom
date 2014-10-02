@@ -4,8 +4,7 @@
 //= require react
 //= require stores/membership-store
 //= require react/membership.react
-//= require react/tabs/tablist.react
-//= require react/tabs/tab-contents.react
+//= require react/tabs/togglable-tabs.react
 
 var MembershipsAdmin = React.createClass({displayName: 'MembershipsAdmin',
   getInitialState: function() {
@@ -39,8 +38,7 @@ var MembershipsAdmin = React.createClass({displayName: 'MembershipsAdmin',
     return (
       React.DOM.div(null,
         React.DOM.h4(null, "User Memberships"),
-        Tablist({tabs: tabs}),
-        TabContents({tabContents: tabContents})
+        TogglableTabs({tabs: tabs, tabContents: tabContents})
       )
     );
   },
