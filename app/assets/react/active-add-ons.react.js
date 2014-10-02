@@ -14,7 +14,7 @@ var ActiveAddOns = React.createClass({
   },
   componentDidMount: function() {
     AddOnStore.addChangeEvent(function(){
-      this.setState({ addOns: AddOnStore.addOns()})
+      if(this.isMounted()) this.setState({ addOns: AddOnStore.addOns()})
     }.bind(this))
     AddOnStore.active()
   },

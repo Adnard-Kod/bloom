@@ -14,13 +14,17 @@ var CurrentMenu = React.createClass({
   },
   componentDidMount: function() {
     MenuStore.addChangeEvent(function(e, data) {
-      this.setState({menu: data.menu, selectedItems: data.selected_items, maxMeals: data.max_meals })
-      UserSelectedItemStore.setSelectedItems(data.selected_items);
-      UserSelectedItemStore.maxMeals = data.max_meals;
+      if(this.isMounted()) {
+        this.setState({menu: data.menu, selectedItems: data.selected_items, maxMeals: data.max_meals })
+        UserSelectedItemStore.setSelectedItems(data.selected_items);
+        UserSelectedItemStore.maxMeals = data.max_meals;
+      }
     }.bind(this))
     MenuStore.getCurrentMenu();
     UserSelectedItemStore.addChangeEvent(function(e, message) {
-      this.setState({selectedItems: UserSelectedItemStore.selectedItems(), message: message })
+      if(this.isMounted()) {
+        this.setState({selectedItems: UserSelectedItemStore.selectedItems(), message: message })
+      }
     }.bind(this))
   },
   render: function () {

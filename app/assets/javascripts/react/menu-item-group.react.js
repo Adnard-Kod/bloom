@@ -15,7 +15,7 @@ var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
   },
   componentDidMount: function() {
     SelectedItemStore.addFailToTakeAction(function(e, data) {
-      this.setState({errors: data})
+      if(this.isMounted()) this.setState({errors: data});
     }.bind(this))
   },
   render: function() {

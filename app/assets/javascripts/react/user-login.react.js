@@ -12,9 +12,7 @@ var UserLogin = React.createClass({displayName: 'UserLogin',
 
   componentDidMount: function() {
     $(SessionStore).on('login-error', function (e, userLoginErrors) {
-      this.setState({
-        errors: userLoginErrors.errors
-      })
+      if(this.isMounted()) this.setState({ errors: userLoginErrors.errors })
     }.bind(this));
   },
 

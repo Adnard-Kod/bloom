@@ -11,9 +11,7 @@ var UserCreation = React.createClass({displayName: 'UserCreation',
 
   componentDidMount: function () {
     $(UserStore).on('creation-error', function (e, userCreationErrors) {
-      this.setState({
-        errors: userCreationErrors.errors
-      })
+      if(this.isMounted()) this.setState({ errors: userCreationErrors.errors })
     }.bind(this));
   },
 

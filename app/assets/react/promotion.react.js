@@ -23,7 +23,7 @@
     }.bind(this))
   },
   render: function() {
-    var promo = this.props.promo; 
+    var promo = this.props.promo;
     return (
       <li className="list-group-item">
         <p>{promo.code}: {promo.description} (Discount: {promo.discount_amount}{promo.discount_type})</p>
@@ -46,7 +46,7 @@
   },
   edit: function(e) {
     e.preventDefault();
-    this.setState({editing: !this.state.editing})
+    if(this.isMounted()) this.setState({editing: !this.state.editing})
   },
   delete: function(e) {
     e.preventDefault();

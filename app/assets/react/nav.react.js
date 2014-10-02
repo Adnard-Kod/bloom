@@ -57,7 +57,7 @@ var Nav = React.createClass({
 
   showLoginSignup: function(e) {
     e.preventDefault();
-    this.setState({showSignupLogin: !this.state.showSignupLogin});
+    if(this.isMounted()) this.setState({showSignupLogin: !this.state.showSignupLogin});
   }
 });
 

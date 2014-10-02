@@ -34,7 +34,7 @@ var MenuPanelHeader = React.createClass({
   },
   edit: function(e) {
     e.preventDefault();
-    this.setState({editing: !this.state.editing})
+    if(this.isMounted()) this.setState({editing: !this.state.editing});
   },
   delete: function(e) {
     e.preventDefault();

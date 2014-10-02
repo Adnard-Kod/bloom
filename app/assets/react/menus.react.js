@@ -20,7 +20,7 @@ var Menus = React.createClass({
     if(this.props.admin) this.updateMenuItemState();
   },
   render: function() {
-    var menus = []
+    var menus = [];
     this.state.menus.forEach(function(menu) {
       menus.push(this.transferPropsTo(<Menu key={menu.id} menu={menu} menuItems={this.state.menuItems}/>))
     }.bind(this));
@@ -52,7 +52,7 @@ var Menus = React.createClass({
   },
   updateSelectedMenuItemsState: function() {
     SelectedItemStore.addChangeEvent(function() {
-      this.setState({selectedMenuItems: SelectedItemStore.selectedItems()})
+      if(this.isMounted()) this.setState({selectedMenuItems: SelectedItemStore.selectedItems()})
     }.bind(this));
   }
 })

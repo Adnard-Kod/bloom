@@ -11,9 +11,7 @@ var Promotions = React.createClass({
   },
   componentDidMount: function() {
     PromotionStore.addChangeEvent(function() {
-      this.setState({
-        promotions: PromotionStore.promotions()
-      })
+      if(this.isMounted()) this.setState({ promotions: PromotionStore.promotions() })
     }.bind(this));
     PromotionStore.all();
   },
