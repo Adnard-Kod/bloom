@@ -47,10 +47,9 @@ var Nav = React.createClass({displayName: 'Nav',
             React.DOM.li(null,
               React.DOM.a({href: "#", onClick: this.showLoginSignup}, "Login / Signup")
             )
-
-          ),
+          )
+        ),
           signupLoginForm
-        )
       )
     );
   },

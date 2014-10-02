@@ -47,10 +47,9 @@ var Nav = React.createClass({
             <li>
               <a href="#" onClick={this.showLoginSignup}>Login / Signup</a>
             </li>
-
           </ul>
-          {signupLoginForm}
         </div>
+          {signupLoginForm}
       </div>
     );
   },
