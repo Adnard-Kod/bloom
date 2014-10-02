@@ -9,8 +9,8 @@ var Tab = React.createClass({displayName: 'Tab',
     var tab = this.props.tab;
     var href = '#' + tab.href;
     return (
-      React.DOM.li(null, 
-        React.DOM.a({className: this.props.active, href: href, role: "tab", 'data-toggle': "tab"}, 
+      React.DOM.li({className: this.props.active}, 
+        React.DOM.a({href: href, role: "tab", 'data-toggle': "tab"}, 
           tab.name
         )
       )

@@ -9,8 +9,8 @@ var Tab = React.createClass({
     var tab = this.props.tab;
     var href = '#' + tab.href;
     return (
-      <li>
-        <a className={this.props.active} href={href} role="tab" data-toggle="tab">
+      <li className={this.props.active}>
+        <a href={href} role="tab" data-toggle="tab">
           {tab.name}
         </a>
       </li>
