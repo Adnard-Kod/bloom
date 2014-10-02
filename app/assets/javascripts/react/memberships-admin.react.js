@@ -4,6 +4,7 @@
 //= require react
 //= require stores/membership-store
 //= require react/membership.react
+//= require react/tabs/tablist.react
 
 var MembershipsAdmin = React.createClass({displayName: 'MembershipsAdmin',
   getInitialState: function() {
@@ -28,15 +29,13 @@ var MembershipsAdmin = React.createClass({displayName: 'MembershipsAdmin',
   },
 
   render: function() {
+    var tabs = [ { href: 'current', name: 'Active' },
+                 { href: 'on-hold', name: 'On Hold' },
+                 { href: 'expired', name: 'Expired'}];
     return (
       React.DOM.div(null,
         React.DOM.h4(null, "User Memberships"),
-        React.DOM.ul({className: "nav nav-tabs", role: "tablist"},
-          React.DOM.li({className: "active"}, React.DOM.a({href: "#current", role: "tab", 'data-toggle': "tab"}, "Active")),
-          React.DOM.li(null, React.DOM.a({href: "#on-hold", role: "tab", 'data-toggle': "tab"}, "On Hold")),
-          React.DOM.li(null, React.DOM.a({href: "#expired", role: "tab", 'data-toggle': "tab"}, "Expired"))
-        ),
-
+        Tablist({tabs: tabs}),
         React.DOM.div({className: "tab-content"},
           React.DOM.div({className: "tab-pane active", id: "current"}, this.renderActiveMemberships()),
           React.DOM.div({className: "tab-pane", id: "on-hold"}, this.renderOnHoldMemberships()),

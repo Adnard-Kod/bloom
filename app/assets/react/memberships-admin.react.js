@@ -4,6 +4,7 @@
 //= require react
 //= require stores/membership-store
 //= require react/membership.react
+//= require react/tabs/tablist.react
 
 var MembershipsAdmin = React.createClass({
   getInitialState: function() {
@@ -28,15 +29,13 @@ var MembershipsAdmin = React.createClass({
   },
 
   render: function() {
+    var tabs = [ { href: 'current', name: 'Active' },
+                 { href: 'on-hold', name: 'On Hold' },
+                 { href: 'expired', name: 'Expired'}];
     return (
       <div>
         <h4>User Memberships</h4>
-        <ul className="nav nav-tabs" role="tablist">
-          <li className="active"><a href="#current" role="tab" data-toggle="tab">Active</a></li>
-          <li><a href="#on-hold" role="tab" data-toggle="tab">On Hold</a></li>
-          <li><a href="#expired" role="tab" data-toggle="tab">Expired</a></li>
-        </ul>
-
+        <Tablist tabs={tabs} />
         <div className="tab-content">
           <div className="tab-pane active" id="current">{this.renderActiveMemberships()}</div>
           <div className="tab-pane" id="on-hold">{this.renderOnHoldMemberships()}</div>
