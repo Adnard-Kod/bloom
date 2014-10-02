@@ -3,9 +3,7 @@
  */
 //= require router/router
 //= require react/user-dashboard.react
-//= require react/user-account.react
-//= require react/memberships.react
-
+//= require react/user-profile.react
 Router.routes = (function() {
   var _userDashBoard = function() {
     React.unmountComponentAtNode($('#user-dashboard')[0]);
@@ -18,11 +16,14 @@ Router.routes = (function() {
   var _userOrderHistory = function() {
     React.unmountComponentAtNode($('#user-dashboard')[0]);
     React.renderComponent(Memberships(null), $('#user-dashboard')[0]);
-  };
+  }
+  var _userProfile = function() {
+    React.unmountComponentAtNode($('#user-dashboard')[0]);
+    React.renderComponent(UserProfile(null), $('#user-dashboard')[0]);
+  }
   return {
     "": _userDashBoard,
-    "#account": _userDashboardAccount,
-    "#order-history": _userOrderHistory
+    "#user-profile": _userProfile
   }
 }());
 

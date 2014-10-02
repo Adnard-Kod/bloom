@@ -25,6 +25,10 @@ var AddressStore = (function () {
       }.bind(this))
     },
 
+    setAddresses: function(data) {
+      _addresses = data;
+    },
+
     new: function () {
       return {
         id: null,

@@ -29,8 +29,12 @@ Router.routes = (function() {
     React.unmountComponentAtNode($('#admin-page')[0]);
     React.renderComponent(<Promotions admin={true} />, $('#admin-page')[0])
   }
-   var _adminUserBox = function() {
+  var _adminUserBox = function() {
+    React.unmountComponentAtNode($('#admin-page')[0]);
     React.renderComponent(<AdminUsersBox />, $('#admin-page')[0])
+  }
+  var _userProfile = function(id) {
+    React.renderComponent()
   }
   return {
     "": _adminDashBoard,
@@ -38,12 +42,13 @@ Router.routes = (function() {
     "#subscriptions": _subscriptions,
     "#add-ons": _addOnBox,
     "#promotions": _promotions,
-    "#admin-users": _adminUserBox
+    "#admin-users": _adminUserBox,
+    "#user-profile/": _userProfile
   }
 }());
 
 $(document).ready(function() {
-  Router.route(window.location.hash)
+  Router.route(window.location.hash);
 })
 $(window).on('hashchange', function() {
   Router.route(window.location.hash);
