@@ -30,19 +30,19 @@ var Nav = React.createClass({displayName: 'Nav',
               React.DOM.a({href: "#page-top"})
             ),
             React.DOM.li(null,
+              React.DOM.a({href: "#delivery"}, "Meal Delivery")
+            ),
+            React.DOM.li(null,
               React.DOM.a({href: "#values"}, "Values")
             ),
             React.DOM.li(null,
               React.DOM.a({href: "#people"}, "People")
             ),
             React.DOM.li(null,
-              React.DOM.a({href: "#press"}, "Press")
-            ),
-            React.DOM.li(null,
-              React.DOM.a({href: "#hours"}, "Hours")
-            ),
-            React.DOM.li(null,
               React.DOM.a({href: "#menu"}, "Menu")
+            ),
+            React.DOM.li(null,
+              React.DOM.a({href: "#contact"}, "Contact")
             ),
             React.DOM.li(null,
               React.DOM.a({href: "#", onClick: this.showLoginSignup}, "Login / Signup")

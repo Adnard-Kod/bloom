@@ -30,19 +30,19 @@ var Nav = React.createClass({
               <a href="#page-top"></a>
             </li>
             <li>
+              <a href="#delivery">Meal Delivery</a>
+            </li>
+            <li>
               <a href="#values">Values</a>
             </li>
             <li>
               <a href="#people">People</a>
             </li>
             <li>
-              <a href="#press">Press</a>
-            </li>
-            <li>
-              <a href="#hours">Hours</a>
-            </li>
-            <li>
               <a href="#menu">Menu</a>
+            </li>
+            <li>
+              <a href="#contact">Contact</a>
             </li>
             <li>
               <a href="#" onClick={this.showLoginSignup}>Login / Signup</a>
