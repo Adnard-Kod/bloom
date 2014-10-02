@@ -38,9 +38,17 @@ var MembershipsAdmin = React.createClass({displayName: 'MembershipsAdmin',
                         { id: 'on-hold', content: this.renderOnHoldMemberships() },
                         { id: 'expired', content: this.renderExpiredMemberships() }];
     return (
-      React.DOM.div(null,
-        React.DOM.h4(null, "User Memberships"),
-        TogglableTabs({tabs: tabs, tabContents: tabContents})
+      React.DOM.div({className: "container-fluid"},
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+            PageHeader({title: "User Memberships"})
+          )
+        ),
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+          TogglableTabs({tabs: tabs, tabContents: tabContents})
+          )
+        )
       )
     );
   },

@@ -38,9 +38,17 @@ var MembershipsAdmin = React.createClass({
                         { id: 'on-hold', content: this.renderOnHoldMemberships() },
                         { id: 'expired', content: this.renderExpiredMemberships() }];
     return (
-      <div>
-        <h4>User Memberships</h4>
-        <TogglableTabs tabs={tabs} tabContents={tabContents} />
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-12">
+            <PageHeader title="User Memberships" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12">
+          <TogglableTabs tabs={tabs} tabContents={tabContents} />
+          </div>
+        </div>
       </div>
     );
   },

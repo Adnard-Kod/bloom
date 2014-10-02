@@ -22,12 +22,24 @@ var Promotions = React.createClass({
       promotions.push(<Promotion key={promo.id} promo={promo} admin={admin}/>)
     })
     return (
-      <div className="promotions">
-        {this.renderPromotionForm()}
-        <h4>Current Promotional Codes</h4>
-        <ul className="list-group">
-          {promotions}
-        </ul>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-12">
+            <PageHeader title="Promotions" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="promotions">
+            {this.renderPromotionForm()}
+            <hr />
+            <PageHeader title="Current Promotional Codes" />
+            <ul className="list-group">
+              {promotions}
+            </ul>
+            </div>
+          </div>
+        </div>
       </div>
     );
   },

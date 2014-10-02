@@ -22,11 +22,23 @@ var Promotions = React.createClass({displayName: 'Promotions',
       promotions.push(Promotion({key: promo.id, promo: promo, admin: admin}))
     })
     return (
-      React.DOM.div({className: "promotions"},
-        this.renderPromotionForm(),
-        React.DOM.h4(null, "Current Promotional Codes"),
-        React.DOM.ul({className: "list-group"},
-          promotions
+      React.DOM.div({className: "container-fluid"},
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+            PageHeader({title: "Promotions"})
+          )
+        ),
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+            React.DOM.div({className: "promotions"},
+            this.renderPromotionForm(),
+            React.DOM.hr(null),
+            PageHeader({title: "Current Promotional Codes"}),
+            React.DOM.ul({className: "list-group"},
+              promotions
+            )
+            )
+          )
         )
       )
     );
