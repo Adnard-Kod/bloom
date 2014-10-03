@@ -76,15 +76,19 @@ var UserProfile = React.createClass({
     return(<UserAddresses addresses={this.state.addresses} name={this.fullName()}/>);
   },
   renderSubscription: function() {
-    if(!this.hasActiveMembership()) return (<Subscriptions />);
+    if(!this.hasActiveMembership() && !this.hasOnHoldMembership()) return (<Subscriptions />);
   },
 
   hasActiveMembership: function() {
     return this.state.user.active_memberships && this.state.user.active_memberships.length > 0;
   },
 
+  hasOnHoldMembership: function() {
+    return this.state.user.on_hold_memberships && this.state.user.on_hold_memberships.length > 0;
+  },
+
   renderMembershipForm: function() {
-    if(!this.hasActiveMembership()) return (<UserMembershipForm subscriptions={this.state.subscriptions} hasAddr={this.hasAddr()} errors={this.state.errors}/>);
+    if(!this.hasActiveMembership() && !this.hasOnHoldMembership()) return (<UserMembershipForm subscriptions={this.state.subscriptions} hasAddr={this.hasAddr()} errors={this.state.errors}/>);
   },
 
   renderPromotionForm: function() {
@@ -92,7 +96,11 @@ var UserProfile = React.createClass({
   },
 
   renderCurrentMembership: function() {
-    if(this.hasActiveMembership()) return (<Membership membership={this.state.user.active_memberships[0]} />);
+    if(this.hasActiveMembership()) {
+      return (<Membership membership={this.state.user.active_memberships[0]} />);
+    } else if(this.hasOnHoldMembership()) {
+      return(<Membership membership={this.state.user.on_hold_memberships[0]} />);
+    }
   },
 
   fullName: function(first, last) {
