@@ -127,7 +127,7 @@ var UserSelectedItemStore = (function() {
         type: 'GET',
       })
       .done(function(data) {
-        _selectedItems = data.weekly_orders
+        _selectedItems = data
         this.triggerChange();
       }.bind(this))
       .fail(function(xhr) {
