@@ -23,7 +23,7 @@ var UserDashboard = React.createClass({
   },
   renderMembershipAlert: function() {
     if(!this.userHasActiveMembership())
-      return(<Alert danger={true} message="You don't have an active membership. Please visit My Account and pay for a new membership." />);
+      return(<Alert danger={true} message="You don't have an active membership. Please visit 'My Account' to purchase a new membership or reactive your existing membership." />);
 
   },
   userHasActiveMembership: function() {
