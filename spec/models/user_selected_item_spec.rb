@@ -1,17 +1,18 @@
 require 'rails_helper'
 describe UserSelectedItem do
-  let!(:user_selected_item) { FactoryGirl.create :user_selected_item }
+  let!(:user_selected_item) { FactoryGirl.create :user_selected_item, :default }
   context "associations" do
     [:user, :menu_item].each do |assoc|
       it { should belong_to assoc }
     end
   end
   it ".default scope" do
-    default = FactoryGirl.create :user_selected_item, :default
-    expect(UserSelectedItem.default).to eq [default]
+    not_default = FactoryGirl.create :user_selected_item
+    expect(UserSelectedItem.default).to eq [user_selected_item]
   end
   it ".group_by_menu_item" do
-    FactoryGirl.create :user_selected_item, :menu_item => user_selected_item.menu_item
+    FactoryGirl.create :user_selected_item, :default, :menu_item => user_selected_item.menu_item
+    FactoryGirl.create :user_selected_item
     expect(UserSelectedItem.group_by_menu_item).to eq [user_selected_item]
     expect(UserSelectedItem.group_by_menu_item.first.quantity).to eq 2
   end
