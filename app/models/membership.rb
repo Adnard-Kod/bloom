@@ -29,6 +29,8 @@ class Membership < ActiveRecord::Base
 
   def put_membership_on_hold
     set_hold_start_and_end_dates
+    set_hold_status
+    update_end_date_due_to_hold
   end
 
   private
@@ -60,5 +62,13 @@ class Membership < ActiveRecord::Base
                         end
       self.hold_end = self.hold_start + self.hold_weeks_remaining * 7
     end
+  end
+
+  def set_hold_status
+    self.update(:status => STATUSES[:on_hold])
+  end
+
+  def update_end_date_due_to_hold
+    self.end_date += self.hold_weeks_remaining * 7
   end
 end
