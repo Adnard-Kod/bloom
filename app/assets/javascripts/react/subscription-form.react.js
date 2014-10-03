@@ -25,6 +25,7 @@ var SubscriptionForm = React.createClass({displayName: 'SubscriptionForm',
     var formOptions = {
       name: "Subscription",
       onSubmit: this.handleSubmit,
+      meals: {placeholder: 'Meals per Week'},
       description: {
         type: 'textarea'
       }
