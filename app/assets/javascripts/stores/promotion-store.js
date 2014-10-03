@@ -110,7 +110,7 @@ var PromotionStore = (function() {
       })
       .done(function(data){
         _current_discount = data.promotion;
-        this.triggerChange();
+        this.triggerChange(_current_discount);
       }.bind(this))
       .fail(function(xhr){
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);

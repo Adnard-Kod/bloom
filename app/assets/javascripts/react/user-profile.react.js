@@ -48,7 +48,16 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
     }.bind(this))
 
     PromotionStore.addFailToTakeAction(function() {
-      if (this.isMounted()) this.setState({alert: "Invalid Code"})
+      if (this.isMounted()) this.setState({alert: {message: "Invalid Code", danger: true}})
+    }.bind(this))
+    PromotionStore.addChangeEvent(function(e, data) {
+      var discount = data.discount_amount;
+      if(data.discount_type === '$') {
+        discount = data.discount_type + '' + discount;
+      } else {
+        discount =  discount + '' + data.discount_type;
+      }
+      if (this.isMounted()) this.setState({alert: {message: "You saved " + discount, danger: false }})
     }.bind(this))
   },
   render: function() {
@@ -65,7 +74,7 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
     );
   },
   renderAlert: function() {
-    if(this.state.alert) return(Alert({danger: true, message: this.state.alert}))
+    if(this.state.alert) return(Alert({danger: this.state.alert.danger, message: this.state.alert.message}))
   },
   hasAddr: function() {
     return this.state.addresses && this.state.addresses.length > 0;
