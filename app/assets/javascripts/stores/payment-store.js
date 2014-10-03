@@ -50,11 +50,11 @@ var PaymentStore = (function () {
     },
 
     createPaymentForm: function (data) {
-
+      var price = this.applyDiscount(data.price);
       var paymentInfo = {
         name: 'Blooming Spoon',
-        description: data.name + ' ($' + data.price + ')',
-        amount: this.applyDiscount(data.price) * 100,
+        description: data.name + ' ($' + price + ')',
+        amount: price * 100,
         subscription: data.name + data.description,
         subId: data.id,
         purchaseType: data.type
