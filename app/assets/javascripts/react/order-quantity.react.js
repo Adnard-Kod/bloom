@@ -14,8 +14,11 @@ var OrderQuantity = React.createClass({displayName: 'OrderQuantity',
     var order = this.props.order;
     return (
       React.DOM.div(null,
-        React.DOM.ul(null,
-          React.DOM.li({className: "list-group-item"}, order.item, ": ", order.quantity, " ")
+        React.DOM.ul({className: "list-group"},
+          React.DOM.li({className: "list-group-item"},
+          order.item,
+          React.DOM.span({className: "badge"}, order.quantity)
+          )
         )
       )
     );

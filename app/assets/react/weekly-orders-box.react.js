@@ -28,15 +28,15 @@ var WeeklyOrdersBox = React.createClass({
     return orderQuantity
   },
   render:function(){
-    var tabs = [ { href: 'amount', name: 'Amount' },
-                 { href: 'weeklyOrders', name: 'Weekly Orders' }];
-    var tabContents = [ { id: 'amount', content: this.renderOrderQuantity() },
-                        { id: 'weeklyOrders', content: "eiko" }];
+    var tabs = [ { href: 'user-orders', name: 'User Orders' },
+                 { href: 'total-items', name: 'Total Items' }];
+    var tabContents = [ { id: 'user-orders', content: "hello" },
+                        { id: 'total-items', content: this.renderOrderQuantity() }];
    return (
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-12">
-            <PageHeader title="Orders" />
+            <PageHeader title="Weekly Orders" />
           </div>
         </div>
           <TogglableTabs tabs={tabs} tabContents={tabContents} />
