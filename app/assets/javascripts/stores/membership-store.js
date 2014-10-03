@@ -56,23 +56,28 @@ var MembershipStore = (function() {
       $(this).trigger(CHANGE_EVENT, data);
     },
 
-    update: function(data) {
+    changeStatus: function(data) {
+      var previousStatus = data.status;
+      this.update(data, function(response) {
+        UserStore.removePropertyFromUser(previousStatus + '_memberships', response.membership);
+        UserStore.addPropertyToUser(response.membership.status + '_memberships', response.membership);
+      });
+    },
+
+    update: function(data, callback) {
       $.ajax({
         type: 'PUT',
         url: '/user/memberships/' + data.membershipId,
         data: { user_id: data.userId, status: data.status }
       })
-      .done(function(data) {
-        UserStore.removePropertyFromUser('active_memberships', data.membership);
-        UserStore.addPropertyToUser('on_hold_memberships', data.membership);
-      });
+      .done(callback);
     },
 
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
-        case ActionTypes.UPDATE_MEMBERSHIP:
-          this.update(action.data);
+        case ActionTypes.CHANGE_MEMBERSHIP_STATUS:
+          this.changeStatus(action.data);
           break;
         default:
           // do nothing
