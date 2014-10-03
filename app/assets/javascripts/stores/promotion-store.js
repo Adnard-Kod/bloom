@@ -113,8 +113,8 @@ var PromotionStore = (function() {
         this.triggerChange();
       }.bind(this))
       .fail(function(xhr){
-
-      })
+        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
+      }.bind(this))
     },
     payload: function(payload) {
       var action = payload.action;
@@ -137,4 +137,4 @@ var PromotionStore = (function() {
   }
 }())
 
-BloomingDispatcher.register(PromotionStore.payload.bind(PromotionStore));
+PromotionStore.dispatchToken = BloomingDispatcher.register(PromotionStore.payload.bind(PromotionStore));

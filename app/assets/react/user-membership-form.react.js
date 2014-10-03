@@ -32,14 +32,9 @@ var UserMembershipForm = React.createClass({
 
   purchase: function(data) {
     var subs = this.props.subscriptions;
-    var subInfo;
-    for(var i = 0; i < subs.length; i++) {
-      if(subs[i].id === parseInt(data.subscription, 10)) {
-        subInfo = subs[i];
-        subInfo.type = 'Membership';
-        break;
-      }
-    }
+    // don't modify the subscription, make a copy first.
+    var subInfo = $.extend({}, this.props.subscriptions.filter(function(sub){return sub.id === parseInt(data.subscription)})[0])
+    subInfo.type = 'Membership';
     PaymentActions.createPaymentForm(subInfo);
   }
 });

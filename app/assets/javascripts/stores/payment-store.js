@@ -34,11 +34,27 @@ var PaymentStore = (function () {
         })
     },
 
+    applyDiscount: function(price) {
+      var currentDiscount = PromotionStore.currentDiscount();
+      switch(currentDiscount.discount_type) {
+        case '%':
+          price *= (1-currentDiscount.discount_amount/100)
+          break;
+        case '$':
+          price -= currentDiscount.discount_amount
+          break;
+        default:
+          // do nothing
+      }
+      return price;
+    },
+
     createPaymentForm: function (data) {
+
       var paymentInfo = {
         name: 'Blooming Spoon',
         description: data.name + ' ($' + data.price + ')',
-        amount: data.price * 100,
+        amount: this.applyDiscount(data.price) * 100,
         subscription: data.name + data.description,
         subId: data.id,
         purchaseType: data.type
@@ -62,6 +78,7 @@ var PaymentStore = (function () {
       var action = payload.action;
       switch(action.type) {
         case ActionTypes.CREATE_PAYMENT_FORM:
+          BloomingDispatcher.waitFor([PromotionStore.dispatchToken]);
           this.createPaymentForm(action.data);
           break;
         default:
@@ -70,4 +87,4 @@ var PaymentStore = (function () {
   };
 }());
 
-BloomingDispatcher.register(PaymentStore.payload.bind(PaymentStore))
+BloomingDispatcher.register(PaymentStore.payload.bind(PaymentStore));

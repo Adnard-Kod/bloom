@@ -8,7 +8,7 @@ class PromotionsController < ApplicationController
     if promotion
       render json: promotion
     else
-      render json: { error: "Promotion Code is Not Valid" }
+      render json: { error: "Promotion Code is Not Valid" }, :status => :unprocessable_entity
     end
   end
 end

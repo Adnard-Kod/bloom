@@ -4,6 +4,7 @@
 //= require react
 //= require react/memberships.react
 //= require stores/subscription-store
+//= require stores/promotion-store
 //= require react/subscriptions.react
 //= require react/address-required.react
 //= require stores/payment-store
@@ -11,6 +12,7 @@
 //= require react/user-membership-form.react
 //= require react/page-header.react
 //= require react/user-promotion-form.react
+//= require react/alert.react
 var UserProfile = React.createClass({
   getInitialState: function() {
     return {
@@ -44,20 +46,27 @@ var UserProfile = React.createClass({
     AddressStore.addChangeEvent(function() {
       if (this.isMounted()) this.setState({addresses: AddressStore.addresses()})
     }.bind(this))
+
+    PromotionStore.addFailToTakeAction(function() {
+      if (this.isMounted()) this.setState({alert: "Invalid Code"})
+    }.bind(this))
   },
   render: function() {
     return (
       <div className="user-profile">
         {this.renderUserAddresses()}
         {this.renderSubscription()}
-        {this.renderMembershipForm()}
+        {this.renderAlert()}
         {this.renderPromotionForm()}
+        {this.renderMembershipForm()}
         {this.renderCurrentMembership()}
         <Memberships memberships={this.state.memberships}/>
       </div>
     );
   },
-
+  renderAlert: function() {
+    if(this.state.alert) return(<Alert danger={true} message={this.state.alert} />)
+  },
   hasAddr: function() {
     return this.state.addresses && this.state.addresses.length > 0;
   },
@@ -77,7 +86,7 @@ var UserProfile = React.createClass({
   },
 
   renderPromotionForm: function() {
-    return (<UserPromotionForm errors={this.state.errors}/>);
+    if(!this.hasActiveMembership()) return (<UserPromotionForm errors={this.state.errors}/>);
   },
 
   renderCurrentMembership: function() {
