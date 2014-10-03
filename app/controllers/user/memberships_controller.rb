@@ -19,4 +19,16 @@ class User::MembershipsController < UserController
       render json: {error: 'Payment not valid. Please try again.'}
     end
   end
+
+  def update
+    membership = Membership.find(params[:id])
+    if params[:status] == 'active'
+      membership.put_membership_on_hold
+      if membership.save
+        render json: membership
+      end
+    elsif params[:status] == 'on-hold'
+
+    end
+  end
 end
