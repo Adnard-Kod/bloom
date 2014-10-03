@@ -141,7 +141,7 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
                             status: membershipIdAndStatus[0],
                             membershipId: membershipIdAndStatus[1]
                           };
-    MembershipActions.updateMembership(membershipInfo);
+    MembershipActions.changeMembership(membershipInfo);
   },
 
   removeHold: function(e) {
