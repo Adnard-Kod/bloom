@@ -13,6 +13,8 @@
 //= require react/page-header.react
 //= require react/user-promotion-form.react
 //= require react/alert.react
+//= require actions/membership-actions
+
 var UserProfile = React.createClass({displayName: 'UserProfile',
   getInitialState: function() {
     return {
@@ -97,7 +99,7 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
 
   renderCurrentMembership: function() {
     if(this.hasActiveMembership()) {
-      return (Membership({membership: this.state.user.active_memberships[0]}));
+      return (Membership({membership: this.state.user.active_memberships[0], putOnHold: this.putMembershipOnHold}));
     } else if(this.hasOnHoldMembership()) {
       return(Membership({membership: this.state.user.on_hold_memberships[0]}));
     }
@@ -108,6 +110,7 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
     var lastName = this.state.user.last_name || '';
     return firstName + ' ' + lastName;
   },
+
   setUser: function() {
     if(this.props.admin && this.props.userId) {
       UserStore.addChangeEvent(function() {
@@ -129,6 +132,20 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
         memberships: SessionStore.currentUser.expired_memberships
       });
     }
+  },
+
+  putMembershipOnHold: function(e) {
+    e.preventDefault();
+    var membershipIdAndStatus = $(e.target).prop('id').split('-');
+    var membershipInfo = {  userId: this.state.user.id,
+                            status: membershipIdAndStatus[0],
+                            membershipId: membershipIdAndStatus[1]
+                          };
+    MembershipActions.updateMembership(membershipInfo);
+  },
+
+  removeHold: function(e) {
+    e.preventDefault();
   }
 
 });
