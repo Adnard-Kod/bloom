@@ -9,6 +9,8 @@
 //= require stores/payment-store
 //= require react/user-addresses.react
 //= require react/user-membership-form.react
+//= require react/page-header.react
+
 var UserProfile = React.createClass({displayName: 'UserProfile',
   getInitialState: function() {
     return {

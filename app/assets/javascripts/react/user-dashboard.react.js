@@ -2,6 +2,8 @@
 //= require react
 //= require react/current-menu.react
 //= require react/active-add-ons.react
+//= require react/page-header.react
+
 var UserDashboard = React.createClass({displayName: 'UserDashboard',
   render: function () {
     return (
