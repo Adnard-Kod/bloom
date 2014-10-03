@@ -12,7 +12,7 @@ var ActiveAddOn = React.createClass({displayName: 'ActiveAddOn',
       React.DOM.div({className: panelClass},
         React.DOM.div({className: "panel-heading"},
           React.DOM.h3({className: "panel-title"},
-            addOn.name, " (", addOn.price, ")"
+            addOn.name, " ( $", addOn.price, " )"
           )
         ),
         React.DOM.div({className: "panel-body"},

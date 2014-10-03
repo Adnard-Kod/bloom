@@ -32,7 +32,7 @@ var AddOn = React.createClass({displayName: 'AddOn',
       React.DOM.div({className: panelClass},
         React.DOM.div({className: "panel-heading"},
           React.DOM.h3({className: "panel-title"},
-            addOn.name, " (", addOn.price, ")",
+            addOn.name, " ( $", addOn.price, " )",
             EditLinks({links: editLinks})
           )
         ),
