@@ -2,9 +2,9 @@
 //= require constants/blooming-constants
 
 var MembershipActions = {
-  updateMembership: function(data) {
+  changeMembership: function(data) {
     BloomingDispatcher.handleViewAction({
-      type: BloomingConstants.ActionTypes.UPDATE_MEMBERSHIP,
+      type: BloomingConstants.ActionTypes.CHANGE_MEMBERSHIP_STATUS,
       data: data
     });
   }
