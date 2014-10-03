@@ -5,6 +5,7 @@
 //= require stores/membership-store
 //= require react/membership.react
 //= require react/tabs/togglable-tabs.react
+//= require react/tables/table.react
 
 var MembershipsAdmin = React.createClass({displayName: 'MembershipsAdmin',
   getInitialState: function() {
@@ -66,12 +67,15 @@ var MembershipsAdmin = React.createClass({displayName: 'MembershipsAdmin',
   },
 
   renderMembershipSection: function(memberships) {
-    var membershipComponents = [];
-    if(memberships) {
-      memberships.forEach(function(membership) {
-        membershipComponents.push(Membership({membership: membership, admin: this.props.admin, key: membership.id}))
-      }.bind(this))
+    if(memberships && memberships.length > 0) {
+      return (Table({tableInfo: this.renderOnlySubscriptionId(memberships)}));
     }
-    return membershipComponents;
+  },
+
+  renderOnlySubscriptionId: function(memberships) {
+    return memberships.map(function(membership) {
+      membership.subscription = membership.subscription.id;
+      return membership;
+    });
   }
 });
