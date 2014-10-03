@@ -24,6 +24,14 @@ class User < ActiveRecord::Base
     @mailchimp ||= MailChimp.new self
   end
 
+  def self.current_orders
+    User.includes(:selected_items, :addresses, :memberships).all.map(&:grouped_selected_items).flatten
+  end
+
+  def self.serialized_current_orders
+    ActiveModel::ArraySerializer.new(self.current_orders).as_json
+  end
+
   def find_or_create_selected_items(default_selected_items)
     if self.selected_items.blank? && self.active_subscription.present?
       default_selected_items.each do |selected_item|
@@ -45,5 +53,8 @@ class User < ActiveRecord::Base
         self.selected_items.create :menu_item => item, :default => true
       }
     end
+  end
+  def full_name
+    "#{self.first_name} #{self.last_name}"
   end
 end
