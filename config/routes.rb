@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     resources :subscriptions, :only => [:index]
     resources :add_ons, :only => [:create]
     get '/add_ons/active', to:'add_ons#active'
-    resources :memberships, :only => [:index, :create]
+    resources :memberships, :only => [:index, :create, :update]
     resources :menus, :only => [:index]
     resources :dashboard, :only => [:index]
     resources :selected_items, :only => [:create]
