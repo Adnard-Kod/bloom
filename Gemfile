@@ -38,10 +38,11 @@ gem "debugger", :groups => [:development]
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'faker'
   gem 'dotenv-rails'
 end
+
+gem 'faker'
+gem 'factory_girl_rails'
 
 group :test do
   gem 'shoulda-matchers'
