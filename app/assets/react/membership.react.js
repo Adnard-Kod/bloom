@@ -42,6 +42,10 @@ var Membership = React.createClass({
     return this.props.membership.status && this.props.membership.status === 'on_hold';
   },
 
+  putOnHold: function() {
+
+  },
+
   renderActiveMembershipHeader: function() {
     if(this.membershipActive() && !this.props.admin) {
       return (<PageHeader title="Active Membership Details" />);
@@ -67,6 +71,9 @@ var Membership = React.createClass({
 
   renderUserId: function() {
     if(this.props.admin) return (<li className="list-group-item">User Id: {this.props.membership.id}</li>);
+  },
+
+  removeHold: function() {
 
   }
 });
