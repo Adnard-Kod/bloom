@@ -2,6 +2,7 @@
 //= require react
 //= require stores/user-selected-item-store
 //= require react/tabs/togglable-tabs.react
+//= require react/weekly-by-user.react
 //= require react/order-quantity.react
 
 var WeeklyOrdersBox = React.createClass({displayName: 'WeeklyOrdersBox',
@@ -22,16 +23,30 @@ var WeeklyOrdersBox = React.createClass({displayName: 'WeeklyOrdersBox',
   },
   renderOrderQuantity: function(){
     var orderQuantity = []
-    this.state.weeklyOrders.forEach(function(order){
-      orderQuantity.push(OrderQuantity({order: order}))
-    }.bind(this))
+    var orders = this.state.weeklyOrders.weekly_orders
+    if (orders){
+      orders.forEach(function(order){
+        orderQuantity.push(OrderQuantity({order: order}))
+      }.bind(this))
+    }
     return orderQuantity
   },
+  renderWeeklyByUser: function(){
+    var userOrders = []
+    var orders = this.state.weeklyOrders.weekly_by_user
+    if (orders){
+      orders.forEach(function(user){
+        userOrders.push(WeeklyByUser({user: user}))
+      }.bind(this))
+    }
+    return userOrders
+  },
   render:function(){
-    var tabs = [ { href: 'user-orders', name: 'User Orders' },
-                 { href: 'total-items', name: 'Total Items' }];
-    var tabContents = [ { id: 'user-orders', content: "hello" },
-                        { id: 'total-items', content: this.renderOrderQuantity() }];
+    var tabs = [ { href: 'total-items', name: 'Total Items' },
+                 { href: 'user-orders', name: 'User Orders' }];
+    var tabContents = [
+                        { id: 'total-items', content: this.renderOrderQuantity() },
+                        { id: 'user-orders', content: this.renderWeeklyByUser() }];
    return (
       React.DOM.div({className: "container-fluid"},
         React.DOM.div({className: "row"},
