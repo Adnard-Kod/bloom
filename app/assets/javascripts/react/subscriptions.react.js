@@ -3,6 +3,7 @@
 //= require react/subscription.react
 //= require stores/subscription-store
 //= require react/subscription-form.react
+//= require react/page-header.react
 var Subscriptions = React.createClass({displayName: 'Subscriptions',
   getInitialState: function() {
     return {

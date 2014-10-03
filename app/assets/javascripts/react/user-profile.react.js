@@ -4,13 +4,15 @@
 //= require react
 //= require react/memberships.react
 //= require stores/subscription-store
+//= require stores/promotion-store
 //= require react/subscriptions.react
 //= require react/address-required.react
 //= require stores/payment-store
 //= require react/user-addresses.react
 //= require react/user-membership-form.react
 //= require react/page-header.react
-
+//= require react/user-promotion-form.react
+//= require react/alert.react
 var UserProfile = React.createClass({displayName: 'UserProfile',
   getInitialState: function() {
     return {
@@ -44,19 +46,36 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
     AddressStore.addChangeEvent(function() {
       if (this.isMounted()) this.setState({addresses: AddressStore.addresses()})
     }.bind(this))
+
+    PromotionStore.addFailToTakeAction(function() {
+      if (this.isMounted()) this.setState({alert: {message: "Invalid Code", danger: true}})
+    }.bind(this))
+    PromotionStore.addChangeEvent(function(e, data) {
+      var discount = data.discount_amount;
+      if(data.discount_type === '$') {
+        discount = data.discount_type + '' + discount;
+      } else {
+        discount =  discount + '' + data.discount_type;
+      }
+      if (this.isMounted()) this.setState({alert: {message: "You saved " + discount, danger: false }})
+    }.bind(this))
   },
   render: function() {
     return (
       React.DOM.div({className: "user-profile"},
         this.renderUserAddresses(),
         this.renderSubscription(),
+        this.renderAlert(),
+        this.renderPromotionForm(),
         this.renderMembershipForm(),
         this.renderCurrentMembership(),
         Memberships({memberships: this.state.memberships})
       )
     );
   },
-
+  renderAlert: function() {
+    if(this.state.alert) return(Alert({danger: this.state.alert.danger, message: this.state.alert.message}))
+  },
   hasAddr: function() {
     return this.state.addresses && this.state.addresses.length > 0;
   },
@@ -73,6 +92,10 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
 
   renderMembershipForm: function() {
     if(!this.hasActiveMembership()) return (UserMembershipForm({subscriptions: this.state.subscriptions, hasAddr: this.hasAddr(), errors: this.state.errors}));
+  },
+
+  renderPromotionForm: function() {
+    if(!this.hasActiveMembership()) return (UserPromotionForm({errors: this.state.errors}));
   },
 
   renderCurrentMembership: function() {

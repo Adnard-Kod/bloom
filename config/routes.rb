@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :subscriptions, :only => [:index]
   resources :promotions, :only => [:index]
+  get '/promotions/validate_promotion_code', to: 'promotions#validate_promotion_code'
   resources :users, except: [:new, :edit] do
     resources :addresses, :except => [:show, :edit, :new]
   end
