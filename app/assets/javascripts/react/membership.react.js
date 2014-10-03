@@ -42,10 +42,6 @@ var Membership = React.createClass({displayName: 'Membership',
     return this.props.membership.status && this.props.membership.status === 'on_hold';
   },
 
-  putOnHold: function() {
-
-  },
-
   renderActiveMembershipHeader: function() {
     if(this.membershipActive() && !this.props.admin) {
       return (PageHeader({title: "Active Membership Details"}));
@@ -59,8 +55,9 @@ var Membership = React.createClass({displayName: 'Membership',
   },
 
   renderOnHoldButton: function() {
+    var activeId = 'active-' + this.props.membership.id;
     if(this.membershipActive())
-      return (React.DOM.a({className: "btn btn-default", onClick: this.putOnHold}, "Put Membership On Hold"));
+      return (React.DOM.a({className: "btn btn-default", id: activeId, onClick: this.props.putOnHold}, "Put Membership On Hold"));
   },
 
   renderRemoveMembershipHold: function() {
@@ -71,9 +68,5 @@ var Membership = React.createClass({displayName: 'Membership',
 
   renderUserId: function() {
     if(this.props.admin) return (React.DOM.li({className: "list-group-item"}, "User Id: ", this.props.membership.id));
-  },
-
-  removeHold: function() {
-
   }
 });
