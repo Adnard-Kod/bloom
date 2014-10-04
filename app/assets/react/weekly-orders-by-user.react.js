@@ -9,7 +9,9 @@ var WeeklyOrdersByUser = React.createClass({
     var item = this.props.item;
     return (
       <div>
-        <p> {item.item} <span className="badge">{item.quantity}</span></p>
+        <p>
+          <span className="badge">{item.quantity}</span> {item.item}
+        </p>
       </div>
     );
   }
