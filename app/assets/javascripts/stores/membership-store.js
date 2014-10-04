@@ -37,6 +37,16 @@ var MembershipStore = (function() {
       }.bind(this));
     },
 
+    getHoldStartDateOptions: function() {
+      var holdOptions;
+      var temp = $.ajax({
+          type: 'GET',
+          url: '/user/memberships/hold_start_date_options'
+        })
+        .done(function(data) {
+        });
+    },
+
     addChangeEvent: function(callback) {
       $(this).on(CHANGE_EVENT, callback);
     },
