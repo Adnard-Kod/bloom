@@ -37,14 +37,15 @@ var MembershipStore = (function() {
       }.bind(this));
     },
 
-    getHoldStartDateOptions: function() {
-      var holdOptions;
-      var temp = $.ajax({
-          type: 'GET',
-          url: '/user/memberships/hold_start_date_options'
-        })
-        .done(function(data) {
-        });
+    getHoldStartDateOptions: function(id) {
+      $.ajax({
+        type: 'GET',
+        url: '/user/memberships/' + id + '/hold_start_date_options'
+      })
+      .done(function(data) {
+        _membershipHoldDateInfo = data;
+        this.triggerChange();
+      }.bind(this));
     },
 
     addChangeEvent: function(callback) {
