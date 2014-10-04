@@ -2,6 +2,7 @@
  * @jsx React.DOM
  */
 //= require react
+//= require react/page-header.react
 
 var Membership = React.createClass({
   getDefaultProps: function() {
@@ -15,14 +16,16 @@ var Membership = React.createClass({
     return (
       <div>
         {this.renderActiveMembershipHeader()}
-        <ul>
+        <ul className="list-group">
           {this.renderUserId()}
-          <li className="list-group-item">Weeks Remaining: {mem.weeks_remaining}</li>
-          <li className="list-group-item">Meals Remaining: {mem.meals_remaining}</li>
-          <li className="list-group-item">Meals per Week: {mem.meals_per_week}</li>
-          <li className="list-group-item">Start Date: {mem.start_date}</li>
-          <li className="list-group-item">End Date: {mem.end_date}</li>
-          <li className="list-group-item">Status: {mem.status}</li>
+          <li className="list-group-item">
+            <p>Weeks Remaining: {mem.weeks_remaining}</p>
+            <p>Meals Remaining: {mem.meals_remaining}</p>
+            <p>Meals per Week: {mem.meals_per_week}</p>
+            <p>Start Date: {mem.start_date}</p>
+            <p>End Date: {mem.end_date}</p>
+            <p>Status: {mem.status}</p>
+          </li>
         </ul>
       </div>
     );
@@ -34,7 +37,7 @@ var Membership = React.createClass({
 
   renderActiveMembershipHeader: function() {
     if(this.membershipActive() && !this.props.admin) {
-      return (<h4>Active Membership Details</h4>);
+      return (<PageHeader title="Active Membership Details" />);
     }
   },
 
