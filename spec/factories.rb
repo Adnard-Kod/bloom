@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :subscription do
+    sequence(:name) {|n| "name #{n}"  }
     sequence(:description) {|n| "description #{n}"  }
     sequence(:price) {|n| n }
     sequence(:weeks) {|n| n }
