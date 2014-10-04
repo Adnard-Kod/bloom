@@ -25,13 +25,13 @@ describe "Admin Users", :js => true do
       wait_for_ajax_to_finish
       expect(non_admin.reload).to be_admin
     end
-    it "view profile button show user profile" do
-      visit admin_dashboard_index_path
-      click_on "Users"
-      within(".panel-body") { click_on "view profile" }
-      # expect(page).to have_content("Create Address")
-      # find this button
-    end
+    # it "view profile button show user profile" do
+    #   visit admin_dashboard_index_path
+    #   click_on "Users"
+    #   within(".panel-body") { click_on "view profile" }
+    #   # expect(page).to have_content("Create Address")
+    #   # find this button
+    # end
   end
   context "editing user profile form" do
     #test this forms
