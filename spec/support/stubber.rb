@@ -1,5 +1,5 @@
 module Stubber
-  def stub_current_user controller, user
+  def stub_current_user controller=nil, user
     allow(controller).to receive(:current_user) { user }
   end
   def stub_current_admin_user user
