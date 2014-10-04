@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     resources :add_ons, :only => [:create]
     get '/add_ons/active', to:'add_ons#active'
     resources :memberships, :only => [:index, :create, :update]
-    get 'memberships/hold_start_date_options', to: 'memberships#hold_start_date_options'
+    get 'memberships/:id/hold_start_date_options', to: 'memberships#hold_start_date_options'
     resources :menus, :only => [:index]
     resources :dashboard, :only => [:index]
     resources :selected_items, :only => [:create]
