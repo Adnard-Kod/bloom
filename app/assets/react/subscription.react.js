@@ -26,7 +26,7 @@
     var sub = this.props.sub;
     return (
       <li className="list-group-item">
-        <p>{sub.name}: {sub.description} for ${sub.price}</p>
+        <p>{sub.name}: {sub.meals} meals for {sub.weeks} weeks for ${sub.price}. {sub.description}</p>
         {this.renderAdminButtons()}
         {this.renderEditForm()}
       </li>

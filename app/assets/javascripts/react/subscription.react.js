@@ -26,7 +26,7 @@
     var sub = this.props.sub;
     return (
       React.DOM.li({className: "list-group-item"},
-        React.DOM.p(null, sub.name, ": ", sub.description, " for $", sub.price),
+        React.DOM.p(null, sub.name, ": ", sub.meals, " meals for ", sub.weeks, " weeks for $", sub.price, ". ", sub.description),
         this.renderAdminButtons(),
         this.renderEditForm()
       )
