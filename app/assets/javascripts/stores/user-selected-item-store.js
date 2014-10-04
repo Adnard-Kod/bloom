@@ -1,7 +1,7 @@
 //= require constants/blooming-constants
 //= require dispatchers/blooming-dispatcher
 var UserSelectedItemStore = (function() {
-  var _selectedItems = [];
+  var _selectedItems = {Entree: [], "Side Dish": []};
   var CHANGE_EVENT = 'change';
   var FAIL_TO_CREATE_EVENT = 'creation-failed';
   var ActionTypes = BloomingConstants.ActionTypes;
@@ -9,38 +9,56 @@ var UserSelectedItemStore = (function() {
     selectedItems: function() {
       return _selectedItems;
     },
+    allItems: function() {
+      return this.selectedItems()["Entree"].concat(this.selectedItems()["Side Dish"])
+    },
     selectedMenuItems: function() {
       var items = {};
-      this.selectedItems().forEach(function(item){ items[item.menu_item.id] = item.quantity});
+      _selectedItems["Entree"].forEach(function(item){ items[item.menu_item.id] = item.quantity});
+      _selectedItems["Side Dish"].forEach(function(item){ items[item.menu_item.id] = item.quantity});
       return items;
     },
-    selectedItemsCount: function() {
+    selectedItemsCount: function(category) {
+      if(category === "Entree") return this.selectedEntreesCount();
+      if(category === "Side Dish") return this.selectedSidesCount();
+    },
+    selectedEntreesCount: function() {
       var count = 0;
-      _selectedItems.forEach(function(item) {count += item.quantity});
+      _selectedItems["Entree"].forEach(function(item) {count += item.quantity});
       return count;
     },
+    selectedSidesCount: function() {
+      var count = 0;
+      _selectedItems["Side Dish"].forEach(function(item) {count += item.quantity});
+      return count;
+    },
+
     setSelectedItems: function(data, message) {
-      _selectedItems = data;
+      _selectedItems["Entree"] = data.filter(function(item) {
+        return item.menu_item.category === 'Entree';
+      });
+      _selectedItems["Side Dish"] = data.filter(function(item) {
+        return item.menu_item.category === 'Side Dish';
+      });
       this.triggerChange(message);
     },
     appendToSelectedItems: function(data) {
-      previouslySelected = _selectedItems.filter(function(item) {
+      previouslySelected =  _selectedItems[data.menu_item.category].filter(function(item) {
         return item.menu_item.id === data.menu_item.id
       })[0]
       if(previouslySelected) {
         previouslySelected.quantity += 1;
       } else {
         data.quantity = 1;
-        _selectedItems.push(data);
+        _selectedItems[data.menu_item.category].push(data);
       }
-
       this.triggerChange();
     },
     removeFromSelectedItems: function(data) {
-      _selectedItems.forEach(function(selectedItem, i) {
+      _selectedItems[data.menu_item.category].forEach(function(selectedItem, i) {
         if (selectedItem.menu_item.id === data.menu_item.id) {
           if (selectedItem.quantity === 1) {
-            _selectedItems.splice(i, 1);
+            _selectedItems[data.menu_item.category].splice(i, 1);
           } else {
             selectedItem.quantity -= 1;
           }
@@ -48,12 +66,13 @@ var UserSelectedItemStore = (function() {
         }
       }.bind(this));
     },
-    menuItems: function(id) {
-      return this.selectedItems(id).map(function(item) {
-        return item.menu_item
-      })
+    isSelectionAllowed: function(item) {
+      var totalSelectedCount = this.selectedSidesCount() + this.selectedEntreesCount();
+      if(totalSelectedCount === this.maxMeals) return false;
+      // if(item.category === "Entree") {
+      //   if(_selectedItems["Entree"] < this.maxMeals/2)
+      // }
     },
-
     addChangeEvent: function(callback) {
       $(this).on(CHANGE_EVENT, callback);
     },
@@ -71,37 +90,6 @@ var UserSelectedItemStore = (function() {
     },
     triggerChange: function(data) {
       $(this).trigger(CHANGE_EVENT, data);
-    },
-    create: function(menu_id, menuItemId) {
-      $.ajax({
-        url: '/user/menus/'+menu_id+'/selected_items',
-        type: 'POST',
-        data: {menu_item_id: menuItemId}
-      })
-      .done(function(data) {
-        _selectedItems[menu_id].push(data.menu_selected_item)
-        this.triggerChange();
-      }.bind(this))
-      .fail(function(xhr) {
-        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
-      }.bind(this))
-    },
-    destroy: function(menu_id, id) {
-      $.ajax({
-        url: '/user/menus/'+menu_id+'/selected_items/'+id,
-        type: 'DELETE'
-      })
-      .done(function(data) {
-        _selectedItems[menu_id].forEach(function(selectedItem, i) {
-          if (selectedItem.id === data.menu_selected_item.id) {
-            _selectedItems[menu_id].splice(i, 1);
-            return this.triggerChange();
-          }
-        }.bind(this))
-      }.bind(this))
-      .fail(function(xhr) {
-        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
-      }.bind(this))
     },
     update: function(menu_id, id, data) {
       $.ajax({
@@ -150,12 +138,6 @@ var UserSelectedItemStore = (function() {
     payload: function(payload) {
       var action = payload.action;
       switch(action.type) {
-        case ActionTypes.CREATE_USER_SELECTED_ITEM:
-          this.create(action.menu_id, action.data);
-          break;
-        case ActionTypes.DESTROY_USER_SELECTED_ITEM:
-          this.destroy(action.menu_id, action.id);
-          break;
         case ActionTypes.USER_SELECT_ITEM:
           this.appendToSelectedItems(action.data);
           break;

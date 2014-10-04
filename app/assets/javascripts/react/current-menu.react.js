@@ -24,7 +24,7 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
     MenuStore.getCurrentMenu();
     UserSelectedItemStore.addChangeEvent(function(e, message) {
       if(this.isMounted()) {
-        this.setState({selectedItems: UserSelectedItemStore.selectedItems(), message: message })
+        this.setState({selectedItems: UserSelectedItemStore.allItems(), message: message })
       }
     }.bind(this))
   },
@@ -43,7 +43,8 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
     if(SessionStore.currentUser.active_memberships.length === 0) return;
     return(
       React.DOM.div({className: "col-lg-6"},
-        ProgressBar({min: 0, max: this.state.maxMeals, value: this.currentMealsSelected()}),
+        ProgressBar({min: 0, title: "Number of Entrees", max: this.state.maxMeals/2, value: this.currentMealsSelected("Entree")}),
+        ProgressBar({title: "Number of Side Dishes", min: 0, max: this.state.maxMeals/2, value: this.currentMealsSelected("Side Dish")}),
         this.renderSuccessMessage(),
         React.DOM.h3(null, "Your Selected Meals"),
         this.renderDefaultSelectedItems(),
@@ -67,7 +68,7 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
   renderSuccessMessage: function() {
     if(this.state.message) return(Alert({message: this.state.message}))
   },
-  currentMealsSelected: function() {
-    return UserSelectedItemStore.selectedItemsCount();
+  currentMealsSelected: function(category) {
+    return UserSelectedItemStore.selectedItemsCount(category);
   }
 });

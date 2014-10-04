@@ -12,9 +12,12 @@ var ProgressBar = React.createClass({displayName: 'ProgressBar',
   },
   render: function() {
     return (
-      React.DOM.div({className: "progress"},
-        React.DOM.div({className: "progress-bar progress-bar-info progress-bar-striped", role: "progressbar", 'aria-valuenow': this.props.value, 'aria-valuemin': this.props.min, 'aria-valuemax': this.props.max, style: {width: this.precentageDone() + '%'}},
-          "You need to select " + this.amountLeft() + " more!"
+      React.DOM.div(null,
+        React.DOM.span({className: "label label-primary"}, this.props.title),
+        React.DOM.div({className: "progress"},
+          React.DOM.div({className: "progress-bar progress-bar-success progress-bar-striped", role: "progressbar", 'aria-valuenow': this.props.value, 'aria-valuemin': this.props.min, 'aria-valuemax': this.props.max, style: {width: this.precentageDone() + '%'}},
+            "You need to select " + this.amountLeft() + " more!"
+          )
         )
       )
     );
