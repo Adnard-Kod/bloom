@@ -5,6 +5,7 @@
 
 var MembershipStore = (function() {
   var _memberships = [];
+  var _membershipHoldDateInfo = {}
   var CHANGE_EVENT = 'change';
   var FAIL_TO_CREATE_EVENT = 'creation-failed';
   var ActionTypes = BloomingConstants.ActionTypes;
@@ -12,6 +13,10 @@ var MembershipStore = (function() {
   return {
     memberships: function() {
       return _memberships;
+    },
+
+    membershipHoldDateInfo: function() {
+      return _membershipHoldDateInfo;
     },
 
     getUserMemberships: function() {
