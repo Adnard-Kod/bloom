@@ -27,17 +27,11 @@ var Subscriptions = React.createClass({
       subscriptions.push(<Subscription key={sub.id} sub={sub} admin={admin}/>)
     })
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-12">
-            <PageHeader title="Subscriptions" />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-12">
-            <div className="subscriptions">
-              {this.renderSubscriptionForm()}
-              <hr />
+      <div>
+        {this.renderSubscriptionForm()}
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-lg-12">
               <PageHeader title="Current Subscriptions and Packages" />
               <ul className="list-group">
                 {subscriptions}
@@ -49,6 +43,22 @@ var Subscriptions = React.createClass({
     );
   },
   renderSubscriptionForm: function() {
-    if(this.props.admin) return(<SubscriptionForm />);
+    if(this.props.admin) return(
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-12">
+            <PageHeader title="Subscriptions" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="subscriptions">
+              <SubscriptionForm />
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 })
