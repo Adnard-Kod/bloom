@@ -29,7 +29,7 @@ var UserAddress = React.createClass({displayName: 'UserAddress',
     var deleteButton = this.props.admin ? React.DOM.span(null, React.DOM.a({href: "#", onClick: this.delete}, "Delete")) : undefined;
     return (
       React.DOM.div(null,
-        React.DOM.h3(null, "Current Address"),
+        PageHeader({title: "Current Address"}),
         React.DOM.ul({className: "list-group"},
           React.DOM.li({className: "list-group-item"},
             React.DOM.p(null, this.props.name),

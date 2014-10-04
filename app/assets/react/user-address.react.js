@@ -29,7 +29,7 @@ var UserAddress = React.createClass({
     var deleteButton = this.props.admin ? <span><a href="#" onClick={this.delete}>Delete</a></span> : undefined;
     return (
       <div>
-        <h3>Current Address</h3>
+        <PageHeader title="Current Address" />
         <ul className="list-group">
           <li className="list-group-item">
             <p>{this.props.name}</p>
