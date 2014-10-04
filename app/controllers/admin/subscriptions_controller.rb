@@ -29,6 +29,6 @@ class Admin::SubscriptionsController < AdminController
 
   private
   def subscription_params
-    params.require(:subscription).permit(:description, :price, :weeks, :meals)
+    params.require(:subscription).permit(:description, :price, :weeks, :meals, :name)
   end
 end
