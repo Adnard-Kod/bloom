@@ -18,7 +18,7 @@ class AddressesController < UserController
   def update
     @address.update(address_params)
     if @address.save
-      render json: { address: @address }
+      render json: @address
     else
       render json: { errors: @address.errors.full_messages }, status: :unprocessable_entity
     end

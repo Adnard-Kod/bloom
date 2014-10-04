@@ -32,7 +32,7 @@ var AddOn = React.createClass({
       <div className={panelClass}>
         <div className="panel-heading">
           <h3 className="panel-title">
-            {addOn.name} ({addOn.price})
+            {addOn.name} ( ${addOn.price} )
             <EditLinks links={editLinks} />
           </h3>
         </div>

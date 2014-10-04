@@ -60,7 +60,7 @@ var CurrentMenu = React.createClass({
   saveUserSelection: function(e) {
     var currentCount = UserSelectedItemStore.selectedItemsCount();
     var maxCount = UserSelectedItemStore.maxMeals;
-    if(currentCount < maxCount) return alert("You must select "+maxCount+" meals. Please add " + (maxCount - currentCount) + " more meals.")
+    if(currentCount < maxCount) return alert("You must select "+maxCount+" meals. Please add " + (maxCount - currentCount) + " more menu items.")
     e.preventDefault();
     SelectedItemActions.saveUserSelectedItems();
   },

@@ -27,17 +27,11 @@ var Subscriptions = React.createClass({displayName: 'Subscriptions',
       subscriptions.push(Subscription({key: sub.id, sub: sub, admin: admin}))
     })
     return (
-      React.DOM.div({className: "container-fluid"},
-        React.DOM.div({className: "row"},
-          React.DOM.div({className: "col-lg-12"},
-            PageHeader({title: "Subscriptions"})
-          )
-        ),
-        React.DOM.div({className: "row"},
-          React.DOM.div({className: "col-lg-12"},
-            React.DOM.div({className: "subscriptions"},
-              this.renderSubscriptionForm(),
-              React.DOM.hr(null),
+      React.DOM.div(null,
+        this.renderSubscriptionForm(),
+        React.DOM.div({className: "container-fluid"},
+          React.DOM.div({className: "row"},
+            React.DOM.div({className: "col-lg-12"},
               PageHeader({title: "Current Subscriptions and Packages"}),
               React.DOM.ul({className: "list-group"},
                 subscriptions
@@ -49,6 +43,22 @@ var Subscriptions = React.createClass({displayName: 'Subscriptions',
     );
   },
   renderSubscriptionForm: function() {
-    if(this.props.admin) return(SubscriptionForm(null));
+    if(this.props.admin) return(
+      React.DOM.div({className: "container-fluid"},
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+            PageHeader({title: "Subscriptions"})
+          )
+        ),
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+            React.DOM.div({className: "subscriptions"},
+              SubscriptionForm(null),
+              React.DOM.hr(null)
+            )
+          )
+        )
+      )
+    );
   }
 })

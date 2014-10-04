@@ -4,6 +4,8 @@
 //= require react
 //= require stores/membership-store
 //= require react/membership.react
+//= require react/page-header.react
+
 
 var Memberships = React.createClass({
   render: function() {
@@ -13,9 +15,11 @@ var Memberships = React.createClass({
     });
     return (
       <div>
-        <h3>Order History</h3>
+        <PageHeader title="Order History" />
         <ul className="list-group">
-          {memberships}
+          <li className="list-group-item">
+            {memberships}
+          </li>
         </ul>
       </div>
     );

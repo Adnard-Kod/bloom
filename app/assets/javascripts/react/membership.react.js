@@ -2,6 +2,7 @@
  * @jsx React.DOM
  */
 //= require react
+//= require react/page-header.react
 
 var Membership = React.createClass({displayName: 'Membership',
   getDefaultProps: function() {
@@ -15,14 +16,16 @@ var Membership = React.createClass({displayName: 'Membership',
     return (
       React.DOM.div(null,
         this.renderActiveMembershipHeader(),
-        React.DOM.ul(null,
+        React.DOM.ul({className: "list-group"},
           this.renderUserId(),
-          React.DOM.li({className: "list-group-item"}, "Weeks Remaining: ", mem.weeks_remaining),
-          React.DOM.li({className: "list-group-item"}, "Meals Remaining: ", mem.meals_remaining),
-          React.DOM.li({className: "list-group-item"}, "Meals per Week: ", mem.meals_per_week),
-          React.DOM.li({className: "list-group-item"}, "Start Date: ", mem.start_date),
-          React.DOM.li({className: "list-group-item"}, "End Date: ", mem.end_date),
-          React.DOM.li({className: "list-group-item"}, "Status: ", mem.status)
+          React.DOM.li({className: "list-group-item"},
+            React.DOM.p(null, "Weeks Remaining: ", mem.weeks_remaining),
+            React.DOM.p(null, "Meals Remaining: ", mem.meals_remaining),
+            React.DOM.p(null, "Meals per Week: ", mem.meals_per_week),
+            React.DOM.p(null, "Start Date: ", mem.start_date),
+            React.DOM.p(null, "End Date: ", mem.end_date),
+            React.DOM.p(null, "Status: ", mem.status)
+          )
         )
       )
     );
@@ -34,7 +37,7 @@ var Membership = React.createClass({displayName: 'Membership',
 
   renderActiveMembershipHeader: function() {
     if(this.membershipActive() && !this.props.admin) {
-      return (React.DOM.h4(null, "Active Membership Details"));
+      return (PageHeader({title: "Active Membership Details"}));
     }
   },
 

@@ -62,14 +62,20 @@ var UserProfile = React.createClass({
   },
   render: function() {
     return (
-      <div className="user-profile">
-        {this.renderUserAddresses()}
-        {this.renderSubscription()}
-        {this.renderAlert()}
-        {this.renderPromotionForm()}
-        {this.renderMembershipForm()}
-        {this.renderCurrentMembership()}
-        <Memberships memberships={this.state.memberships}/>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="user-profile">
+                {this.renderSubscription()}
+                {this.renderAlert()}
+                {this.renderPromotionForm()}
+                {this.renderMembershipForm()}
+                {this.renderUserAddresses()}
+                {this.renderCurrentMembership()}
+                <Memberships memberships={this.state.memberships}/>
+            </div>
+          </div>
+        </div>
       </div>
     );
   },
