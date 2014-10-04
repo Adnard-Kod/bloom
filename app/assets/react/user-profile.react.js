@@ -66,11 +66,11 @@ var UserProfile = React.createClass({
         <div className="row">
           <div className="col-lg-12">
             <div className="user-profile">
-                {this.renderUserAddresses()}
                 {this.renderSubscription()}
                 {this.renderAlert()}
                 {this.renderPromotionForm()}
                 {this.renderMembershipForm()}
+                {this.renderUserAddresses()}
                 {this.renderCurrentMembership()}
                 <Memberships memberships={this.state.memberships}/>
             </div>
