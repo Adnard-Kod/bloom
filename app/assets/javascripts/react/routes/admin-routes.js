@@ -10,6 +10,8 @@
 //= require react/admin-users-box.react
 //= require react/user-profile.react
 //= require react/memberships-admin.react
+//= require react/weekly-orders-box.react
+
 Router.routes = (function() {
   var _adminDashBoard = function() {
     React.unmountComponentAtNode($('#admin-page')[0]);
@@ -43,6 +45,12 @@ Router.routes = (function() {
     React.unmountComponentAtNode($('#admin-page')[0]);
     React.renderComponent(MembershipsAdmin(null), $('#admin-page')[0]);
   };
+
+  var _weeklyOrdersBox = function() {
+    React.unmountComponentAtNode($('#admin-page')[0]);
+    React.renderComponent(WeeklyOrdersBox(null), $('#admin-page')[0])
+  }
+
   return {
     "": _adminDashBoard,
     "#menu-items": _menuItemsBox,
@@ -51,7 +59,8 @@ Router.routes = (function() {
     "#promotions": _promotions,
     "#admin-users": _adminUserBox,
     "#user-profile/": _userProfile,
-    "#memberships": _memberships
+    "#memberships": _memberships,
+    "#orders": _weeklyOrdersBox
   }
 }());
 

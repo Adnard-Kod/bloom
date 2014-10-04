@@ -121,6 +121,19 @@ var UserSelectedItemStore = (function() {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
+    weeklyItems: function() {
+      $.ajax({
+        url: '/admin/weekly_orders',
+        type: 'GET',
+      })
+      .done(function(data) {
+        _selectedItems = data
+        this.triggerChange();
+      }.bind(this))
+      .fail(function(xhr) {
+        this.triggerFailToTakeAction([xhr.responseJSON.errors]);
+      }.bind(this))
+    },
     saveUserSelectedItems: function() {
       $.ajax({
         url: '/user/selected_items',

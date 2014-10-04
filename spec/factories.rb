@@ -69,4 +69,12 @@ FactoryGirl.define do
       status Membership::STATUSES[:on_hold]
     end
   end
+
+  factory :user_selected_item do
+    menu_item
+    user
+    trait(:default) do
+      default true
+    end
+  end
 end
