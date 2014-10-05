@@ -2,5 +2,5 @@
   <div id="user-dashboard"></div>
 </div>
 <script>
-  SessionStore.setCurrentUser('<%= raw @serialized_user.to_json %>')
+  SessionStore.setCurrentUser('<%= raw j @serialized_user.to_json %>')
 </script>
