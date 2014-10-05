@@ -17,7 +17,7 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
   getInitialState: function() {
     return {
       memberships: [],
-      user: SessionStore.currentUser,
+      user: {},
       addresses: [],
       errors: [],
       subscriptions: SubscriptionStore.subscriptions()
@@ -25,6 +25,7 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
   },
 
   componentDidMount: function() {
+    this.setUser();
     SubscriptionStore.addChangeEvent(function () {
       if (this.isMounted()) this.setState({ subscriptions: SubscriptionStore.subscriptions() });
     }.bind(this));
@@ -40,8 +41,6 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
       }
       AddressStore.setAddresses(this.state.user.addresses)
     }.bind(this));
-    var userId = this.props.admin && this.props.userId ? this.props.userId : SessionStore.currentUser.id;
-    UserStore.getCurrentUserInfo(userId);
 
     AddressStore.addChangeEvent(function() {
       if (this.isMounted()) this.setState({addresses: AddressStore.addresses()})
@@ -112,6 +111,13 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
     var firstName = this.state.user.first_name || '';
     var lastName = this.state.user.last_name || '';
     return firstName + ' ' + lastName;
+  },
+  setUser: function() {
+    if(this.props.admin && this.props.userId) {
+      UserStore.getCurrentUserInfo(this.props.userId);
+    } else {
+      this.setState({user: SessionStore.currentUser});
+    }
   }
 
 });

@@ -1,13 +1,14 @@
 require 'rails_helper'
 describe Admin::DashboardController do
   let(:user) { FactoryGirl.create :user, :admin }
+  let(:serialized_user) { UserSerializer.new(user) }
   before(:each) do
     stub_current_user controller, user
   end
   context "#index" do
-    it "is successful" do
+    it "assigns serialized user" do
       get :index
-      expect(response).to be_success
+      expect(assigns(:serialized_user)).to eq(serialized_user.as_json["user"])
     end
   end
 end
