@@ -155,6 +155,10 @@ var UserProfile = React.createClass({
   },
 
   hasHoldWeeksRemaining: function() {
-    return this.state.user.active_memberships[0].hold_weeks_remaining !== null || this.state.user.on_hold_memberships[0].hold_weeks_remaining !== null;
+    if(this.hasActiveMembership()) {
+      return this.state.user.active_memberships[0].hold_weeks_remaining !== null
+    } else if(this.hasOnHoldMembership()) {
+      return this.state.user.on_hold_memberships[0].hold_weeks_remaining !== null;
+    }
   }
 });
