@@ -23,7 +23,7 @@ class User::MembershipsController < UserController
   def update
     membership = Membership.find(params[:id])
     if params[:status] == 'active'
-      membership.put_membership_on_hold
+      membership.apply_membership_hold_request(params)
       if membership.save
         render json: membership
       end
