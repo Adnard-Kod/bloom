@@ -2,6 +2,7 @@ require 'rails_helper'
 describe "Admin Add Ons", :js => true do
   let!(:user) { FactoryGirl.create :user, :admin }
   let!(:menu) { FactoryGirl.create :menu }
+  let!(:menu_item) { FactoryGirl.create :menu_item }
   before(:each) do
     stub_current_admin_user user
   end
@@ -13,49 +14,52 @@ describe "Admin Add Ons", :js => true do
       expect(page).to have_content(menu.title)
     end
 
-  #   it "can create Menu" do
-  #     visit admin_dashboard_index_path
-  #     click_on "Menu Items"
-  #     fill_in "Name", with: "Menu Name"
-  #     fill_in "Description", with: "Menu Description"
-  #     fill_in "Price", with: "10"
-  #     click_on "Create Menu Item"
-  #     wait_for_ajax_to_finish
-  #     expect(page).to have_content("Menu Name")
-  #     expect(page).to have_content("Menu Description")
-  #     expect(page).to have_content("$10")
-  #   end
+    it "can create Menu" do
+      visit admin_dashboard_index_path
+      click_on "Menus"
+      fill_in "Title", with: "Menu Title"
+      click_on "Create Menu"
+      wait_for_ajax_to_finish
+      expect(page).to have_content("Menu Title")
+    end
 
-  #   it "can update Menu" do
-  #     visit admin_dashboard_index_path
-  #     click_on "Menu Items"
-  #     click_on "edit"
-  #     within('.panel-body') { fill_in "Name", with: "New Menu Name" }
-  #     within('.panel-body') { fill_in "Description", with: "New Add On Description" }
-  #     within('.panel-body') { fill_in "Price", with: "100" }
-  #     click_on "Update Add On"
-  #     wait_for_ajax_to_finish
-  #     expect(page).to have_content("New Add On Name")
-  #     expect(page).to have_content("New Add On Description")
-  #     expect(page).to have_content("$100")
-  #   end
+    # it "can update Menu" do
+    #   visit admin_dashboard_index_path
+    #   click_on "Menus"
+    #   click_on "edit"
+    #   require 'debugger'; debugger
+    #   fill_in "form-control", with: "New Menu Name"
+    #   click_on "Update Menu"
+    #   wait_for_ajax_to_finish
+    #   expect(page).to have_content("New Menu Name")
+    # end
 
-  #   it "can delete Add On" do
-  #     visit admin_dashboard_index_path
-  #     click_on "Add On Items"
-  #     click_on "delete"
-  #     expect(page).to_not have_content(menu.name)
-  #   end
-  # end
+    it "can delete Add On" do
+      visit admin_dashboard_index_path
+      click_on "Menus"
+      click_on "delete"
+      expect(page).to_not have_content(menu.title)
+    end
+  end
 
-  # context "#Active" do
-  #   it "can make an add on active" do
-  #     non_active_menu = FactoryGirl.create :menu
-  #     visit admin_dashboard_index_path
-  #     click_on "Add On Items"
-  #     within(".panel-title") { click_on "active"}
-  #     wait_for_ajax_to_finish
-  #     expect(non_active_menu).to be_active
-  #   end
+  context "Current" do
+    let!(:menu2) { FactoryGirl.create :menu }
+    it "can make an menu current" do
+      visit admin_dashboard_index_path
+      click_on "Menus"
+      within("#page-wrapper") { click_link("current", :match => :first) }
+      wait_for_ajax_to_finish
+      expect(menu.reload).to be_current
+      expect(menu2).to_not be_current
+    end
+  end
+
+  context "Adding and deleting menu items on a menu" do
+    # it "can add a menu item to a menu" do
+    #   visit admin_dashboard_index_path
+    #   click_on "Menus"
+    #   click_on "edit"
+    #   select menu_item.name, :from => "input.form-control"
+    # end
   end
 end
