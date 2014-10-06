@@ -4,6 +4,7 @@
 //= require react
 //= require react/page-header.react
 //= require stores/membership-store
+//= require react/membership-hold.react
 
 var Membership = React.createClass({displayName: 'Membership',
   getInitialState: function() {
@@ -24,7 +25,8 @@ var Membership = React.createClass({displayName: 'Membership',
 
   getDefaultProps: function() {
     return {
-      admin: false
+      admin: false,
+      holdFormVisible: false
     };
   },
 
@@ -72,9 +74,8 @@ var Membership = React.createClass({displayName: 'Membership',
   },
 
   renderOnHoldButton: function() {
-    var activeId = 'active-' + this.props.membership.id;
-    if(this.membershipActive())
-      return (React.DOM.a({className: "btn btn-default", id: activeId, onClick: this.props.putOnHold}, "Put Membership On Hold"));
+    if(this.membershipActive() && !this.props.holdFormVisible)
+      return (React.DOM.a({className: "btn btn-default", onClick: this.getOnHoldDateOptions}, "Put Membership On Hold"));
   },
 
   renderRemoveMembershipHold: function() {
