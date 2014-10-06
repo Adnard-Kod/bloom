@@ -5,6 +5,7 @@
 //= require react/page-header.react
 //= require stores/membership-store
 //= require react/membership-hold-form.react
+//= require actions/membership-actions
 
 var Membership = React.createClass({displayName: 'Membership',
   getInitialState: function() {
@@ -102,5 +103,14 @@ var Membership = React.createClass({displayName: 'Membership',
 
   renderUserId: function() {
     if(this.props.admin) return (React.DOM.li({className: "list-group-item"}, "User Id: ", this.props.membership.id));
-  }
+  },
+
+  putMembershipOnHold: function(holdData) {
+    this.setState({ holdFormVisible: false });
+    var membershipInfo = {  status: 'active',
+                            membershipId: this.props.membership.id,
+                            holdStart: holdData.holdDates,
+                            numOfWeeksToHold: holdData.maxWeeks };
+    MembershipActions.changeMembership(membershipInfo);
+  },
 });
