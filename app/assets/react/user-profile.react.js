@@ -147,11 +147,14 @@ var UserProfile = React.createClass({
   },
 
   renderOnHoldMembershipInfo: function() {
-    if(this.hasOnHoldMembership() || this.hasHoldWeeksRemaining())
-      return (<MembershipHoldInfo />);
+    if(this.hasOnHoldMembership() || this.hasHoldWeeksRemaining()) {
+      var user = this.state.user
+      var membership = user.active_memberships.length === 0 ? user.on_hold_memberships[0] : user.active_memberships[0];
+      return (<MembershipHoldInfo membership={membership} />);
+    }
   },
 
   hasHoldWeeksRemaining: function() {
-    return this.state.user.active_memberships[0].hold_weeks_remaining !== null;
+    return this.state.user.active_memberships[0].hold_weeks_remaining !== null || this.state.user.on_hold_memberships[0].hold_weeks_remaining !== null;
   }
 });
