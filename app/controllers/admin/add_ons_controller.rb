@@ -17,7 +17,7 @@ class Admin::AddOnsController < AdminController
 
   def update
     add_on = AddOn.find(params[:id])
-    if add_on.update_attributes(add_on_params)
+    if add_on.update(add_on_params)
       render json: add_on
     else
       render json: {errors: add_on.errors.full_messages}, status: :unprocessable_entity
@@ -41,6 +41,6 @@ class Admin::AddOnsController < AdminController
   end
 
   def convert_dollars_to_pennies
-    params[:subscription][:price] = params[:subscription][:price].to_f * 100
+    params[:add_on][:price] = params[:add_on][:price].to_f * 100
   end
 end
