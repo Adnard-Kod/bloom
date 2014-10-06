@@ -27,9 +27,8 @@ class Membership < ActiveRecord::Base
     scope status, ->{where(:status => STATUSES[status])}
   end
 
-  def put_membership_on_hold
-    set_hold_start_and_end_dates
-    set_hold_status
+  def apply_membership_hold_request(hold_request)
+    set_hold_start_and_end_dates(hold_request[:hold_start], hold_request[:weeks_to_hold])
     update_end_date_due_to_hold
   end
 
@@ -51,15 +50,11 @@ class Membership < ActiveRecord::Base
     self.end_date = self.start_date + self.weeks_remaining * 7
   end
 
-  def set_hold_start_and_end_dates
-    unless self.on_hold?
-      self.hold_weeks_remaining = HOLD_INFO[:hold_max_weeks]
-      today = DateTime.now.to_date
-      self.hold_start = if today.cwday <= HOLD_INFO[:hold_deadline]
-                          today + 7 - today.cwday
-                        else
-                          today + 14 - today.cwday
-                        end
+  def set_hold_start_and_end_dates(hold_start, num_of_weeks_to_hold)
+    unless self.on_hold? || self.hold_weeks_remaining > 0
+      year, month, day = hold_start.split('-').map(&:to_i)
+      self.hold_weeks_remaining = num_of_weeks_to_hold
+      self.hold_start = DateTime.new(year, month, day).to_date
       self.hold_end = self.hold_start + self.hold_weeks_remaining * 7
     end
   end
