@@ -37,7 +37,7 @@ var UserAddress = React.createClass({displayName: 'UserAddress',
                 React.DOM.p(null, addr.apartment_number),
                 React.DOM.p(null, addr.city, " ", addr.state, " ", addr.zipcode)
               ), React.DOM.br(null),
-              React.DOM.a({className: "btn btn-default", onClick: this.edit}, "Edit"),
+              React.DOM.a({className: "btn btn-default edit-address", onClick: this.edit}, "Edit"),
               this.renderDeleteButton(),
               this.renderEditForm()
             )
@@ -47,7 +47,7 @@ var UserAddress = React.createClass({displayName: 'UserAddress',
     )
   },
   renderEditForm: function() {
-    if(this.state.editing) return(UserAddressForm({address: this.props.addr, errors: this.props.errors, editing: true}));
+    if(this.state.editing) return(UserAddressForm({address: this.props.addr, errors: this.props.errors, editing: this.state.editing}));
   },
   renderDeleteButton: function() {
     if(this.props.admin) return(React.DOM.span(null, React.DOM.a({href: "#", onClick: this.delete}, "Delete")));

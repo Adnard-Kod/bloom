@@ -4,7 +4,8 @@ var SessionStore = (function () {
   var ActionTypes = BloomingConstants.ActionTypes;
   return {
     getAuthenticityToken: function() {
-      return $('meta[name="csrf-token"]')[0].content
+      var csrfToken = $('meta[name="csrf-token"]')[0];
+      if(csrfToken) return csrfToken.content;
     },
     setCurrentUser: function(user) {
       this.currentUser = JSON.parse(user);

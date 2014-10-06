@@ -27,6 +27,7 @@ var AddressStore = (function () {
 
     setAddresses: function(data) {
       _addresses = data;
+      this.triggerChange(data);
     },
 
     new: function () {
