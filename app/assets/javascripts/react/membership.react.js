@@ -3,8 +3,25 @@
  */
 //= require react
 //= require react/page-header.react
+//= require stores/membership-store
 
 var Membership = React.createClass({displayName: 'Membership',
+  getInitialState: function() {
+    return {
+      holdInfo: MembershipStore.membershipHoldDateInfo()
+    };
+  },
+
+  componentDidMount: function() {
+    MembershipStore.addChangeEvent(function() {
+      if(this.isMounted()) {
+        this.setState({
+          holdInfo: MembershipStore.membershipHoldDateInfo()
+        });
+      }
+    }.bind(this));
+  },
+
   getDefaultProps: function() {
     return {
       admin: false
