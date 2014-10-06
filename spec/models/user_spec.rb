@@ -40,9 +40,7 @@ describe User do
   it "#full_name" do
     expect(user.full_name).to eq "#{user.first_name} #{user.last_name}"
   end
-  it "#reduce_to_name_and_address" do
-    expect(user.reduce_to_name_and_address).to eq({:name => user.full_name, :address => user.current_address})
-  end
+
   it ".current_orders" do
     selected_item = FactoryGirl.create :user_selected_item
     expect_any_instance_of(User).to receive(:grouped_selected_items).once
@@ -57,9 +55,17 @@ describe User do
     current_address = FactoryGirl.create :address, :user => user
     expect(user.current_address).to eq current_address
   end
-  it "reduce_to_name_and_address" do
+  it "#reduce_to_name_and_address" do
     address = FactoryGirl.create :address, :user => user
-    expect(user.reduce_to_name_and_address). to eq({:name => user.full_name, :address => address.full})
+    reduced_user = {
+      :name => user.full_name,
+      :phone_number => user.phone_number,
+      :address => {
+        :full => address.full,
+        :delivery_instructions => address.delivery_instructions
+      }
+    }
+    expect(user.reduce_to_name_and_address). to eq(reduced_user)
   end
   it "#grouped_selected_items" do
     selected_item = FactoryGirl.create :user_selected_item, :user => user

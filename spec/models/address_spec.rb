@@ -15,4 +15,11 @@ describe Address do
   it "#full" do
     expect(address.full).to eq "#{address.street_address}, #{address.city}, #{address.state} #{address.zipcode}"
   end
+  it "#reduce_to_full_and_instructions" do
+    reduced_address = {
+      :full => address.full,
+      :delivery_instructions => address.delivery_instructions
+    }
+    expect(address.reduce_to_full_and_instructions).to eq reduced_address
+  end
 end

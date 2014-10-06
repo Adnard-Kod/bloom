@@ -42,7 +42,11 @@ class User < ActiveRecord::Base
   end
 
   def reduce_to_name_and_address
-    {:name => self.full_name, :address => self.current_address.try(:full)}
+    {
+      :name => self.full_name,
+      :phone_number => self.phone_number,
+      :address => self.current_address.try(:reduce_to_full_and_instructions)
+    }
   end
 
   def find_or_create_selected_items(default_selected_items)
