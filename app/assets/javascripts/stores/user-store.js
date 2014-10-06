@@ -40,6 +40,12 @@ var UserStore = (function () {
         }.bind(this))
       }
     },
+    updatePropertyOnUser: function(key, properties) {
+      if(key in _user && _user[key][0].id === properties.id) {
+        _user[key] = [properties];
+        this.triggerChange()
+      }
+    },
     create: function (userData) {
       $.ajax({
         type: 'POST',
