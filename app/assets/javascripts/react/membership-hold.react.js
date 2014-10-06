@@ -27,6 +27,11 @@ var MembershipHold = React.createClass({displayName: 'MembershipHold',
   },
 
   putMembershipOnHold: function(holdData) {
+    var membershipInfo = {  status: 'active',
+                            membershipId: this.props.membershipId,
+                            holdStart: holdData.holdDates,
+                            numOfWeeksToHold: holdData.maxWeeks };
+    MembershipActions.changeMembership(membershipInfo);
   },
 
   holdDates: function() {
