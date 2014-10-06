@@ -25,27 +25,33 @@ var UserAddress = React.createClass({
 
   render: function () {
     var addr = this.props.addr;
-    var editForm = this.state.editing ? <UserAddressForm address={addr} editing="true" /> : undefined;
-    var deleteButton = this.props.admin ? <span><a href="#" onClick={this.delete}>Delete</a></span> : undefined;
     return (
-      <div>
-        <PageHeader title="Current Address" />
-        <ul className="list-group">
-          <li className="list-group-item">
-            <p>{this.props.name}</p>
-            <p>{addr.street_address}</p>
-            <p>{addr.apartment_number}</p>
-            <p>{addr.city} {addr.state} {addr.zipcode}</p>
-          </li><br></br>
-          <a className='btn btn-default' onClick={this.edit}>Edit</a>
-          {deleteButton}
-          {editForm}
-        </ul>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-12">
+            <PageHeader title="Current Address" />
+            <ul className="list-group">
+              <li className="list-group-item">
+                <p>{this.props.name}</p>
+                <p>{addr.street_address}</p>
+                <p>{addr.apartment_number}</p>
+                <p>{addr.city} {addr.state} {addr.zipcode}</p>
+              </li><br></br>
+              <a className='btn btn-default' onClick={this.edit}>Edit</a>
+              {this.renderDeleteButton()}
+              {this.renderEditForm()}
+            </ul>
+          </div>
+        </div>
       </div>
-
     )
   },
-
+  renderEditForm: function() {
+    if(this.state.editing) return(<UserAddressForm address={this.props.addr} errors={this.props.errors} editing={true}/>);
+  },
+  renderDeleteButton: function() {
+    if(this.props.admin) return(<span><a href="#" onClick={this.delete}>Delete</a></span>);
+  },
   edit: function (e) {
     e.preventDefault();
     if(this.isMounted()) this.setState({ editing: !this.state.editing });

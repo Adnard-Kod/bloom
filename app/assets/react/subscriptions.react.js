@@ -32,7 +32,7 @@ var Subscriptions = React.createClass({
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-12">
-              <PageHeader title="Current Subscriptions and Packages" />
+              <PageHeader title="Subscription Packages" />
               <ul className="list-group">
                 {subscriptions}
               </ul>

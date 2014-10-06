@@ -32,7 +32,7 @@ var Subscriptions = React.createClass({displayName: 'Subscriptions',
         React.DOM.div({className: "container-fluid"},
           React.DOM.div({className: "row"},
             React.DOM.div({className: "col-lg-12"},
-              PageHeader({title: "Current Subscriptions and Packages"}),
+              PageHeader({title: "Subscription Packages"}),
               React.DOM.ul({className: "list-group"},
                 subscriptions
               )

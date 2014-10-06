@@ -2,19 +2,19 @@
 //= require react
 //= require stores/subscription-store
 //= require react/subscriptions.react
-//= require react/address-required.react
 //= require actions/payment-actions
-
+//= require react/user-promotion-form.react
 var UserMembershipForm = React.createClass({displayName: 'UserMembershipForm',
   render: function() {
     return (
       React.DOM.div(null,
-        this.renderFormOrException()
+        this.renderSubscription(),
+        UserPromotionForm({errors: this.props.errors}),
+        this.renderMembershipForm()
       )
     );
   },
-  renderFormOrException: function() {
-    if(!this.props.hasAddr) return(AddressRequired(null));
+  renderMembershipForm: function() {
     var formOptions = {
       name: "Subscription Options",
       submit: { value: "Purchase Subscription" },
@@ -23,6 +23,9 @@ var UserMembershipForm = React.createClass({displayName: 'UserMembershipForm',
     }
     var object = {subscription: this.allSubscriptions()[0]};
     return(FormFor({object: object, options: formOptions, errors: this.props.errors}));
+  },
+  renderSubscription: function() {
+    return (Subscriptions(null));
   },
   allSubscriptions: function () {
     return this.props.subscriptions.map(function (sub) {

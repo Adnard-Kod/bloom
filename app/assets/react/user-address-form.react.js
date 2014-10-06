@@ -7,21 +7,6 @@
 //= require actions/address-actions
 
 var UserAddressForm = React.createClass({
-  getInitialState: function() {
-    return {
-      errors: []
-    };
-  },
-
-  componentDidMount: function() {
-    AddressStore.addFailToTakeAction(function (e, data) {
-      if (this.isMounted()) this.setState({ errors: data });
-    }.bind(this));
-    AddressStore.addChangeEvent(function () {
-      if (this.isMounted()) this.setState({ errors: [] });
-    }.bind(this));
-  },
-
   render: function () {
     var address = this.props.address || AddressStore.new();
     var formOptions = {
@@ -34,7 +19,7 @@ var UserAddressForm = React.createClass({
 
     return (
       <div>
-        <FormFor object={address} options={formOptions} errors={this.state.errors} />
+        <FormFor object={address} options={formOptions} errors={this.props.errors} />
       </div>
     );
   },

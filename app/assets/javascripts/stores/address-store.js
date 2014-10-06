@@ -50,7 +50,12 @@ var AddressStore = (function () {
     triggerChange: function (data) {
       $(this).trigger(CHANGE_EVENT, data);
     },
-
+    addFailToTakeAction: function(callback) {
+      $(this).on(FAIL_TO_CREATE_EVENT, callback);
+    },
+    triggerFailToTakeAction: function(data) {
+      $(this).trigger(FAIL_TO_CREATE_EVENT, data);
+    },
     create: function(data) {
       var authenticityToken = SessionStore.getAuthenticityToken();
       $.ajax({

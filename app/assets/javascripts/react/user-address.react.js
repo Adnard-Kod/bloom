@@ -25,27 +25,33 @@ var UserAddress = React.createClass({displayName: 'UserAddress',
 
   render: function () {
     var addr = this.props.addr;
-    var editForm = this.state.editing ? UserAddressForm({address: addr, editing: "true"}) : undefined;
-    var deleteButton = this.props.admin ? React.DOM.span(null, React.DOM.a({href: "#", onClick: this.delete}, "Delete")) : undefined;
     return (
-      React.DOM.div(null,
-        PageHeader({title: "Current Address"}),
-        React.DOM.ul({className: "list-group"},
-          React.DOM.li({className: "list-group-item"},
-            React.DOM.p(null, this.props.name),
-            React.DOM.p(null, addr.street_address),
-            React.DOM.p(null, addr.apartment_number),
-            React.DOM.p(null, addr.city, " ", addr.state, " ", addr.zipcode)
-          ), React.DOM.br(null),
-          React.DOM.a({className: "btn btn-default", onClick: this.edit}, "Edit"),
-          deleteButton,
-          editForm
+      React.DOM.div({className: "container-fluid"},
+        React.DOM.div({className: "row"},
+          React.DOM.div({className: "col-lg-12"},
+            PageHeader({title: "Current Address"}),
+            React.DOM.ul({className: "list-group"},
+              React.DOM.li({className: "list-group-item"},
+                React.DOM.p(null, this.props.name),
+                React.DOM.p(null, addr.street_address),
+                React.DOM.p(null, addr.apartment_number),
+                React.DOM.p(null, addr.city, " ", addr.state, " ", addr.zipcode)
+              ), React.DOM.br(null),
+              React.DOM.a({className: "btn btn-default", onClick: this.edit}, "Edit"),
+              this.renderDeleteButton(),
+              this.renderEditForm()
+            )
+          )
         )
       )
-
     )
   },
-
+  renderEditForm: function() {
+    if(this.state.editing) return(UserAddressForm({address: this.props.addr, errors: this.props.errors, editing: true}));
+  },
+  renderDeleteButton: function() {
+    if(this.props.admin) return(React.DOM.span(null, React.DOM.a({href: "#", onClick: this.delete}, "Delete")));
+  },
   edit: function (e) {
     e.preventDefault();
     if(this.isMounted()) this.setState({ editing: !this.state.editing });

@@ -30,3 +30,7 @@
 h3 {
   color: lightgrey;
 }
+
+.alert {
+  margin: 1em 0;
+}
