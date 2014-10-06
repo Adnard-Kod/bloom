@@ -51,7 +51,7 @@ class Membership < ActiveRecord::Base
   end
 
   def set_hold_start_and_end_dates(hold_start, num_of_weeks_to_hold)
-    unless self.on_hold? || self.hold_weeks_remaining > 0
+    unless self.on_hold? || (!self.hold_weeks_remaining.nil?  && self.hold_weeks_remaining > 0)
       year, month, day = hold_start.split('-').map(&:to_i)
       self.hold_weeks_remaining = num_of_weeks_to_hold
       self.hold_start = DateTime.new(year, month, day).to_date
