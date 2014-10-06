@@ -4,7 +4,7 @@
 //= require react
 //= require react/page-header.react
 //= require stores/membership-store
-//= require react/membership-hold.react
+//= require react/membership-hold-form.react
 
 var Membership = React.createClass({displayName: 'Membership',
   getInitialState: function() {
@@ -86,7 +86,7 @@ var Membership = React.createClass({displayName: 'Membership',
   renderOnHoldDateOptions: function() {
     if(this.membershipActive() && this.state.holdInfo.date_options && this.state.holdInfo.date_options.length > 0) {
       this.props.holdFormVisible = true;
-      return (MembershipHold({holdInfo: this.state.holdInfo, membershipId: this.props.membership.id}))
+      return (MembershipHoldForm({holdInfo: this.state.holdInfo, membershipId: this.props.membership.id}))
     }
   },
 
