@@ -75,8 +75,12 @@ var MembershipStore = (function() {
     changeStatus: function(data) {
       var previousStatus = data.status;
       this.update(data, function(response) {
-        UserStore.removePropertyFromUser(previousStatus + '_memberships', response.membership);
-        UserStore.addPropertyToUser(response.membership.status + '_memberships', response.membership);
+        if(previousStatus === response.membership.status) {
+          UserStore.updatePropertyOnUser(previousStatus + '_memberships', response.membership);
+        } else {
+          UserStore.removePropertyFromUser(previousStatus + '_memberships', response.membership);
+          UserStore.addPropertyToUser(response.membership.status + '_memberships', response.membership);
+        }
       });
     },
 
