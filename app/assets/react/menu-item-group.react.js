@@ -30,26 +30,26 @@ var MenuItemGroup = React.createClass({
   },
   renderDefaults: function() {
     if(this.props.admin) {
-      return this.renderSection('Defaults', this.props.menu.selected_items.filter(function(item) {
+      return this.renderSection('Defaults', 'default', this.props.menu.selected_items.filter(function(item) {
         return item.default;
       }));
     }
   },
   renderEntrees: function() {
-    return this.renderSection('Entrees', this.props.menu.selected_items.filter(function(item) {
+    return this.renderSection('Entrees', 'entree', this.props.menu.selected_items.filter(function(item) {
       return item.menu_item.category === 'Entree';
     }))
   },
   renderSidedishes: function() {
-   return this.renderSection('Side Dishes', this.props.menu.selected_items.filter(function(item) {
+   return this.renderSection('Side Dishes', 'side-dish', this.props.menu.selected_items.filter(function(item) {
       return item.menu_item.category === 'Side Dish';
     }))
   },
-  renderSection: function(name, list) {
+  renderSection: function(name, categoryClass, list) {
     return (
       <div>
         <h4><i>{name}</i></h4>
-        <ListGroup list={list} id={this.props.menu.id} admin={this.props.admin} user={this.props.user} selected={this.props.selected}/>
+        <ListGroup list={list} categoryClass={categoryClass} id={this.props.menu.id} admin={this.props.admin} user={this.props.user} selected={this.props.selected}/>
       </div>
     );
   },

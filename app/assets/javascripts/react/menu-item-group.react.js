@@ -30,26 +30,26 @@ var MenuItemGroup = React.createClass({displayName: 'MenuItemGroup',
   },
   renderDefaults: function() {
     if(this.props.admin) {
-      return this.renderSection('Defaults', this.props.menu.selected_items.filter(function(item) {
+      return this.renderSection('Defaults', 'default', this.props.menu.selected_items.filter(function(item) {
         return item.default;
       }));
     }
   },
   renderEntrees: function() {
-    return this.renderSection('Entrees', this.props.menu.selected_items.filter(function(item) {
+    return this.renderSection('Entrees', 'entree', this.props.menu.selected_items.filter(function(item) {
       return item.menu_item.category === 'Entree';
     }))
   },
   renderSidedishes: function() {
-   return this.renderSection('Side Dishes', this.props.menu.selected_items.filter(function(item) {
+   return this.renderSection('Side Dishes', 'side-dish', this.props.menu.selected_items.filter(function(item) {
       return item.menu_item.category === 'Side Dish';
     }))
   },
-  renderSection: function(name, list) {
+  renderSection: function(name, categoryClass, list) {
     return (
       React.DOM.div(null,
         React.DOM.h4(null, React.DOM.i(null, name)),
-        ListGroup({list: list, id: this.props.menu.id, admin: this.props.admin, user: this.props.user, selected: this.props.selected})
+        ListGroup({list: list, categoryClass: categoryClass, id: this.props.menu.id, admin: this.props.admin, user: this.props.user, selected: this.props.selected})
       )
     );
   },
