@@ -147,5 +147,4 @@ var UserProfile = React.createClass({
   removeHold: function(e) {
     e.preventDefault();
   }
-
 });
