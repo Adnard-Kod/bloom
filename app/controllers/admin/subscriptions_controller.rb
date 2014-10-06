@@ -1,4 +1,7 @@
 class Admin::SubscriptionsController < AdminController
+
+  before_action :convert_dollars_to_pennies, only: [:create, :update]
+
   def create
     subscription = Subscription.new subscription_params
     if subscription.save
@@ -30,5 +33,9 @@ class Admin::SubscriptionsController < AdminController
   private
   def subscription_params
     params.require(:subscription).permit(:description, :price, :weeks, :meals, :name)
+  end
+
+  def convert_dollars_to_pennies
+    params[:subscription][:price] = params[:subscription][:price].to_f * 100
   end
 end

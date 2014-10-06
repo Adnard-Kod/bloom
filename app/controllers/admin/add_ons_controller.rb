@@ -1,4 +1,7 @@
 class Admin::AddOnsController < AdminController
+  
+  before_action :convert_dollars_to_pennies, only: [:create, :update]
+
   def index
     render json: AddOn.all
   end
@@ -35,5 +38,9 @@ class Admin::AddOnsController < AdminController
 
   def add_on_params
     params.require(:add_on).permit(:name, :description, :price, :active)
+  end
+
+  def convert_dollars_to_pennies
+    params[:subscription][:price] = params[:subscription][:price].to_f * 100
   end
 end
