@@ -81,10 +81,16 @@ var MembershipStore = (function() {
     },
 
     update: function(data, callback) {
+      if (data.status && data.status === 'active') {
+        var updateData = {  status: data.status,
+                            hold_start: data.hold_start,
+                            weeks_to_hold: data.numOfWeeksToHold };
+      }
+
       $.ajax({
         type: 'PUT',
         url: '/user/memberships/' + data.membershipId,
-        data: { user_id: data.userId, status: data.status }
+        data: updateData
       })
       .done(callback);
     },
