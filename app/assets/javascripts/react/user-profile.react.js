@@ -14,6 +14,7 @@
 //= require react/user-promotion-form.react
 //= require react/alert.react
 //= require actions/membership-actions
+//= require react/membership-hold-info.react
 
 var UserProfile = React.createClass({displayName: 'UserProfile',
   getInitialState: function() {
@@ -55,13 +56,14 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
         React.DOM.div({className: "row"},
           React.DOM.div({className: "col-lg-12"},
             React.DOM.div({className: "user-profile"},
-                this.renderSubscription(),
-                this.renderAlert(),
-                this.renderPromotionForm(),
-                this.renderMembershipForm(),
-                this.renderUserAddresses(),
-                this.renderCurrentMembership(),
-                Memberships({memberships: this.state.memberships})
+              this.renderUserAddresses(),
+              this.renderSubscription(),
+              this.renderAlert(),
+              this.renderPromotionForm(),
+              this.renderMembershipForm(),
+              this.renderCurrentMembership(),
+              this.renderOnHoldMembershipInfo(),
+              Memberships({memberships: this.state.memberships})
             )
           )
         )
@@ -144,7 +146,12 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
     MembershipActions.changeMembership(membershipInfo);
   },
 
-  removeHold: function(e) {
-    e.preventDefault();
+  renderOnHoldMembershipInfo: function() {
+    if(this.hasOnHoldMembership() || this.hasHoldWeeksRemaining())
+      return (MembershipHoldInfo(null));
+  },
+
+  hasHoldWeeksRemaining: function() {
+    return this.state.user.active_memberships[0].hold_weeks_remaining !== null;
   }
 });
