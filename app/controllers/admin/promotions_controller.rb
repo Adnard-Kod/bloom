@@ -11,7 +11,7 @@ class Admin::PromotionsController < AdminController
 
   def update
     promotion = Promotion.find(params[:id])
-    if promotion.update_attributes(promotion_params)
+    if promotion.update(promotion_params)
       render json: promotion
     else
       render json: {errors: promotion.errors.full_messages}, status: :unprocessable_entity

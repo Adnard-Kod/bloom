@@ -15,7 +15,7 @@ class Admin::MenusController < AdminController
   end
 
   def update
-    if @menu.update_attributes(menu_params)
+    if @menu.update(menu_params)
       render json: @menu
     else
       render json: {errors: @menu.errors.full_messages}, status: :unprocessable_entity

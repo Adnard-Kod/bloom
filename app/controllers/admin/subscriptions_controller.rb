@@ -13,7 +13,7 @@ class Admin::SubscriptionsController < AdminController
 
   def update
     subscription = Subscription.find params[:id]
-    if subscription.update_attributes subscription_params
+    if subscription.update subscription_params
       render :json => subscription
     else
       render :json => {:errors => subscription.errors.full_messages}, :status => :unprocessable_entity
