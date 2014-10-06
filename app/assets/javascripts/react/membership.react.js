@@ -9,7 +9,8 @@
 var Membership = React.createClass({displayName: 'Membership',
   getInitialState: function() {
     return {
-      holdInfo: MembershipStore.membershipHoldDateInfo()
+      holdInfo: MembershipStore.membershipHoldDateInfo(),
+      holdFormVisible: false
     };
   },
 
@@ -25,8 +26,7 @@ var Membership = React.createClass({displayName: 'Membership',
 
   getDefaultProps: function() {
     return {
-      admin: false,
-      holdFormVisible: false
+      admin: false
     };
   },
 
@@ -75,7 +75,7 @@ var Membership = React.createClass({displayName: 'Membership',
   },
 
   renderOnHoldButton: function() {
-    if(this.membershipActive() && !this.props.holdFormVisible)
+    if(this.membershipActive() && !this.state.holdFormVisible)
       return (React.DOM.a({className: "btn btn-default", onClick: this.getOnHoldDateOptions}, "Put Membership On Hold"));
   },
 
@@ -84,10 +84,14 @@ var Membership = React.createClass({displayName: 'Membership',
   },
 
   renderOnHoldDateOptions: function() {
-    if(this.membershipActive() && this.state.holdInfo.date_options && this.state.holdInfo.date_options.length > 0) {
-      this.props.holdFormVisible = true;
-      return (MembershipHoldForm({holdInfo: this.state.holdInfo, membershipId: this.props.membership.id}))
+    if(this.membershipActive() && this.state.holdFormVisible === false && this.hasDateOptions()) {
+      this.state.holdFormVisible = true;
+      return (MembershipHoldForm({holdInfo: this.state.holdInfo, holdMembership: this.putMembershipOnHold}))
     }
+  },
+
+  hasDateOptions: function() {
+    return this.state.holdInfo.date_options && this.state.holdInfo.date_options.length > 0;
   },
 
   renderRemoveMembershipHold: function() {
