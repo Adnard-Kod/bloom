@@ -41,6 +41,8 @@ class Admin::AddOnsController < AdminController
   end
 
   def convert_dollars_to_pennies
-    params[:add_on][:price] = params[:add_on][:price].to_f * 100
+    if params[:add_on][:price]
+      params[:add_on][:price] = params[:add_on][:price].to_f * 100
+    end
   end
 end

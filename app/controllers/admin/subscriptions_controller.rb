@@ -36,6 +36,8 @@ class Admin::SubscriptionsController < AdminController
   end
 
   def convert_dollars_to_pennies
-    params[:subscription][:price] = params[:subscription][:price].to_f * 100
+    if params[:subscription][:price]
+      params[:subscription][:price] = params[:subscription][:price].to_f * 100
+    end
   end
 end
