@@ -83,7 +83,7 @@ var MembershipStore = (function() {
     update: function(data, callback) {
       if (data.status && data.status === 'active') {
         var updateData = {  status: data.status,
-                            hold_start: data.hold_start,
+                            hold_start: data.holdStart,
                             weeks_to_hold: data.numOfWeeksToHold };
       }
 
