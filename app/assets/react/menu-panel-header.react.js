@@ -55,6 +55,7 @@ var MenuPanelHeader = React.createClass({
     }
   },
   renderEditForm: function() {
-    if (this.props.admin && this.state.editing) return(<MenuForm menu={this.props.menu} editing="true"/>);
+    var menu = {id: this.props.menu.id, title: this.props.menu.title}
+    if (this.props.admin && this.state.editing) return(<MenuForm menu={menu} editing={true}/>);
   }
 })
