@@ -3,7 +3,6 @@
  */
 //= require react
 //= require react/form-builder/form-for.react
-//= require actions/membership-actions
 
 var MembershipHoldForm = React.createClass({displayName: 'MembershipHoldForm',
   getDefaultProps: function() {
@@ -17,21 +16,13 @@ var MembershipHoldForm = React.createClass({displayName: 'MembershipHoldForm',
       submit: { value: "Hold Membership" },
       holdDates: { type: 'select', values: this.holdDates() },
       maxWeeks: { type: 'select', values: this.maxWeeks() },
-      onSubmit: this.putMembershipOnHold
+      onSubmit: this.props.holdMembership
     };
     var object = {  holdDates: this.props.holdInfo.date_options[0],
                     maxWeeks: this.maxWeeks()[0].value };
     return (
       FormFor({object: object, options: formOptions, errors: this.props.errors})
     );
-  },
-
-  putMembershipOnHold: function(holdData) {
-    var membershipInfo = {  status: 'active',
-                            membershipId: this.props.membershipId,
-                            holdStart: holdData.holdDates,
-                            numOfWeeksToHold: holdData.maxWeeks };
-    MembershipActions.changeMembership(membershipInfo);
   },
 
   holdDates: function() {
