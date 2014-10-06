@@ -1,8 +1,14 @@
+
+
+
 require 'rails_helper'
 describe "Admin Add Ons", :js => true do
   let!(:user) { FactoryGirl.create :user, :admin }
   let!(:menu) { FactoryGirl.create :menu }
-  let!(:menu_item) { FactoryGirl.create :menu_item }
+  let(:menu_item_entree) { "Chicken" }
+  let(:menu_item_side_dish) { "Peas" }
+  let!(:menu_entree) { FactoryGirl.create :menu_item, :name => menu_item_entree, :category => "Entree" }
+  let!(:menu_side_dish) { FactoryGirl.create :menu_item, :name => menu_item_side_dish, :category => "Side Dish" }
   before(:each) do
     stub_current_admin_user user
   end
@@ -23,16 +29,15 @@ describe "Admin Add Ons", :js => true do
       expect(page).to have_content("Menu Title")
     end
 
-    # it "can update Menu" do
-    #   visit admin_dashboard_index_path
-    #   click_on "Menus"
-    #   click_on "edit"
-    #   require 'debugger'; debugger
-    #   fill_in "form-control", with: "New Menu Name"
-    #   click_on "Update Menu"
-    #   wait_for_ajax_to_finish
-    #   expect(page).to have_content("New Menu Name")
-    # end
+    it "can update Menu" do
+      visit admin_dashboard_index_path
+      click_on "Menus"
+      click_on "edit"
+      within("input.form-control") { fill_in("Title", with: "New Menu Name", :match => :first) }
+      click_on "Update Menu"
+      wait_for_ajax_to_finish
+      expect(page).to have_content("New Menu Name")
+    end
 
     it "can delete Add On" do
       visit admin_dashboard_index_path
@@ -55,11 +60,42 @@ describe "Admin Add Ons", :js => true do
   end
 
   context "Adding and deleting menu items on a menu" do
-    # it "can add a menu item to a menu" do
+    it "can add a menu item to a menu as a entree" do
+      visit admin_dashboard_index_path
+      click_on "Menus"
+      click_on "Add Menu Item"
+      wait_for_ajax_to_finish
+      expect(page.find(".entree")).to have_content menu_item_entree
+    end
+
+    # it "can add a menu item to a menu as a side dish" do
     #   visit admin_dashboard_index_path
     #   click_on "Menus"
-    #   click_on "edit"
-    #   select menu_item.name, :from => "input.form-control"
+    #   click_on "Add Menu Item"
+    #   wait_for_ajax_to_finish
+    #   expect(page.find(".side-dish")).to have_content menu_item_side_dish
     # end
+
+    it "can delete a menu item to a menu" do
+      visit admin_dashboard_index_path
+      click_on "Menus"
+      click_on "Add Menu Item"
+      wait_for_ajax_to_finish
+      within(".panel-body") { click_link("x", :match => :first) }
+      wait_for_ajax_to_finish
+      expect(page.find(".panel-body")).to_not have_content menu_item_name
+    end
+  end
+
+  context "Errors" do
+    it "error is display when the same menu item is added to a menu twice" do
+      visit admin_dashboard_index_path
+      click_on "Menus"
+      click_on "Add Menu Item"
+      wait_for_ajax_to_finish
+      click_on "Add Menu Item"
+      wait_for_ajax_to_finish
+      expect(page).to have_content "Menu item is already on the menu"
+    end
   end
 end
