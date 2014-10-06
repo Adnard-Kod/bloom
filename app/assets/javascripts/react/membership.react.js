@@ -48,6 +48,7 @@ var Membership = React.createClass({displayName: 'Membership',
           )
         ),
         this.renderOnHoldButton(),
+        this.renderOnHoldDateOptions(),
         this.renderRemoveMembershipHold()
       )
     );
@@ -76,6 +77,17 @@ var Membership = React.createClass({displayName: 'Membership',
   renderOnHoldButton: function() {
     if(this.membershipActive() && !this.props.holdFormVisible)
       return (React.DOM.a({className: "btn btn-default", onClick: this.getOnHoldDateOptions}, "Put Membership On Hold"));
+  },
+
+  getOnHoldDateOptions: function() {
+    MembershipStore.getHoldStartDateOptions(this.props.membership.id);
+  },
+
+  renderOnHoldDateOptions: function() {
+    if(this.membershipActive() && this.state.holdInfo.date_options && this.state.holdInfo.date_options.length > 0) {
+      this.props.holdFormVisible = true;
+      return (MembershipHold({holdInfo: this.state.holdInfo, membershipId: this.props.membership.id}))
+    }
   },
 
   renderRemoveMembershipHold: function() {
