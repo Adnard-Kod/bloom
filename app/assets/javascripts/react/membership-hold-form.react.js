@@ -5,7 +5,7 @@
 //= require react/form-builder/form-for.react
 //= require actions/membership-actions
 
-var MembershipHold = React.createClass({displayName: 'MembershipHold',
+var MembershipHoldForm = React.createClass({displayName: 'MembershipHoldForm',
   getDefaultProps: function() {
     return {
       errors: []
