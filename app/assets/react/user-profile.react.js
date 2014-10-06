@@ -99,7 +99,7 @@ var UserProfile = React.createClass({
 
   renderCurrentMembership: function() {
     if(this.hasActiveMembership()) {
-      return (<Membership membership={this.state.user.active_memberships[0]} putOnHold={this.putMembershipOnHold} />);
+      return (<Membership membership={this.state.user.active_memberships[0]} />);
     } else if(this.hasOnHoldMembership()) {
       return(<Membership membership={this.state.user.on_hold_memberships[0]} />);
     }
