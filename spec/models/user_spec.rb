@@ -24,12 +24,12 @@ describe User do
     it "subscribes user to mailchimp on updates if email changed" do
       allow(user).to receive(:mailchimp)
       expect(user).to receive(:subscribe_to_mailchimp).once
-      user.update_attributes :email => "new@email.com"
+      user.update :email => "new@email.com"
     end
     xit "doesn't subscribes user to mailchimp on updates if email hasn't changed" do
       allow(user).to receive(:mailchimp)
       expect(user).to_not receive(:subscribe_to_mailchimp)
-      user.update_attributes :first_name => "new name"
+      user.update :first_name => "new name"
     end
     it "unsubscribes user from mailchimp on destroy" do
       allow(user).to receive(:mailchimp)

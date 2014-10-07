@@ -5,7 +5,7 @@ class Admin::UsersController < AdminController
 
   def update
     user = User.find(params[:id])
-    user.update_attributes(user_params)
+    user.update(user_params)
     render json: user
   end
 

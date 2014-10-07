@@ -1,4 +1,7 @@
 class Admin::AddOnsController < AdminController
+  
+  before_action :convert_dollars_to_pennies, only: [:create, :update]
+
   def index
     render json: AddOn.all
   end
@@ -14,7 +17,7 @@ class Admin::AddOnsController < AdminController
 
   def update
     add_on = AddOn.find(params[:id])
-    if add_on.update_attributes(add_on_params)
+    if add_on.update(add_on_params)
       render json: add_on
     else
       render json: {errors: add_on.errors.full_messages}, status: :unprocessable_entity
@@ -35,5 +38,11 @@ class Admin::AddOnsController < AdminController
 
   def add_on_params
     params.require(:add_on).permit(:name, :description, :price, :active)
+  end
+
+  def convert_dollars_to_pennies
+    if params[:add_on][:price]
+      params[:add_on][:price] = params[:add_on][:price].to_f * 100
+    end
   end
 end

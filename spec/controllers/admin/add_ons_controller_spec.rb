@@ -17,11 +17,11 @@ describe Admin::AddOnsController do
         post :create, :add_on => valid_attributes
       }.to change { AddOn.count }.by(1)
     end
-    it "renders error if missing price" do
+    it "renders error if params are invalid" do
       expect{
-        post :create, :add_on => {price: ""}
+        post :create, :add_on => { price: "string" }
       }.to_not change { AddOn.count }
-      expect(JSON.parse(response.body)).to eq("errors" => ["Name can't be blank", "Description can't be blank", "Price can't be blank"])
+      expect(JSON.parse(response.body)).to eq("errors" => ["Name can't be blank", "Description can't be blank"])
     end
   end
   context "#update" do
@@ -33,7 +33,7 @@ describe Admin::AddOnsController do
       }.to change { add_on.reload.name }.from(add_on.name).to(new_name)
     end
   end
-  context "#destory" do
+  context "#destroy" do
     let!(:add_on) { FactoryGirl.create :add_on }
     it "destroys the add on if found" do
       expect{

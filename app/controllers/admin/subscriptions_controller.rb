@@ -1,4 +1,7 @@
 class Admin::SubscriptionsController < AdminController
+
+  before_action :convert_dollars_to_pennies, only: [:create, :update]
+
   def create
     subscription = Subscription.new subscription_params
     if subscription.save
@@ -10,7 +13,7 @@ class Admin::SubscriptionsController < AdminController
 
   def update
     subscription = Subscription.find params[:id]
-    if subscription.update_attributes subscription_params
+    if subscription.update subscription_params
       render :json => subscription
     else
       render :json => {:errors => subscription.errors.full_messages}, :status => :unprocessable_entity
@@ -30,5 +33,11 @@ class Admin::SubscriptionsController < AdminController
   private
   def subscription_params
     params.require(:subscription).permit(:description, :price, :weeks, :meals, :name)
+  end
+
+  def convert_dollars_to_pennies
+    if params[:subscription][:price]
+      params[:subscription][:price] = params[:subscription][:price].to_f * 100
+    end
   end
 end

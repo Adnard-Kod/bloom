@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :subscription do
     sequence(:name) {|n| "name #{n}"  }
     sequence(:description) {|n| "description #{n}"  }
-    sequence(:price) {|n| n }
+    sequence(:price) {|n| 100 * n }
     sequence(:weeks) {|n| n }
     sequence(:meals) {|n| n }
   end
@@ -30,7 +30,7 @@ FactoryGirl.define do
   factory :add_on do
     sequence(:name) {|n| "name #{n}"}
     sequence(:description) {|n| "description #{n}"  }
-    sequence(:price) {|n| n }
+    sequence(:price) {|n| 100 * n }
     trait :active do
       active true
     end

@@ -12,12 +12,12 @@ describe Admin::SubscriptionsController do
       }.to change { Subscription.count }.by(1)
       expect(JSON.parse(response.body)["subscription"].keys).to eq(%w{ id name description price weeks meals})
     end
-    it "creates subscription if params are valid" do
-      valid_attributes.delete :price
+    it "renders errors if params are invalid" do
+      valid_attributes.delete :weeks
       expect {
         post :create, :subscription => valid_attributes
       }.to_not change { Subscription.count }
-      expect(JSON.parse(response.body)).to eq("errors" => ["Price can't be blank", "Price is not a number"])
+      expect(JSON.parse(response.body)).to eq("errors" => ["Weeks can't be blank", "Weeks is not a number"])
     end
   end
   context "#update" do
@@ -26,12 +26,12 @@ describe Admin::SubscriptionsController do
       new_price = 300
       expect {
         put :update, :id => subscription.id, :subscription => { :price => new_price }
-      }.to change { subscription.reload.price }.from(subscription.price).to(new_price)
+      }.to change { subscription.reload.price }.from(subscription.price).to(new_price * 100 )
       expect(JSON.parse(response.body)["subscription"].keys).to eq(%w{ id name description price weeks meals})
     end
     it "renders the errors" do
-      put :update, :id => subscription.id, :subscription => {price: "hello"}
-      expect(JSON.parse(response.body)).to eq("errors" => ["Price is not a number"])
+      put :update, :id => subscription.id, :subscription => {name: ""}
+      expect(JSON.parse(response.body)).to eq("errors" => ["Name can't be blank"])
     end
   end
   context "#destroy" do
