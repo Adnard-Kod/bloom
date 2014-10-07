@@ -11,7 +11,7 @@ var SelectInput = React.createClass({
       options.push(<OptionForSelect key={value.value} value={value.value} show={value.show}/>)
     }.bind(this))
     return (
-      <select ref={data.name} defaultValue={data.value} className={data.className}>
+      <select ref={data.name} defaultValue={data.value} className={data.className} id={data.id}>
         {options}
       </select>
     );

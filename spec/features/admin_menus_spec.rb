@@ -1,8 +1,5 @@
-
-
-
 require 'rails_helper'
-describe "Admin Add Ons", :js => true do
+describe "Admin Menus", :js => true do
   let!(:user) { FactoryGirl.create :user, :admin }
   let!(:menu) { FactoryGirl.create :menu }
   let(:menu_item_entree) { "Chicken" }
@@ -33,7 +30,7 @@ describe "Admin Add Ons", :js => true do
       visit admin_dashboard_index_path
       click_on "Menus"
       click_on "edit"
-      within("input.form-control") { fill_in("Title", with: "New Menu Name", :match => :first) }
+      within(".panel-heading") { fill_in "Title", with: "New Menu Name" }
       click_on "Update Menu"
       wait_for_ajax_to_finish
       expect(page).to have_content("New Menu Name")
@@ -81,9 +78,9 @@ describe "Admin Add Ons", :js => true do
       click_on "Menus"
       click_on "Add Menu Item"
       wait_for_ajax_to_finish
-      within(".panel-body") { click_link("x", :match => :first) }
+      within(".entree") { click_link("x", :match => :first) }
       wait_for_ajax_to_finish
-      expect(page.find(".panel-body")).to_not have_content menu_item_name
+      expect(page.has_css?(".entree")).to eq(false)
     end
   end
 
@@ -94,7 +91,6 @@ describe "Admin Add Ons", :js => true do
       click_on "Add Menu Item"
       wait_for_ajax_to_finish
       click_on "Add Menu Item"
-      wait_for_ajax_to_finish
       expect(page).to have_content "Menu item is already on the menu"
     end
   end
