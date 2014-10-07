@@ -6,8 +6,21 @@ var UserSelectedItemStore = (function() {
   var FAIL_TO_CREATE_EVENT = 'creation-failed';
   var ActionTypes = BloomingConstants.ActionTypes;
   return {
+    mealCombos: [],
+    currentCombo: {},
     selectedItems: function() {
       return _selectedItems;
+    },
+    setMealCombos: function(combos) {
+      combos.forEach(function(combo, i) {
+        combo.id = i;
+        this.mealCombos.push(combo);
+      }.bind(this));
+      this.currentCombo = this.mealCombos[0];
+    },
+    setCurrentCombo: function(id) {
+      this.currentCombo = this.mealCombos.filter(function(combo) { return combo.id === id})[0];
+      this.triggerChange();
     },
     allItems: function() {
       return this.selectedItems()["Entree"].concat(this.selectedItems()["Side Dish"])

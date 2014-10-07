@@ -5,7 +5,9 @@
 //= require react/menu.react
 //= require react/alert.react
 //= require react/progress-bar.react
+//= require react/form-builder/form-for.react
 //= require stores/session-store
+//= require react/button-group.react
 var CurrentMenu = React.createClass({
   getInitialState: function() {
     return {
@@ -16,21 +18,22 @@ var CurrentMenu = React.createClass({
   componentDidMount: function() {
     MenuStore.addChangeEvent(function(e, data) {
       if(this.isMounted()) {
-        this.setState({menu: data.menu, selectedItems: data.selected_items, maxMeals: data.max_meals })
         UserSelectedItemStore.setSelectedItems(data.selected_items);
-        UserSelectedItemStore.maxMeals = data.max_meals;
+        UserSelectedItemStore.setMealCombos(data.meals_combo);
+        this.setState({menu: data.menu, selectedItems: data.selected_items, entreeCount: UserSelectedItemStore.currentCombo.entrees, sideCount: UserSelectedItemStore.currentCombo.sides });
       }
     }.bind(this))
     MenuStore.getCurrentMenu();
     UserSelectedItemStore.addChangeEvent(function(e, message) {
       if(this.isMounted()) {
-        this.setState({selectedItems: UserSelectedItemStore.allItems(), message: message })
+        this.setState({selectedItems: UserSelectedItemStore.allItems(), message: message, entreeCount: UserSelectedItemStore.currentCombo.entrees, sideCount: UserSelectedItemStore.currentCombo.sides });
       }
     }.bind(this))
   },
   render: function () {
     return (
       <div>
+        {this.renderComboSelection()}
         <div className="col-lg-6">
           <h3>{"This Week's Menu"}</h3>
           <Menu menu={this.state.menu} user={true} />
@@ -39,12 +42,24 @@ var CurrentMenu = React.createClass({
       </div>
     )
   },
+  renderComboSelection: function() {
+    var combos = [];
+    UserSelectedItemStore.mealCombos.forEach(function(combo) {
+      var comboString = combo.entrees + " Entrees and " + combo.sides + " Sides";
+      combos.push({name: comboString, handler: this.selectedCombo, id: combo.id})
+    }.bind(this));
+    return(<ButtonGroup buttons={combos} />);
+  },
+  selectedCombo: function(e) {
+    e.preventDefault();
+    UserSelectedItemStore.setCurrentCombo(parseInt(e.target.dataset.id));
+  },
   renderUserSelectedItems: function() {
     if(SessionStore.currentUser.active_memberships.length === 0) return;
     return(
       <div className="col-lg-6">
-        <ProgressBar min={0} title="Number of Entrees" max={this.state.maxMeals/2} value={this.currentMealsSelected("Entree")} />
-        <ProgressBar title="Number of Side Dishes" min={0} max={this.state.maxMeals/2} value={this.currentMealsSelected("Side Dish")} />
+        <ProgressBar title="Number of Entrees" min={0} max={this.state.entreeCount} value={this.currentMealsSelected("Entree")} />
+        <ProgressBar title="Number of Side Dishes" min={0} max={this.state.sideCount} value={this.currentMealsSelected("Side Dish")} />
         {this.renderSuccessMessage()}
         <h3>Your Selected Meals</h3>
         {this.renderDefaultSelectedItems()}
