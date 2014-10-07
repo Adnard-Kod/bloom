@@ -114,36 +114,23 @@ var UserProfile = React.createClass({
   },
 
   setUser: function() {
+    UserStore.addChangeEvent(function() {
+      var user = UserStore.currentUser();
+      if (this.isMounted()) {
+        this.setState({
+          user: user,
+          addresses: user.addresses,
+          memberships: user.expired_memberships
+        });
+      }
+      AddressStore.setAddresses(this.state.user.addresses)
+    }.bind(this));
+
     if(this.props.admin && this.props.userId) {
-      UserStore.addChangeEvent(function() {
-        var user = UserStore.currentUser();
-        if (this.isMounted()) {
-          this.setState({
-            user: user,
-            addresses: user.addresses,
-            memberships: user.expired_memberships
-          });
-        }
-        AddressStore.setAddresses(this.state.user.addresses)
-      }.bind(this));
       UserStore.getCurrentUserInfo(this.props.userId);
     } else {
-      this.setState({
-        user: SessionStore.currentUser,
-        addresses: SessionStore.currentUser.addresses,
-        memberships: SessionStore.currentUser.expired_memberships
-      });
+      UserStore.setCurrentUser(SessionStore.currentUser);
     }
-  },
-
-  putMembershipOnHold: function(e) {
-    e.preventDefault();
-    var membershipIdAndStatus = $(e.target).prop('id').split('-');
-    var membershipInfo = {  userId: this.state.user.id,
-                            status: membershipIdAndStatus[0],
-                            membershipId: membershipIdAndStatus[1]
-                          };
-    MembershipActions.changeMembership(membershipInfo);
   },
 
   renderOnHoldMembershipInfo: function() {
