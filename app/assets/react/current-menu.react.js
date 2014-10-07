@@ -52,6 +52,7 @@ var CurrentMenu = React.createClass({
   },
   selectedCombo: function(e) {
     e.preventDefault();
+    UserSelectedItemStore.clearSelectedItems();
     UserSelectedItemStore.setCurrentCombo(parseInt(e.target.dataset.id));
   },
   renderUserSelectedItems: function() {

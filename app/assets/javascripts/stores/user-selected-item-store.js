@@ -23,7 +23,8 @@ var UserSelectedItemStore = (function() {
       this.triggerChange();
     },
     allItems: function() {
-      return this.selectedItems()["Entree"].concat(this.selectedItems()["Side Dish"])
+      if(_selectedItems["Entree"].length === 0 || _selectedItems["Side Dish"].length === 0) return [];
+      return _selectedItems["Entree"].concat(_selectedItems["Side Dish"])
     },
     selectedMenuItems: function() {
       var items = {};
@@ -55,6 +56,9 @@ var UserSelectedItemStore = (function() {
       });
       this.triggerChange(message);
     },
+    clearSelectedItems: function() {
+      _selectedItems = {Entree: [], "Side Dish": []};
+    },
     appendToSelectedItems: function(data) {
       previouslySelected =  _selectedItems[data.menu_item.category].filter(function(item) {
         return item.menu_item.id === data.menu_item.id
@@ -80,11 +84,17 @@ var UserSelectedItemStore = (function() {
       }.bind(this));
     },
     isSelectionAllowed: function(item) {
-      var totalSelectedCount = this.selectedSidesCount() + this.selectedEntreesCount();
-      if(totalSelectedCount === this.maxMeals) return false;
-      // if(item.category === "Entree") {
-      //   if(_selectedItems["Entree"] < this.maxMeals/2)
-      // }
+      var allowed = false;
+      switch(item.category) {
+        case "Entree":
+          if(this.selectedEntreesCount() < this.currentCombo.entrees) allowed =  true;
+          break;
+        case "Side Dish":
+          if(this.selectedSidesCount() < this.currentCombo.sides) allowed =  true;
+          break;
+        default:
+      }
+      return allowed;
     },
     addChangeEvent: function(callback) {
       $(this).on(CHANGE_EVENT, callback);

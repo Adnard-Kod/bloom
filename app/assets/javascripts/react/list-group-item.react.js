@@ -57,7 +57,7 @@ var ListGroupItem = React.createClass({displayName: 'ListGroupItem',
   userSelect: function(e) {
     e.preventDefault();
     if(UserSelectedItemStore.isSelectionAllowed(this.props.item))
-      SelectedItemActions.userSelect({menu_item: this.props.item});
+      return SelectedItemActions.userSelect({menu_item: this.props.item});
     alert("You have reached your maximum menu items for the week.")
   },
   userDeselect: function(e) {
