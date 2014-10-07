@@ -65,13 +65,14 @@ describe "Admin Menus", :js => true do
       expect(page.find(".entree")).to have_content menu_item_entree
     end
 
-    # it "can add a menu item to a menu as a side dish" do
-    #   visit admin_dashboard_index_path
-    #   click_on "Menus"
-    #   click_on "Add Menu Item"
-    #   wait_for_ajax_to_finish
-    #   expect(page.find(".side-dish")).to have_content menu_item_side_dish
-    # end
+    it "can add a menu item to a menu as a side dish" do
+      visit admin_dashboard_index_path
+      click_on "Menus"
+      find('select').select menu_item_side_dish
+      click_on "Add Menu Item"
+      wait_for_ajax_to_finish
+      expect(page.find(".side-dish")).to have_content menu_item_side_dish
+    end
 
     it "can delete a menu item to a menu" do
       visit admin_dashboard_index_path
