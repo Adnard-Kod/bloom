@@ -12,7 +12,8 @@ var MembershipHoldInfo = React.createClass({displayName: 'MembershipHoldInfo',
         React.DOM.ul({className: "list-group"},
           React.DOM.li({className: "list-group-item"}, "Membership hold starts: ", mem.hold_start),
           React.DOM.li({className: "list-group-item"}, "There are ", mem.hold_weeks_remaining, " weeks remaining on your membership hold"),
-          React.DOM.li({className: "list-group-item"}, "Your membership hold ends on: ", mem.hold_end)
+          React.DOM.li({className: "list-group-item"}, "Your membership hold ends on: ", mem.hold_end),
+          React.DOM.li({className: "list-group-item"}, "Your new membership end date: ", mem.end_date)
         )
       )
     );
