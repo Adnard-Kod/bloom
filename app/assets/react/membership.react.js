@@ -76,7 +76,7 @@ var Membership = React.createClass({
   },
 
   renderOnHoldButton: function() {
-    if(this.membershipActive() && !this.state.holdFormVisible)
+    if(this.membershipActive() && !this.state.holdFormVisible && this.props.showHoldButton)
       return (<a className='btn btn-default' onClick={this.getOnHoldDateOptions}>Put Membership On Hold</a>);
   },
 
