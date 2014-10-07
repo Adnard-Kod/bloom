@@ -11,6 +11,10 @@ var UserStore = (function () {
     currentUser: function() {
       return _user;
     },
+    setCurrentUser: function(user) {
+      _user = user;
+      this.triggerChange();
+    },
     users: function() {
       return _users;
     },
@@ -38,6 +42,12 @@ var UserStore = (function () {
             this.triggerChange();
           }
         }.bind(this))
+      }
+    },
+    updatePropertyOnUser: function(key, properties) {
+      if(key in _user && _user[key][0].id === properties.id) {
+        _user[key] = [properties];
+        this.triggerChange();
       }
     },
     create: function (userData) {

@@ -8,6 +8,12 @@ class Membership < ActiveRecord::Base
     :on_hold => 'on_hold'
   }.freeze
 
+  # hold deadline is in day of the week format, 4 being Thursday
+  HOLD_INFO = {
+    :hold_max_weeks => 4,
+    :hold_deadline => 4
+  }.freeze
+
   # dynamically create:
   #  {status}? and {status}! methods for all statuses
   #  Statuses scopes
@@ -20,6 +26,12 @@ class Membership < ActiveRecord::Base
     end
     scope status, ->{where(:status => STATUSES[status])}
   end
+
+  def apply_membership_hold_request(hold_request)
+    set_hold_start_and_end_dates(hold_request[:hold_start], hold_request[:weeks_to_hold])
+    update_end_date_due_to_hold
+  end
+
   private
   def set_meals_and_weeks
     self.meals_remaining = self.subscription.meals
@@ -36,5 +48,22 @@ class Membership < ActiveRecord::Base
                         today + days_from_sunday
                       end
     self.end_date = self.start_date + self.weeks_remaining * 7
+  end
+
+  def set_hold_start_and_end_dates(hold_start, num_of_weeks_to_hold)
+    unless self.on_hold? || (!self.hold_weeks_remaining.nil?  && self.hold_weeks_remaining > 0)
+      year, month, day = hold_start.split('-').map(&:to_i)
+      self.hold_weeks_remaining = num_of_weeks_to_hold
+      self.hold_start = DateTime.new(year, month, day).to_date
+      self.hold_end = self.hold_start + self.hold_weeks_remaining * 7
+    end
+  end
+
+  def set_hold_status
+    self.update(:status => STATUSES[:on_hold])
+  end
+
+  def update_end_date_due_to_hold
+    self.end_date += self.hold_weeks_remaining * 7
   end
 end

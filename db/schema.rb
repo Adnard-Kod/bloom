@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001001528) do
+ActiveRecord::Schema.define(version: 20141003012145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,11 +54,14 @@ ActiveRecord::Schema.define(version: 20141001001528) do
     t.integer  "meals_per_week"
     t.date     "start_date"
     t.date     "end_date"
-    t.string   "status",          default: "active"
+    t.string   "status",               default: "active"
     t.integer  "user_id"
     t.integer  "subscription_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "hold_start"
+    t.date     "hold_end"
+    t.integer  "hold_weeks_remaining"
   end
 
   create_table "menus", force: true do |t|

@@ -13,6 +13,9 @@
 //= require react/page-header.react
 //= require react/user-promotion-form.react
 //= require react/alert.react
+//= require actions/membership-actions
+//= require react/membership-hold-info.react
+
 var UserProfile = React.createClass({displayName: 'UserProfile',
   getInitialState: function() {
     return {
@@ -53,13 +56,14 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
         React.DOM.div({className: "row"},
           React.DOM.div({className: "col-lg-12"},
             React.DOM.div({className: "user-profile"},
-                this.renderSubscription(),
-                this.renderAlert(),
-                this.renderPromotionForm(),
-                this.renderMembershipForm(),
-                this.renderUserAddresses(),
-                this.renderCurrentMembership(),
-                Memberships({memberships: this.state.memberships})
+              this.renderUserAddresses(),
+              this.renderSubscription(),
+              this.renderAlert(),
+              this.renderPromotionForm(),
+              this.renderMembershipForm(),
+              this.renderCurrentMembership(),
+              this.renderOnHoldMembershipInfo(),
+              Memberships({memberships: this.state.memberships})
             )
           )
         )
@@ -76,15 +80,19 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
     return(UserAddresses({addresses: this.state.addresses, name: this.fullName()}));
   },
   renderSubscription: function() {
-    if(!this.hasActiveMembership()) return (Subscriptions(null));
+    if(!this.hasActiveMembership() && !this.hasOnHoldMembership()) return (Subscriptions(null));
   },
 
   hasActiveMembership: function() {
     return this.state.user.active_memberships && this.state.user.active_memberships.length > 0;
   },
 
+  hasOnHoldMembership: function() {
+    return this.state.user.on_hold_memberships && this.state.user.on_hold_memberships.length > 0;
+  },
+
   renderMembershipForm: function() {
-    if(!this.hasActiveMembership()) return (UserMembershipForm({subscriptions: this.state.subscriptions, hasAddr: this.hasAddr(), errors: this.state.errors}));
+    if(!this.hasActiveMembership() && !this.hasOnHoldMembership()) return (UserMembershipForm({subscriptions: this.state.subscriptions, hasAddr: this.hasAddr(), errors: this.state.errors}));
   },
 
   renderPromotionForm: function() {
@@ -92,7 +100,11 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
   },
 
   renderCurrentMembership: function() {
-    if(this.hasActiveMembership()) return (Membership({membership: this.state.user.active_memberships[0]}));
+    if(this.hasActiveMembership()) {
+      return (Membership({membership: this.state.user.active_memberships[0], showHoldButton: !this.hasHoldWeeksRemaining()}));
+    } else if(this.hasOnHoldMembership()) {
+      return(Membership({membership: this.state.user.on_hold_memberships[0], showHoldButton: !this.hasHoldWeeksRemaining()}));
+    }
   },
 
   fullName: function(first, last) {
@@ -100,27 +112,40 @@ var UserProfile = React.createClass({displayName: 'UserProfile',
     var lastName = this.state.user.last_name || '';
     return firstName + ' ' + lastName;
   },
+
   setUser: function() {
+    UserStore.addChangeEvent(function() {
+      var user = UserStore.currentUser();
+      if (this.isMounted()) {
+        this.setState({
+          user: user,
+          addresses: user.addresses,
+          memberships: user.expired_memberships
+        });
+      }
+      AddressStore.setAddresses(this.state.user.addresses)
+    }.bind(this));
+
     if(this.props.admin && this.props.userId) {
-      UserStore.addChangeEvent(function() {
-        var user = UserStore.currentUser();
-        if (this.isMounted()) {
-          this.setState({
-            user: user,
-            addresses: user.addresses,
-            memberships: user.expired_memberships
-          });
-        }
-        AddressStore.setAddresses(this.state.user.addresses)
-      }.bind(this));
       UserStore.getCurrentUserInfo(this.props.userId);
     } else {
-      this.setState({
-        user: SessionStore.currentUser,
-        addresses: SessionStore.currentUser.addresses,
-        memberships: SessionStore.currentUser.expired_memberships
-      });
+      UserStore.setCurrentUser(SessionStore.currentUser);
+    }
+  },
+
+  renderOnHoldMembershipInfo: function() {
+    if(this.hasOnHoldMembership() || this.hasHoldWeeksRemaining()) {
+      var user = this.state.user
+      var membership = user.active_memberships.length === 0 ? user.on_hold_memberships[0] : user.active_memberships[0];
+      return (MembershipHoldInfo({membership: membership}));
+    }
+  },
+
+  hasHoldWeeksRemaining: function() {
+    if(this.hasActiveMembership()) {
+      return this.state.user.active_memberships[0].hold_weeks_remaining !== null
+    } else if(this.hasOnHoldMembership()) {
+      return this.state.user.on_hold_memberships[0].hold_weeks_remaining !== null;
     }
   }
-
 });
