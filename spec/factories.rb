@@ -86,4 +86,11 @@ FactoryGirl.define do
       default true
     end
   end
+  factory :menu_selected_item do
+    menu_item
+    menu
+    trait(:default) do
+      default true
+    end
+  end
 end

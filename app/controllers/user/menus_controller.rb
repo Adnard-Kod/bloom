@@ -6,7 +6,7 @@ class User::MenusController < UserController
     serialized_selected_items = ActiveModel::ArraySerializer.new(user_selected_items)
     active_subscription = current_user.active_subscription.first
     response = {:menu => serialized_menu["menu"], :selected_items => serialized_selected_items}
-    response[:max_meals] = active_subscription.meals if active_subscription.present?
+    response[:meals_combo] = MealLimit.new(active_subscription.meals).combos if active_subscription.present?
     render :json => response
   end
 end
