@@ -8,17 +8,8 @@ describe "User Address", :js => true do
     it "will see an alert form" do
       visit '/user/dashboard#user-profile'
       expect(page).to have_content('You must have an address associated with your account to purchase a subscription. Please create one in the form below.')
-    end
-
-    it "will not have current address or active membership details or form" do
-      visit '/user/dashboard#user-profile'
       expect(page).to_not have_content("Current Address")
-      expect(page).to_not have_content("Active Membership Details")
-      expect(page).to_not have_content("Apply Promotion Code")
-      expect(page).to_not have_content("Purchase Subscription")
-      expect(page).to_not have_content("Subscription Packages")
     end
-
   end
   context "create address" do
     let(:address) { FactoryGirl.build :address }
