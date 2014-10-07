@@ -119,7 +119,8 @@ var UserProfile = React.createClass({
         this.setState({
           user: user,
           addresses: user.addresses,
-          memberships: user.expired_memberships
+          memberships: user.expired_memberships,
+          alert: this.alertMessage(SessionStore.currentUser)
         });
       }
       AddressStore.setAddresses(this.state.user.addresses)
