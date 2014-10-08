@@ -23,7 +23,7 @@ describe UserSelectedItem do
     UserSelectedItem.total_orders
   end
   it "#reduce_to_item_and_quantity" do
-    expect(user_selected_item.reduce_to_item_and_quantity).to eq({:item => user_selected_item.menu_item.name, :quantity => user_selected_item.quantity})
+    expect(user_selected_item.reduce_to_item_and_quantity).to eq({:item => user_selected_item.menu_item.name, :quantity => user_selected_item.quantity, :category => user_selected_item.menu_item.category })
   end
   it ".reduce_to_menu_item" do
     FactoryGirl.create :user_selected_item, :default, :user => user, :menu_item => menu_item
