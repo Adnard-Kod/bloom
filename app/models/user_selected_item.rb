@@ -8,6 +8,10 @@ class UserSelectedItem < SelectedItem
     self.reduce_to_menu_item self.default
   end
 
+  def undefault!
+    self.update_attribute :default, false
+  end
+
   def self.total_orders
     self.group_by_menu_item.map &:reduce_to_item_and_quantity
   end
