@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   after_save :subscribe_to_mailchimp, ->{self.email_changed?}
   before_destroy :unsubscribe_to_mailchimp
+  before_save :downcaseEmail!
   has_many :add_on_users
   has_many :add_ons, through: :add_on_users
 
@@ -73,5 +74,9 @@ class User < ActiveRecord::Base
         self.selected_items.create :menu_item => item, :default => true
       }
     end
+  end
+
+  def downcaseEmail!
+    self.email.downcase!
   end
 end
