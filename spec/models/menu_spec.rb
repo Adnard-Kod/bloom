@@ -27,4 +27,22 @@ describe Menu do
       expect(menu.current).to eq(false)
     end
   end
+
+  context "callbacks" do
+    it "calls the default menu worker if current changed" do
+      menu = FactoryGirl.create :menu
+      expect(DefaultMenuWorker).to receive(:perform_async)
+      menu.update_attributes :current => true
+    end
+    it "doesn't calls the default menu worker if current didn't change" do
+      menu = FactoryGirl.create :menu
+      expect(DefaultMenuWorker).to_not receive(:perform_async)
+      menu.update_attributes :title => "something else"
+    end
+    it "doesn't calls the default menu worker if current didn't change" do
+      menu = FactoryGirl.create :menu, :current
+      expect(DefaultMenuWorker).to_not receive(:perform_async)
+      menu.update_attributes :current => true
+    end
+  end
 end

@@ -45,8 +45,11 @@ describe UserDefaultMenu do
       before(:each) do
         subscription = FactoryGirl.create :subscription, :meals => subscription_meals
         FactoryGirl.create :membership, :active, :user => user, :subscription => subscription
-        MenuSelectedItem::DEFAULT_COUNT.times {
-          FactoryGirl.create :menu_selected_item, :default, :menu => menu
+        (MenuSelectedItem::DEFAULT_COUNT/2).times {
+          FactoryGirl.create :menu_selected_item, :default, :menu => menu, :menu_item => FactoryGirl.create(:menu_item, :category => "Entree")
+        }
+        (MenuSelectedItem::DEFAULT_COUNT/2).times {
+          FactoryGirl.create :menu_selected_item, :default, :menu => menu, :menu_item => FactoryGirl.create(:menu_item, :category => "Side Dish")
         }
       end
       it "returns the items based on subscription meals" do
