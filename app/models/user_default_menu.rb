@@ -15,7 +15,7 @@ class UserDefaultMenu
   end
 
   def update!
-    self.items.each(&:undefault)
+    self.items.each(&:undefault!)
     items_to_save = []
     case default_menu_items.count <=> max_meals
     when 0

@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
 
   delegate :subscribe_to_mailchimp, :unsubscribe_to_mailchimp, :to => :mailchimp
 
+  scope :active, -> {joins(:memberships).where('memberships.status = ?', 'active')}
+
   def mailchimp
     @mailchimp ||= MailChimp.new self
   end
@@ -49,18 +51,17 @@ class User < ActiveRecord::Base
     }
   end
 
-  def find_or_create_selected_items(default_selected_items)
-    if self.selected_items.blank? && self.active_subscription.present?
-      default_selected_items.each do |selected_item|
-        self.selected_items.create :menu_item => selected_item.menu_item, :default => true
-      end
+  def find_or_create_selected_items menu
+    if self.default_selected_items.blank? && self.active_subscription.present?
+      default_menu = UserDefaultMenu.new menu, self
+      default_menu.update!
     end
     self.grouped_selected_items
   end
 
   def grouped_selected_items
     sum = []
-    self.selected_items.group_by(&:menu_item_id).each_value {|v| v.first.quantity = v.length; sum.push(v.first)}
+    self.default_selected_items.group_by(&:menu_item_id).each_value {|v| v.first.quantity = v.length; sum.push(v.first)}
     sum
   end
 

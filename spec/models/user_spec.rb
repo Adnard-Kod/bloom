@@ -68,8 +68,8 @@ describe User do
     expect(user.reduce_to_name_and_address). to eq(reduced_user)
   end
   it "#grouped_selected_items" do
-    selected_item = FactoryGirl.create :user_selected_item, :user => user
-    FactoryGirl.create :user_selected_item, :user => user, :menu_item => selected_item.menu_item
+    selected_item = FactoryGirl.create :user_selected_item, :default, :user => user
+    FactoryGirl.create :user_selected_item, :default, :user => user, :menu_item => selected_item.menu_item
     expect(user.grouped_selected_items).to eq([selected_item])
     expect(user.grouped_selected_items.first.quantity).to eq 2
   end
