@@ -50,9 +50,9 @@ describe UserDefaultMenu do
         }
       end
       it "returns the items based on subscription meals" do
-        expect {
-          udm.update!
-        }.to change { udm.items.map(&:menu_item_id) }.from([]).to(menu.default_selected_items.map(&:menu_item_id)+menu.default_selected_items.map(&:menu_item_id))
+        udm.update!
+        expect(udm.items.select(&:entree?).count).to eq subscription_meals/2
+        expect(udm.items.select(&:side?).count).to eq subscription_meals/2
       end
     end
     context "16 meals subscription" do
@@ -60,8 +60,11 @@ describe UserDefaultMenu do
       before(:each) do
         subscription = FactoryGirl.create :subscription, :meals => subscription_meals
         FactoryGirl.create :membership, :active, :user => user, :subscription => subscription
-        MenuSelectedItem::DEFAULT_COUNT.times {
-          FactoryGirl.create :menu_selected_item, :default, :menu => menu
+        (MenuSelectedItem::DEFAULT_COUNT/2).times {
+          FactoryGirl.create :menu_selected_item, :default, :menu => menu, :menu_item => FactoryGirl.create(:menu_item, :category => "Entree")
+        }
+        (MenuSelectedItem::DEFAULT_COUNT/2).times {
+          FactoryGirl.create :menu_selected_item, :default, :menu => menu, :menu_item => FactoryGirl.create(:menu_item, :category => "Side Dish")
         }
       end
       it "returns the items based on subscription meals" do
@@ -75,14 +78,17 @@ describe UserDefaultMenu do
       before(:each) do
         subscription = FactoryGirl.create :subscription, :meals => subscription_meals
         FactoryGirl.create :membership, :active, :user => user, :subscription => subscription
-        MenuSelectedItem::DEFAULT_COUNT.times {
-          FactoryGirl.create :menu_selected_item, :default, :menu => menu
+        (MenuSelectedItem::DEFAULT_COUNT/2).times {
+          FactoryGirl.create :menu_selected_item, :default, :menu => menu, :menu_item => FactoryGirl.create(:menu_item, :category => "Entree")
+        }
+        (MenuSelectedItem::DEFAULT_COUNT/2).times {
+          FactoryGirl.create :menu_selected_item, :default, :menu => menu, :menu_item => FactoryGirl.create(:menu_item, :category => "Side Dish")
         }
       end
       it "returns the items based on subscription meals" do
-        expect {
-          udm.update!
-        }.to change { udm.items.count }.from(0).to(subscription_meals)
+        udm.update!
+        expect(udm.items.select(&:entree?).count).to eq subscription_meals/2
+        expect(udm.items.select(&:side?).count).to eq subscription_meals/2
       end
     end
   end

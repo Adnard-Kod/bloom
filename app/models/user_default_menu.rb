@@ -17,6 +17,8 @@ class UserDefaultMenu
   def update!
     self.items.each(&:undefault!)
     items_to_save = []
+    entree_items = default_menu_items.select(&:entree?)
+    side_items = default_menu_items.select(&:side?)
     case default_menu_items.count <=> max_meals
     when 0
       items_to_save = inject_items(default_menu_items)
@@ -25,9 +27,11 @@ class UserDefaultMenu
       div.times do
         items_to_save << inject_items(default_menu_items)
       end
-      items_to_save << inject_items(default_menu_items.sample(mod))
+      items_to_save << inject_items(entree_items.sample(mod/2))
+      items_to_save << inject_items(side_items.sample(mod/2))
     when 1
-      items_to_save << inject_items(default_menu_items.sample(max_meals))
+      items_to_save << inject_items(entree_items.sample(max_meals/2))
+      items_to_save << inject_items(side_items.sample(max_meals/2))
     end
     items_to_save.flatten.each &:save
   end

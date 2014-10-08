@@ -3,6 +3,7 @@ class UserSelectedItem < SelectedItem
   scope :default, ->{where(:default => true)}
   belongs_to :user
   belongs_to :menu_item
+  delegate :entree?, :side?, :to => :menu_item
 
   def self.group_by_menu_item
     self.reduce_to_menu_item self.default
