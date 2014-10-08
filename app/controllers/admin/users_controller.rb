@@ -14,7 +14,6 @@ class Admin::UsersController < AdminController
     render json: {id: user.id}
   end
 
-
   private
 
   def user_params
