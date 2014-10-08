@@ -66,9 +66,9 @@ class User < ActiveRecord::Base
   end
 
   def replace_selected_items! items
-    self.default_selected_items.destroy_all
+    self.default_selected_items.each &:undefault!
     items.each do |item_id, quantity|
-      item = Item.find item_id
+      item = MenuItem.find item_id
       quantity.to_i.times {
         self.selected_items.create :menu_item => item, :default => true
       }

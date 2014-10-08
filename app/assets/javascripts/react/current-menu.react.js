@@ -33,7 +33,6 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
   render: function () {
     return (
       React.DOM.div(null,
-        this.renderComboSelection(),
         React.DOM.div({className: "col-lg-6"},
           React.DOM.h3(null, "This Week's Menu"),
           Menu({menu: this.state.menu, user: true})
@@ -43,12 +42,14 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
     )
   },
   renderComboSelection: function() {
-    var combos = [];
-    UserSelectedItemStore.mealCombos.forEach(function(combo) {
-      var comboString = combo.entrees + " Entrees and " + combo.sides + " Sides";
-      combos.push({name: comboString, handler: this.selectedCombo, id: combo.id})
-    }.bind(this));
-    return(ButtonGroup({buttons: combos}));
+    // var combos = [];
+    // UserSelectedItemStore.mealCombos.forEach(function(combo) {
+    //   var comboString = combo.entrees + " Entrees and " + combo.sides + " Sides";
+    //   combos.push({name: comboString, handler: this.selectedCombo, id: combo.id})
+    // }.bind(this));
+    // return(<ButtonGroup buttons={combos} />);
+    var combo = UserSelectedItemStore.mealCombos[0] || {};
+    return(React.DOM.span(null, React.DOM.b(null, React.DOM.i(null, combo.entrees + " Entrees and " + combo.sides + " Sides"))));
   },
   selectedCombo: function(e) {
     e.preventDefault();
@@ -63,6 +64,7 @@ var CurrentMenu = React.createClass({displayName: 'CurrentMenu',
         ProgressBar({title: "Number of Side Dishes", min: 0, max: this.state.sideCount, value: this.currentMealsSelected("Side Dish")}),
         this.renderSuccessMessage(),
         React.DOM.h3(null, "Your Selected Meals"),
+        this.renderComboSelection(),
         this.renderDefaultSelectedItems(),
         React.DOM.a({className: "col-lg-12 btn btn-success", onClick: this.saveUserSelection}, "Save Your Selected Meals")
       )

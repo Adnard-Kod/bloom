@@ -33,7 +33,6 @@ var CurrentMenu = React.createClass({
   render: function () {
     return (
       <div>
-        {this.renderComboSelection()}
         <div className="col-lg-6">
           <h3>{"This Week's Menu"}</h3>
           <Menu menu={this.state.menu} user={true} />
@@ -43,12 +42,14 @@ var CurrentMenu = React.createClass({
     )
   },
   renderComboSelection: function() {
-    var combos = [];
-    UserSelectedItemStore.mealCombos.forEach(function(combo) {
-      var comboString = combo.entrees + " Entrees and " + combo.sides + " Sides";
-      combos.push({name: comboString, handler: this.selectedCombo, id: combo.id})
-    }.bind(this));
-    return(<ButtonGroup buttons={combos} />);
+    // var combos = [];
+    // UserSelectedItemStore.mealCombos.forEach(function(combo) {
+    //   var comboString = combo.entrees + " Entrees and " + combo.sides + " Sides";
+    //   combos.push({name: comboString, handler: this.selectedCombo, id: combo.id})
+    // }.bind(this));
+    // return(<ButtonGroup buttons={combos} />);
+    var combo = UserSelectedItemStore.mealCombos[0] || {};
+    return(<span><b><i>{combo.entrees + " Entrees and " + combo.sides + " Sides"}</i></b></span>);
   },
   selectedCombo: function(e) {
     e.preventDefault();
@@ -63,6 +64,7 @@ var CurrentMenu = React.createClass({
         <ProgressBar title="Number of Side Dishes" min={0} max={this.state.sideCount} value={this.currentMealsSelected("Side Dish")} />
         {this.renderSuccessMessage()}
         <h3>Your Selected Meals</h3>
+        {this.renderComboSelection()}
         {this.renderDefaultSelectedItems()}
         <a className='col-lg-12 btn btn-success' onClick={this.saveUserSelection}>Save Your Selected Meals</a>
       </div>

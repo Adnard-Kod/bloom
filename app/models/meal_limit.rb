@@ -9,10 +9,11 @@ class MealLimit
   end
 
   def combos
-    combos = []
-    combos.push(entree_combos)
-    combos.push(side_combos)
-    combos.flatten.uniq
+    # combos = []
+    # combos.push(entree_combos)
+    # combos.push(side_combos)
+    # combos.flatten.uniq
+    [{:entrees => self.entrees, :sides => self.sides}]
   end
 
   private
