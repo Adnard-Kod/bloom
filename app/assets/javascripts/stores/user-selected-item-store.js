@@ -145,6 +145,9 @@ var UserSelectedItemStore = (function() {
         this.triggerFailToTakeAction([xhr.responseJSON.errors]);
       }.bind(this))
     },
+    canSave: function() {
+      return this.selectedEntreesCount() === this.currentCombo.entrees && this.selectedSidesCount() === this.currentCombo.sides;
+    },
     saveUserSelectedItems: function() {
       $.ajax({
         url: '/user/selected_items',

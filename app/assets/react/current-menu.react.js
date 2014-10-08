@@ -75,11 +75,9 @@ var CurrentMenu = React.createClass({
   },
 
   saveUserSelection: function(e) {
-    var currentCount = UserSelectedItemStore.selectedItemsCount();
-    var maxCount = UserSelectedItemStore.maxMeals;
-    if(currentCount < maxCount) return alert("You must select "+maxCount+" meals. Please add " + (maxCount - currentCount) + " more menu items.")
     e.preventDefault();
-    SelectedItemActions.saveUserSelectedItems();
+    if(UserSelectedItemStore.canSave()) return SelectedItemActions.saveUserSelectedItems();
+    alert("You must select "+this.state.entreeCount+" entrees and "+this.state.sideCount+" sides or change your combination option.");
   },
   renderSuccessMessage: function() {
     if(this.state.message) return(<Alert message={this.state.message}/>)
