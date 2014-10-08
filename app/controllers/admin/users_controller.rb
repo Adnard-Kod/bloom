@@ -1,6 +1,6 @@
 class Admin::UsersController < AdminController
   def index
-    render json: User.order('admin desc')
+    render json: User.order('email asc')
   end
 
   def update
