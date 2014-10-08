@@ -16,7 +16,7 @@ var OrderQuantity = React.createClass({
       <div>
         <ul className="list-group">
           <li className="list-group-item">
-          {order.item}
+            {order.category}: {order.item}
           <span className="badge">{order.quantity}</span>
           </li>
         </ul>
