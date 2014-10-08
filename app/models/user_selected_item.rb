@@ -18,7 +18,7 @@ class UserSelectedItem < SelectedItem
   end
 
   def reduce_to_item_and_quantity
-    {:item => self.menu_item.name, :quantity => self.quantity}
+    {:item => self.menu_item.name, :quantity => self.quantity, :category => self.menu_item.category}
   end
 
   def self.reduce_to_menu_item items
