@@ -12,6 +12,7 @@ var UserSelectedItemStore = (function() {
       return _selectedItems;
     },
     setMealCombos: function(combos) {
+      if(!combos) return;
       combos.forEach(function(combo, i) {
         combo.id = i;
         this.mealCombos.push(combo);
