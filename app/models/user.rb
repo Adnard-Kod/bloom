@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
 
   scope :active, -> {joins(:memberships).where('memberships.status = ?', 'active')}
 
+  def new_member?
+    self.expired_memberships.blank? && self.on_hold_memberships.blank?
+  end
+
   def mailchimp
     @mailchimp ||= MailChimp.new self
   end

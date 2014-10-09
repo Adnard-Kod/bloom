@@ -33,6 +33,7 @@ var Subscriptions = React.createClass({displayName: 'Subscriptions',
           React.DOM.div({className: "row"},
             React.DOM.div({className: "col-lg-12"},
               PageHeader({title: "Subscription Packages"}),
+              React.DOM.i(null, "* All clients will be charged a $30 container fee the first time you order. This covers the glass containers and cooler bags. The next time you order, just return the glass containers and we will sterilize and reuse them."),
               React.DOM.ul({className: "list-group"},
                 subscriptions
               )
