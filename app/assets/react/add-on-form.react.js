@@ -26,6 +26,9 @@ var AddOnForm = React.createClass({
   },
   render: function() {
     var addOn = this.props.addOn || AddOnStore.new();
+    // we don't need active or type to show up in the form
+    delete addOn.active
+    delete addOn.type
     var formOptions = {
       name: "Add On Item",
       onSubmit: this.handleSubmit
