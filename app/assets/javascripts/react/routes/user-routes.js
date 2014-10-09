@@ -4,6 +4,7 @@
 //= require router/router
 //= require react/user-dashboard.react
 //= require react/user-profile.react
+//= require react/learn-more.react
 Router.routes = (function() {
   var _userDashBoard = function() {
     React.unmountComponentAtNode($('#user-dashboard')[0]);
@@ -21,9 +22,15 @@ Router.routes = (function() {
     React.unmountComponentAtNode($('#user-dashboard')[0]);
     React.renderComponent(UserProfile(null), $('#user-dashboard')[0]);
   }
+  var _learnMore = function() {
+    React.unmountComponentAtNode($('#user-dashboard')[0]);
+    React.renderComponent(LearnMore(null), $('#user-dashboard')[0]);
+  }
+
   return {
     "": _userDashBoard,
-    "#user-profile": _userProfile
+    "#user-profile": _userProfile,
+    "#learn-more": _learnMore
   }
 }());
 
