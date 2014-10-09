@@ -22,11 +22,11 @@ var UserDashboard = React.createClass({displayName: 'UserDashboard',
         React.DOM.div({className: "row"},
           this.renderMembershipAlert(),
           React.DOM.div({className: "col-lg-12"},
-            CurrentMenu(null),
-            React.DOM.h3(null, "This Week's Add Ons"),
-            this.renderAddOns()
+            CurrentMenu(null)
           )
-        )
+        ),
+        React.DOM.h3(null, "This Week's Add Ons"),
+        this.renderAddOns()
       )
     )
   },
