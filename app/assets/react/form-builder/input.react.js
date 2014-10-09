@@ -24,7 +24,7 @@ var Input = React.createClass({
     var data = this.props.data;
     switch(this.type()) {
       case 'boolean':
-        return(<CheckboxInput ref="input" data={{name: data.name, defaultChecked: data.value, placeholder: this.placeholder(), className: "form-control", value: data.value}} />)
+        return(<span><CheckboxInput ref="input" data={{name: data.name, defaultChecked: data.value, className: "form-control", value: data.value}} /><span className="alert alert-success">{this.placeholder()}</span></span>)
         break;
       case 'number':
         return(<NumberInput ref="input" data={{name: data.name, defaultValue: data.value, placeholder: this.placeholder(), className: "form-control"}} />)

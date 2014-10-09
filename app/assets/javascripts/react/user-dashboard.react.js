@@ -23,6 +23,7 @@ var UserDashboard = React.createClass({displayName: 'UserDashboard',
           this.renderMembershipAlert(),
           React.DOM.div({className: "col-lg-12"},
             CurrentMenu(null),
+            React.DOM.h3(null, "This Week's Add Ons"),
             this.renderAddOns()
           )
         )

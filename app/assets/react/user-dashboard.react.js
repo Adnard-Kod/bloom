@@ -23,6 +23,7 @@ var UserDashboard = React.createClass({
           {this.renderMembershipAlert()}
           <div className="col-lg-12">
             <CurrentMenu />
+            <h3>{"This Week's Add Ons"}</h3>
             {this.renderAddOns()}
           </div>
         </div>
