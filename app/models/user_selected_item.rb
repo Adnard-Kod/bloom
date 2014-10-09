@@ -31,7 +31,7 @@ class UserSelectedItem < SelectedItem
     self.includes(:menu_item, :user => [:addresses]).group_by(&:user).reduce([]) do |sum, (user, items)|
       reduced_user = user.reduce_to_name_and_address
       grouped = self.reduce_to_menu_item items
-      sum.push({:name => reduced_user[:name], :address => reduced_user[:address], :menu_items => grouped.map(&:reduce_to_item_and_quantity)})
+      sum.push({:name => reduced_user[:name], :address => reduced_user[:address], :phone_number => reduced_user[:phone_number], :menu_items => grouped.map(&:reduce_to_item_and_quantity)})
     end
   end
 

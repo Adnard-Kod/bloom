@@ -46,8 +46,8 @@ describe UserSelectedItem do
       user_grouped = UserSelectedItem.reduce_to_menu_item user.default_selected_items
       user_2_grouped = UserSelectedItem.reduce_to_menu_item user_2.default_selected_items
       reduced = [
-        {:name => user.full_name, :address => user.current_address.try(:reduce_to_full_and_instructions), :menu_items => user_grouped.map(&:reduce_to_item_and_quantity)},
-        {:name => user_2.full_name, :address => user_2.current_address.try(:reduce_to_full_and_instructions), :menu_items => user_2_grouped.map(&:reduce_to_item_and_quantity)}
+        {:name => user.full_name, :phone_number => user.phone_number, :address => user.current_address.try(:reduce_to_full_and_instructions), :menu_items => user_grouped.map(&:reduce_to_item_and_quantity)},
+        {:name => user_2.full_name, :phone_number => user_2.phone_number, :address => user_2.current_address.try(:reduce_to_full_and_instructions), :menu_items => user_2_grouped.map(&:reduce_to_item_and_quantity)}
       ]
       expect(UserSelectedItem.reduce_to_user_and_menu_items).to eq(reduced)
     end

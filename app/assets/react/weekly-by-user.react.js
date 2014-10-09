@@ -17,6 +17,7 @@ var WeeklyByUser= React.createClass({
         <ul className="list-group">
           <li className="list-group-item">
             <p><b>Name: </b>{user.name}</p>
+            <p><b>Phone Number: </b>{user.phone_number}</p>
             <p><b>Address: </b>{user.address.full}</p>
             <p><b>Delivery Instructions: </b>{user.address.delivery_instructions}</p>
             <ul className="list-group">
