@@ -74,7 +74,9 @@ var MembershipsAdmin = React.createClass({displayName: 'MembershipsAdmin',
 
   renderOnlySubscriptionId: function(memberships) {
     return memberships.map(function(membership) {
-      membership.subscription = membership.subscription.id;
+      membership.subscription = membership.subscription.name;
+      delete membership.id
+      delete membership.status
       return membership;
     });
   }
