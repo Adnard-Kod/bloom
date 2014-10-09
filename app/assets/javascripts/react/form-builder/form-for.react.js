@@ -50,31 +50,15 @@ var FormFor = React.createClass({displayName: 'FormFor',
     }
   },
   getInputValue: function(ref) {
-    var input = undefined;
     // find the ref component
     // find the refs of the found component
     // find the input ref from the found component
     // get the getDOMNode and the value
-    if(this.refs[ref] && this.refs[ref].refs && this.refs[ref].refs.input && this.refs[ref].refs.input.getDOMNode) input = this.refs[ref].refs.input.getDOMNode().value;
-    return input;
+    if(this.refs[ref] && this.refs[ref].refs && this.refs[ref].refs.input && this.refs[ref].refs.input.getDOMNode) {
+      var input = this.refs[ref].refs.input.getDOMNode();
+      if(input.type === "checkbox" && !input.checked) return;
+      return input.value;
+    }
   }
 
 });
-
-// $(document).ready(function() {
-//   var todo = {
-//     id: 1,
-//     title: "yo",
-//     age: 20,
-//     completed: true,
-//     rating: 2,
-//     password: "yasalam"
-//   }
-//   var options = {
-//     rating: {
-//       type: 'select',
-//       values: [1, 2, 3, 4, 5]
-//     }
-//   }
-//   React.renderComponent(<FormFor object={todo} options={options}/>, $('body')[0])
-// })

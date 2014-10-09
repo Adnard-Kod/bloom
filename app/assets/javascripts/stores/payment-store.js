@@ -74,12 +74,36 @@ var PaymentStore = (function () {
       handler.open(paymentInfo);
     },
 
+    createAddOnPaymentForm: function(data) {
+      var price = 0
+      data.forEach(function(addOn) { price += addOn.price });
+      var paymentInfo = {
+        name: 'Blooming Spoon',
+        description: 'Add On',
+        amount: price * 100,
+        ids: data.map(function(addOn) { return addOn.id })
+      };
+
+      var handler = StripeCheckout.configure({
+        key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+        image: '/assets/culinary/01_Blooming_Spoon_Logo_Final.png',
+        token: function(token) {
+          this.purchaseAddOn(token, paymentInfo);
+        }.bind(this)
+      });
+      handler.open(paymentInfo);
+    },
+
     payload: function (payload) {
       var action = payload.action;
       switch(action.type) {
         case ActionTypes.CREATE_PAYMENT_FORM:
           BloomingDispatcher.waitFor([PromotionStore.dispatchToken]);
           this.createPaymentForm(action.data);
+          break;
+        case ActionTypes.CREATE_ADDON_PAYMENT_FORM:
+          BloomingDispatcher.waitFor([PromotionStore.dispatchToken]);
+          this.createAddOnPaymentForm(action.data);
           break;
         default:
       }

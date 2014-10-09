@@ -5,9 +5,9 @@ class User::AddOnsController < UserController
     charge = stripe_api.charge!
 
     if charge[:paid]
-      add_on = AddOn.find(params[:payment_info][:subId])
-      if current_user.add_ons << add_on
-        render json: add_on
+      add_ons = AddOn.where :id => params[:payment_info][:ids]
+      if current_user.add_ons << add_ons
+        render json: add_ons
       else
         render json: { error: add_on.errors.full_messages }, status: :unprocessable_entity
       end
